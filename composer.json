@@ -1,0 +1,32 @@
+{
+  "name": "caseyamcl/toc",
+  "type": "library",
+  "description": "Simple Table-of-Contents Generator for PHP.  Generates TOCs based off H1...H6 tags",
+  "keywords": ["table of contents", "toc"],
+  "homepage": "http://github.com/caseyamcl/toc",
+  "license": "MIT",
+  "authors":
+  [
+    {
+      "name":     "Casey McLaughlin",
+      "email":    "caseyamcl@gmail.com",
+      "homepage": "http://caseymclaughlin.com",
+      "role":     "Developer"
+    }
+
+  ],
+  "autoload": {
+    "psr-4": {
+      "TOC\\": ["src/", "tests/"]
+    }
+  },
+  "require": {
+    "php": ">=5.4",
+    "sunra/php-simple-html-dom-parser": "~1.5",
+    "cocur/slugify": "~1.0"
+  },
+  "require-dev": {
+    "twig/twig": "~1.13",
+    "phpunit/phpunit": "~4.0"
+  }
+}

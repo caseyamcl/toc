@@ -1,0 +1,6 @@
+# files
+vendor/
+phpunit.xml
+
+# IDE stuff
+.idea/workspace.xml
