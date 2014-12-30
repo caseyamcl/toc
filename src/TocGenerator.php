@@ -5,6 +5,8 @@
 
 namespace TOC;
 
+use Knp\Menu\MenuFactory;
+use Knp\Menu\MenuItem;
 use Sunra\PhpSimple\HtmlDomParser;
 use RuntimeException;
 
@@ -24,16 +26,23 @@ class TocGenerator
      */
     private $domParser;
 
+    /**
+     * @var \Knp\Menu\MenuFactory
+     */
+    private $menuFactory;
+
     // ---------------------------------------------------------------
 
     /**
      * Constructor
      *
+     * @param \Knp\Menu\MenuFactory          $menuFactory
      * @param \Sunra\PhpSimple\HtmlDomParser $domParser
      */
-    public function __construct(HtmlDomParser $domParser = null)
+    public function __construct(MenuFactory $menuFactory = null, HtmlDomParser $domParser = null)
     {
-        $this->domParser = $domParser ?: new HtmlDomParser();
+        $this->domParser   = $domParser ?: new HtmlDomParser();
+        $this->menuFactory = $menuFactory ?: new MenuFactory();
     }
 
     // ---------------------------------------------------------------
@@ -41,21 +50,27 @@ class TocGenerator
     /**
      * Get Link Items
      *
+     * Returns a multi-level associative array of items
+     *
+     * @TODO: TEST THIS OUT >> And then refactor the getHtmlItems method to use the built-in KNP List library to do so...
+     *
      * @param string  $markup    Content to get items from
      * @param int     $topLevel  Top Header (1 through 6)
      * @param int     $depth     Depth (1 through 6)
-     * @return array  Array of items  ['anchor' => 'display text', ...]
+     * @return \Traversable  Menu items
      */
-    public function getItems($markup, $topLevel = 1, $depth = 2)
+    public function getItems($markup, $topLevel = 1, $depth = 6)
     {
+        // Setup an empty menu object
+        $menu = $this->menuFactory->createItem('TOC');
+
         // Empty?  Do nothing.
         if (trim($markup) == '') {
             return [];
         }
 
         // Parse HTML
-        $items  = [];
-        $tags   = $this->determineHeaderTags($topLevel, $depth);
+        $tagsToMatch   = $this->determineHeaderTags($topLevel, $depth);
         $parsed = $this->domParser->str_get_html($markup);
 
         // Runtime exception for bad code
@@ -64,17 +79,42 @@ class TocGenerator
         }
 
         // Extract items
-        foreach ($parsed->find(implode(', ', $tags)) as $tag) {
 
-            if ( ! $tag->id) {
+        // Initial settings
+        $lastLevel = 0;
+        $parent = $menu;
+
+        // Do it...
+        foreach ($parsed->find(implode(', ', $tagsToMatch)) as $element) {
+
+            if ( ! $element->id) {
                 continue;
             }
 
-            $dispText = $tag->title ?: $tag->plaintext;
-            $items[$tag->id] = $dispText;
+            // Get the tagname and the level
+            $tagName = $element->tag;
+            $level   = array_search(strtolower($tagName), $tagsToMatch);
+
+            // Determine parent item to which to add child
+            if ($level == 0) {
+                $parent = $menu;
+            }
+            elseif ($level < $lastLevel) { // traverse up parents until difference between is 1
+                for ($l = $lastLevel; $l > $level; $l--) {
+                    $parent = $parent->getParent();
+                }
+            }
+            elseif ($level > $lastLevel) { // add children until difference between is 1
+                for ($l = $lastLevel; $l < ($level-1); $l++) {
+                    $parent = $parent->addChild('');
+                }
+            }
+
+            $parent->addChild($element->title ?: $element->plaintext, ['uri' => '#' . $element->id]);
+            $lastLevel = $level;
         }
 
-        return $items;
+        return $menu;
     }
 
     // ---------------------------------------------------------------
@@ -87,7 +127,7 @@ class TocGenerator
      * @param int      $depth     Depth (1 through 6)
      * @return string  HTML <LI> items
      */
-    public function getHtmlItems($markup, $topLevel = 1, $depth = 2, $titleTemplate = 'Go to %s')
+    public function getHtmlItems($markup, $topLevel = 1, $depth = 6, $titleTemplate = 'Go to %s')
     {
         $arr = [];
 

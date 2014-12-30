@@ -17,7 +17,7 @@ use Sunra\PhpSimple\HtmlDomParser;
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class TocMarkupFixer
+class MarkupFixer
 {
     use HeaderTagInterpreter;
 
@@ -51,7 +51,7 @@ class TocMarkupFixer
      * @return string Markup with added IDs
      * @throws RuntimeException
      */
-    public function fix($markup, $topLevel = 1, $depth = 2)
+    public function fix($markup, $topLevel = 1, $depth = 6)
     {
         $sluggifier = new Sluggifier();
 

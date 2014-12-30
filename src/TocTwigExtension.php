@@ -17,7 +17,7 @@ class TocTwigExtension extends Twig_Extension
     private $generator;
 
     /**
-     * @var \TOC\TocMarkupFixer
+     * @var \TOC\MarkupFixer
      */
     private $fixer;
 
@@ -27,12 +27,12 @@ class TocTwigExtension extends Twig_Extension
      * Constructor
      *
      * @param \TOC\TocGenerator   $generator
-     * @param \TOC\TocMarkupFixer $fixer
+     * @param \TOC\MarkupFixer $fixer
      */
-    public function __construct(TocGenerator $generator = null, TocMarkupFixer $fixer = null)
+    public function __construct(TocGenerator $generator = null, MarkupFixer $fixer = null)
     {
         $this->generator = $generator ?: new TocGenerator();
-        $this->fixer     = $fixer     ?: new TocMarkupFixer();
+        $this->fixer     = $fixer     ?: new MarkupFixer();
     }
 
     // ---------------------------------------------------------------
@@ -43,7 +43,7 @@ class TocTwigExtension extends Twig_Extension
 
         $filters[] = new \Twig_SimpleFilter('add_anchors', function($str, $top = 1, $depth = 2) {
             return $this->fixer->fix($str, $top, $depth);
-        });
+        }, ['is_safe' => ['html']]);
 
         return $filters;
     }
@@ -60,7 +60,7 @@ class TocTwigExtension extends Twig_Extension
             return ($titleTemplate)
                 ? $this->generator->getHtmlItems($markup, $top, $depth, $titleTemplate)
                 : $this->generator->getHtmlItems($markup, $top, $depth);
-        });
+        }, ['is_safe' => ['html']]);
 
         // ~~~
 

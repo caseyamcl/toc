@@ -1,5 +1,5 @@
 <?php
-use TOC\TocMarkupFixer;
+use TOC\MarkupFixer;
 
 /**
  * Created by PhpStorm.
@@ -8,19 +8,19 @@ use TOC\TocMarkupFixer;
  * Time: 1:24 PM
  */
 
-class TocMarkupFixerTest extends PHPUnit_Framework_TestCase
+class MarkupFixerTest extends PHPUnit_Framework_TestCase
 {
     public function testInstantiateSucceeds()
     {
-        $obj = new TocMarkupFixer();
-        $this->assertInstanceOf('\TOC\TocMarkupFixer', $obj);
+        $obj = new MarkupFixer();
+        $this->assertInstanceOf('\TOC\MarkupFixer', $obj);
     }
 
     // ---------------------------------------------------------------
 
     public function testFixAddsIdsOnlyToElementsWithoutThem()
     {
-        $obj = new TocMarkupFixer();
+        $obj = new MarkupFixer();
 
         $html = "<h1>No ID</h1><h2>Existing ID</h2><h3>Ignored</h3>";
 
@@ -34,7 +34,7 @@ class TocMarkupFixerTest extends PHPUnit_Framework_TestCase
 
     public function testFixDoesNotDuplicateIdsWhenFixing()
     {
-        $obj = new TocMarkupFixer();
+        $obj = new MarkupFixer();
 
         $html = "<h1>FooBar</h1><h2>FooBar</h2><h3>FooBar</h3>";
 
@@ -48,7 +48,7 @@ class TocMarkupFixerTest extends PHPUnit_Framework_TestCase
 
     public function testFixUsesTitleAttributeWhenAvailable()
     {
-        $obj = new TocMarkupFixer();
+        $obj = new MarkupFixer();
 
         $html = "<h1>No ID</h1><h2 title='b'>Existing ID</h2><h3>Ignored</h3>";
 
