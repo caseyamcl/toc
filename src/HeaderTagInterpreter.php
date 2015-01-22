@@ -27,6 +27,6 @@ trait HeaderTagInterpreter
         $desired = range((int) $topLevel, (int) $topLevel + ((int) $depth - 1));
         $allowed = [1, 2, 3, 4, 5, 6];
 
-        return array_map(function($v) { return 'h'.$v; }, array_intersect($desired, $allowed));
+        return array_map(function($val) { return 'h'.$val; }, array_intersect($desired, $allowed));
     }
 }

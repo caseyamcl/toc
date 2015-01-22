@@ -52,11 +52,11 @@ class UniqueSluggifier
     {
         $slugged = $this->slugify->slugify($text);
 
-        $ct = 1;
+        $count = 1;
         $orig = $slugged;
         while (in_array($slugged, $this->used)) {
-            $slugged = $orig . '-' . $ct;
-            $ct++;
+            $slugged = $orig . '-' . $count;
+            $count++;
         }
 
         $this->used[] = $slugged;
