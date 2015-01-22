@@ -11,11 +11,11 @@ namespace TOC;
 use Cocur\Slugify\Slugify;
 
 /**
- * Sluggifier creates slugs text without repeating the same string twice per instance
+ * UniqueSluggifier creates slugs text without repeating the same string twice per instance
  *
- * @package TOC
+ * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class Sluggifier
+class UniqueSluggifier
 {
     /**
      * @var \Cocur\Slugify\Slugify
@@ -64,4 +64,4 @@ class Sluggifier
     }
 }
 
-/* EOF: Sluggifier.php */
+/* EOF: UniqueSluggifier.php */
