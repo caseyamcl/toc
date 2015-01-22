@@ -94,6 +94,10 @@ class TocTwigExtension extends Twig_Extension
             return $this->generator->getMenu($markup, $top, $depth);
         });
 
+        $functions[] = new \Twig_SimpleFunction('add_anchors', function($markup, $top = 1, $depth =2) {
+            return $this->fixer->fix($markup, $top, $depth);
+        }, ['is_safe' => ['html']]);
+
         return $functions;
     }
 
