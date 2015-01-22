@@ -6,26 +6,25 @@ Geneates Table of Contents from H1...H6 Tags in HTML Content
 
 [![Build Status](https://travis-ci.org/caseyamcl/toc)](https://travis-ci.org/caseyamcl/toc.png)
 
-This library provides a simple, framework-agnostic class to build
+This package provides a simple, framework-agnostic library to build
 a Table-of-Contents from HTML markup.  It does so by parsing H1...H6
-tags.  It can also automatically add appropriate "id" anchor links to content. 
+tags.  It can also automatically add appropriate "id" anchor links to header tags.
 
 Features:
-* Generates arrays or HTML &lt;li*gt; tags
-* Adds anchor IDs to content where they do not exist
-* Specify which *H1*...*H6* heading tags to use at runtime
+* Generates menu iterator or HTML &lt;li*gt; tags
+* Can add anchor IDs to *H1*...*H6* where they do not already exist
+* Specify which *H1*...*H6* heading tags to include in the TOC
 * Includes Twig Extension for generating TOC lists and compatible markup directly from templates
+* Uses the flexible [KnpMenu Library](https://github.com/KnpLabs/KnpMenu) to generate menus
 * PSR-0 thru PSR-2 Compliant
 * Composer-compatible
 * Unit-tested
 
-In the spirit of KISS philosophy, this library assumes a few things:
+In the spirit of KISS philosophy, this library makes a few assumptions:
 
 1. The hierarchy of your content is defined solely by the header (*H1*...*H6*) tags.  All other tags
    are ignored.
-2. The hierarchy is well-formed, meaning that you don't randomly distribute header tags around.  They occur in a
-   predictable order (*H2*s are children of *H1*s, *H3*s are children of *H2*s, etc).
-3. The link titles in the Table of Contents should match either the `title` attribute of the header tag,
+2. The link titles in the Table of Contents should match either the `title` attribute of the header tag,
    or if there is no `title`, the plaintext body of the header tag.
 
 Installation Options
@@ -38,15 +37,15 @@ Install via [Composer](http://getcomposer.org/) by including the following in yo
         }
     }
 
-Or, drop the `src` folder into your application and use a PSR-0 autoloader to include the files.
+Or, drop the `src` folder into your application and use a PSR-4 autoloader to include the files.
 
 
 Usage
 -----
-This library does two things:
+This contains two basic classes:
 
-1. Adds `id` anchor tags to any *H1*..*H6* tags that do not already have any.
-2. Generates HTML (or an associative array) of anchor links that can be rendered in your template.
+1. `MarkupFixer`: Adds `id` anchor attributes to any *H1*...*H6* tags that do not already have any.
+2. `TocGenerator`: Generates HTML (or an associative array) of anchor links that can be rendered in your template.
 
 Basic Example:
 
@@ -64,35 +63,24 @@ $tocGenerator = new TOC\TocGenerator();
 
 // This ensures that all header tags have `id` attributes so they can be used as anchors
 $htmlOut  = "<div class='content'>" . $markupFixer->fix($myHtmlContent) . "</div>";
-$htmlOut .= "<div class='toc'><ul>" . $tocGenerator->getHtmlItems($myHtmlContent) . "</ul></div>";
+
+// This generates the Table of Contents List
+$htmlOut .= "<div class='toc'><ul>" . $tocGenerator->getHtmlMenu($myHtmlContent) . "</ul></div>";
 
 echo $htmlOut;
 ```
-
-There are two service classes: `TOC\TocGenerator` and `TOC\MarkupFixer`:
-
-The `TocGenerator` class accepts HTML markup and generates a list of anchor links
-
 
 Twig Integration
 ----------------
 This library includes a [Twig](http://twig.sensiolabs.org) extension that enables you to load
 TOC lists and add anchors to markup from your Twig templates.
 
-Specifically, the extension adds two Twig functions for generating Table of Contents lists items:
+Specifically, the extension adds a Twig function for generating Table of Contents HTML:
 
 ```twig
 {# Generates HTML markup for given htmlContent #}
-{# The second two parameters are optional (defaults are h1, h6) #}
-<ul>{{ toc(htmlContent, 'h1', 'h3') }}</ul>
-
-{# Generates an array of anchor links for given htmlContent #}
-{# The second two parameters are optional (defaults are h1, h6) #}
-<ul>
-    {% for anchor, title in toc_items(htmlContent, 'h1', 'h3'): %}
-        <li class='whatever'><a href='{{ anchor }}'>{{ title }}</a></li>
-    {% endfor %}
-</ul>
+{# The second two parameters are optional (defaults are 1, 6) #}
+<ul>{{ toc(htmlContent, '1', '3') }}</ul>
 ```
 
 It also adds one function and one filter for ensuring that your content includes anchors for 
@@ -100,8 +88,8 @@ all HTML tags:
 
 ```twig
 {# Adds anchor links (id tags) for given htmlContent #}
-{# The second two parameters are optional (defaults are h1, h6) #}
-{{ add_anchors(htmlContent, 'h1', 'h2')
+{# The second two parameters are optional (defaults are 1, 6) #}
+{{ add_anchors(htmlContent, '1', '2')
 
 {# You can also use it as a filter #}
 <div class='my_content'>
@@ -133,4 +121,64 @@ For example:
 <h2>This is some content</h2>
 <p>More content here.  Blah blah</p>
 {% endblock %}
+```
+
+In order to enable this functionality, you must register the `TocTwigExtension` with your Twig environment:
+
+```php
+$myTwig = new \Twig_Environment();
+$myTwig->addExtension(new TocTwigExtension());
+```
+
+Customizing Menu Output
+-----------------------
+
+The `TocGenerator` class outputs HTML by default, but you can customize the rendering of the list.  By default
+`TocGenerator` uses the [KnpMenu Library](https://github.com/KnpLabs/KnpMenu) `ListRenderer` class to output the HTML.
+
+You can pass your instance of the `ListRenderer` class to `TocGenerator::getHtmlMenu()`. Or, you can pass in 
+your own renderer (implements [`Knp\Menu\Renderer\RendererInterface`](https://github.com/KnpLabs/KnpMenu/blob/master/src/Knp/Menu/Renderer/RendererInterface.php)).
+
+For example, you may wish to use different CSS classes for your list items:
+
+```php
+
+$options = [
+    'currentAsLink' => false,
+    'currentClass'  => 'curr_page',
+    'ancestorClass' => 'curr_ancestor',
+    'branch_class'  => 'branch
+];
+
+$renderer = new Knp\Menu\Renderer\ListRenderer(new Knp\Menu\Matcher\Matcher(), $options);
+
+// Render the list
+$tocGenerator = new TOC\TocGenerator();
+$listHtml = $tocGenerator->getHtmlMenu($someHtmlContent, 1, 6, $renderer);
+
+```
+
+#### Customizing with Twig
+
+The KnpMenu library offers more robust integration with the [Twig Templating System](http://twig.sensiolabs.org/)
+than is offered by default with this library.  You can take advantage of it by using the [TwigRenderer](https://github.com/KnpLabs/KnpMenu/blob/master/doc/02-Twig-Integration.markdown#using-the-twigrenderer)
+that is bundled with KnpMenu:
+
+```php
+
+$twigLoader = new \Twig_Loader_Filesystem(array(
+    __DIR__.'/vendor/KnpMenu/src/Knp/Menu/Resources/views',
+    // ...paths to your own Twig templates that render KnpMenus...
+));
+
+$twig = new \Twig_Environment($twigLoader);
+$itemMatcher = \Knp\Menu\Matcher\Matcher();
+$menuRenderer = new \Knp\Menu\Renderer\TwigRenderer($twig, 'knp_menu.html.twig', $itemMatcher);
+
+
+$tocGenerator = new TOC\TocGenerator();
+
+// Output the Menu using the template 
+echo $menuRenderer->render($tocGenerator->getMenu($someHtmlContent));
+
 ```
