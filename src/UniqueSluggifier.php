@@ -1,17 +1,25 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: casey
- * Date: 12/30/14
- * Time: 12:48 PM
+ *
+ * PHP TableOfContents Library
+ *
+ * @license http://opensource.org/licenses/MIT
+ * @link https://github.com/caseyamcl/toc
+ * @version 1.0
+ * @package caseyamcl/toc
+ * @author Casey McLaughlin <caseyamcl@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * ------------------------------------------------------------------
  */
-
 namespace TOC;
 
 use Cocur\Slugify\Slugify;
 
 /**
- * UniqueSluggifier creates slugs text without repeating the same string twice per instance
+ * UniqueSluggifier creates slugs from text without repeating the same slug twice per instance
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */

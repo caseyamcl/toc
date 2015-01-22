@@ -1,7 +1,19 @@
 <?php
 
-// Header here
-// ---------------------------------------------------------------
+/**
+ * PHP TableOfContents Library
+ *
+ * @license http://opensource.org/licenses/MIT
+ * @link https://github.com/caseyamcl/toc
+ * @version 1.0
+ * @package caseyamcl/toc
+ * @author Casey McLaughlin <caseyamcl@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * ------------------------------------------------------------------
+ */
 
 namespace TOC;
 
@@ -14,7 +26,7 @@ use Sunra\PhpSimple\HtmlDomParser;
 use RuntimeException;
 
 /**
- * Class TocGenerator
+ * Table Of Contents Generator generates TOCs from HTML Markup
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */

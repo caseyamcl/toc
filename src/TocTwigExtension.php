@@ -1,11 +1,33 @@
 <?php
 
+/**
+ * PHP TableOfContents Library
+ *
+ * @license http://opensource.org/licenses/MIT
+ * @link https://github.com/caseyamcl/toc
+ * @version 1.0
+ * @package caseyamcl/toc
+ * @author Casey McLaughlin <caseyamcl@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * ------------------------------------------------------------------
+ */
+
 namespace TOC;
 
 use Twig_Extension;
 
 /**
- * Class TocTwigExtension
+ * Table of Contents Twig Extension Integrates with Twig
+ *
+ * Adds filter:
+ * - add_anchors
+ *
+ * Adds functions:
+ * - toc (returns HTML list)
+ * - toc_items (returns KnpMenu iterator)
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
@@ -37,6 +59,9 @@ class TocTwigExtension extends Twig_Extension
 
     // ---------------------------------------------------------------
 
+    /**
+     * {@inheritdoc}
+     */
     public function getFilters()
     {
         $filters = parent::getFilters();
@@ -50,16 +75,17 @@ class TocTwigExtension extends Twig_Extension
 
     // ---------------------------------------------------------------
 
+    /**
+     * {@inheritdoc}
+     */
     public function getFunctions()
     {
         $functions = parent::getFunctions();
 
         // ~~~
 
-        $functions[] = new \Twig_SimpleFunction('toc', function($markup, $top = 1, $depth = 2, $titleTemplate = null) {
-            return ($titleTemplate)
-                ? $this->generator->getHtmlMenu($markup, $top, $depth, $titleTemplate)
-                : $this->generator->getHtmlMenu($markup, $top, $depth);
+        $functions[] = new \Twig_SimpleFunction('toc', function($markup, $top = 1, $depth = 2) {
+            return $this->generator->getHtmlMenu($markup, $top, $depth);
         }, ['is_safe' => ['html']]);
 
         // ~~~
