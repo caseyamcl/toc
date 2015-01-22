@@ -6,7 +6,6 @@
 namespace TOC;
 
 use Knp\Menu\MenuFactory;
-use Knp\Menu\MenuItem;
 use Sunra\PhpSimple\HtmlDomParser;
 use RuntimeException;
 
@@ -81,37 +80,44 @@ class TocGenerator
         // Extract items
 
         // Initial settings
-        $lastLevel = 0;
-        $parent = $menu;
+        $lastElem = $menu;
 
         // Do it...
         foreach ($parsed->find(implode(', ', $tagsToMatch)) as $element) {
 
+            // Skip items without IDs
             if ( ! $element->id) {
                 continue;
             }
 
-            // Get the tagname and the level
+            // Get the TagName and the level
             $tagName = $element->tag;
-            $level   = array_search(strtolower($tagName), $tagsToMatch);
+            $level   = array_search(strtolower($tagName), $tagsToMatch) + 1;
 
-            // Determine parent item to which to add child
+            // TEST DEBUG
+            var_dump($element->plaintext . '; ' . $tagName . ' is level ' . $level . ' and lastLevel is ' . $lastElem->getLevel());
+
+            // Determine parent item which to add child
             if ($level == 0) {
                 $parent = $menu;
             }
-            elseif ($level < $lastLevel) { // traverse up parents until difference between is 1
-                for ($l = $lastLevel; $l > $level; $l--) {
-                    $parent = $parent->getParent();
-                }
+            elseif ($level == $lastElem->getLevel()) {
+                $parent = $lastElem->getParent();
             }
-            elseif ($level > $lastLevel) { // add children until difference between is 1
-                for ($l = $lastLevel; $l < ($level-1); $l++) {
+            elseif ($level > $lastElem->getLevel()) {
+                $parent = $lastElem;
+                for ($i = $lastElem->getLevel(); $i < ($level - 1); $i++) {
                     $parent = $parent->addChild('');
                 }
             }
+            else { //if ($level < $lastElem->getLevel())
+                $parent = $lastElem->getParent();
+                while ($parent->getLevel() > $level - 1) {
+                    $parent = $parent->getParent();
+                }
+            }
 
-            $parent->addChild($element->title ?: $element->plaintext, ['uri' => '#' . $element->id]);
-            $lastLevel = $level;
+            $lastElem = $parent->addChild($element->title ?: $element->plaintext, ['uri' => '#' . $element->id]);
         }
 
         return $menu;
