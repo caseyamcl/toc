@@ -71,7 +71,7 @@ class TocGenerator
         }
 
         // Parse HTML
-        $tagsToMatch   = $this->determineHeaderTags($topLevel, $depth);
+        $tagsToMatch = $this->determineHeaderTags($topLevel, $depth);
         $parsed = $this->domParser->str_get_html($markup);
 
         // Runtime exception for bad code
@@ -97,7 +97,7 @@ class TocGenerator
             $level   = array_search(strtolower($tagName), $tagsToMatch) + 1;
 
             // Determine parent item which to add child
-            if ($level == 0) {
+            if ($level == 1) {
                 $parent = $menu;
             }
             elseif ($level == $lastElem->getLevel()) {

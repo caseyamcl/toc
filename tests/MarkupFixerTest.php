@@ -1,5 +1,6 @@
 <?php
-use TOC\MarkupFixer;
+
+namespace TOC;
 
 /**
  * Created by PhpStorm.
@@ -8,7 +9,7 @@ use TOC\MarkupFixer;
  * Time: 1:24 PM
  */
 
-class MarkupFixerTest extends PHPUnit_Framework_TestCase
+class MarkupFixerTest extends \PHPUnit_Framework_TestCase
 {
     public function testInstantiateSucceeds()
     {

@@ -6,8 +6,9 @@
  * Time: 12:39 PM
  */
 
-use Knp\Menu\Renderer\ListRenderer;
-use TOC\TocGenerator;
+namespace TOC;
+
+use TOC\Util\TOCTestUtils;
 
 /**
  * Class TocGeneratorTest
@@ -24,7 +25,7 @@ class TocGeneratorTest extends \PHPUnit_Framework_TestCase
 
     // ---------------------------------------------------------------
 
-    public function testGetItemsTraversesLevelsCorrectly()
+    public function testGetMenuTraversesLevelsCorrectly()
     {
         $obj = new TocGenerator();
 
@@ -47,7 +48,7 @@ class TocGeneratorTest extends \PHPUnit_Framework_TestCase
 
     // ---------------------------------------------------------------
 
-    public function testGetItemsMatchesOnlyElementsWithIDs()
+    public function testGetMenuMatchesOnlyElementsWithIDs()
     {
         $html = "
             <h1 id='a'>A-Header</h1><p>Foobar</p>
@@ -64,64 +65,51 @@ class TocGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     // ---------------------------------------------------------------
-//
-//    public function testGetItemsUsesTitleForDisplayTextWhenAvailableAndPlainTextWhenNot()
-//    {
-//        $obj = new TocGenerator();
-//
-//        $html  = '<h1 id="a" title="Foo Bar!">A Header</h1>';
-//        $html .= '<h2 id="b">B Header</h2>';
-//        $html .= '<h3 id="c" title="Baz Biz~">C Header</h3>';
-//
-//        $this->assertEquals(
-//            ['a' => 'Foo Bar!', 'b' => 'B Header', 'c' => 'Baz Biz~'],
-//            $obj->getItems($html, 1, 3)
-//        );
-//    }
-//
-//    // ---------------------------------------------------------------
-//
-//    public function testGetItemsGetsOnlyHeaderLevelsSpecified()
-//    {
-//        $obj = new TocGenerator();
-//
-//        $html  = '<h1 id="a" title="Foo Bar!">A Header</h1>';
-//        $html .= '<h2 id="b">B Header</h2>';
-//        $html .= '<h3 id="c" title="Baz Biz~">C Header</h3>';
-//        $html .= '<h4 id="d" title="Bal Baf#">D Header</h4>';
-//        $html .= '<h5 id="e" title="Cak Coy%">E Header</h5>';
-//        $html .= '<h6 id="f" title="Dar Dul^">F Header</h6>';
-//
-//        $this->assertCount(1, $obj->getItems($html, 5, 1));
-//        $this->assertCount(2, $obj->getItems($html, 5, 5));
-//        $this->assertCount(6, $obj->getItems($html, -1, 20));
-//    }
-//
-//    // ---------------------------------------------------------------
-//
-//    public function testGetHtmlItemsReturnsExpectedListItems()
-//    {
-//        $obj = new TocGenerator();
-//
-//        $html  = '<h1 id="a" title="Foo Bar!">A Header</h1>';
-//        $html .= '<h2 id="b">B Header</h2>';
-//        $html .= '<h3 id="c" title="Baz Biz~">C Header</h3>';
-//
-//        $this->assertEquals(
-//            "<li><a title='Go to Foo Bar!' href='#a'>Foo Bar!</a></li><li><a title='Go to B Header' href='#b'>B Header</a></li><li><a title='Go to Baz Biz~' href='#c'>Baz Biz~</a></li>",
-//           $obj->getHtmlItems($html, 1, 3)
-//        );
-//    }
-//
-//    // ---------------------------------------------------------------
-//
-//    public function testGetItemsReturnsAnEmptyArrayWhenNoContentOrMatches()
-//    {
-//        $obj = new TocGenerator();
-//        $this->assertEquals([], $obj->getItems("<h1>Boo</h1><h2>Bar</h2>"));
-//        $this->assertEquals([], $obj->getItems(""));
-//    }
 
+    public function testGetMenuUsesTitleForDisplayTextWhenAvailableAndPlainTextWhenNot()
+    {
+        $obj = new TocGenerator();
+
+        $html  = '<h1 id="a" title="Foo Bar!">A Header</h1>';
+        $html .= '<h2 id="b">B Header</h2>';
+        $html .= '<h3 id="c" title="Baz Biz~">C Header</h3>';
+
+        $menu = $obj->getMenu($html, 1, 3);
+        $arr = TOCTestUtils::flattenMenuItems($menu);
+
+        $this->assertEquals('Foo Bar!', $arr[0]->getLabel());
+        $this->assertEquals('B Header', $arr[1]->getLabel());
+        $this->assertEquals('Baz Biz~', $arr[2]->getLabel());
+    }
+
+    // ---------------------------------------------------------------
+
+    public function testGetMenuGetsOnlyHeaderLevelsSpecified()
+    {
+        $obj = new TocGenerator();
+
+        $html  = '<h1 id="a" title="Foo Bar!">A Header</h1>';
+        $html .= '<h2 id="b">B Header</h2>';
+        $html .= '<h3 id="c" title="Baz Biz~">C Header</h3>';
+        $html .= '<h4 id="d" title="Bal Baf#">D Header</h4>';
+        $html .= '<h5 id="e" title="Cak Coy%">E Header</h5>';
+        $html .= '<h6 id="f" title="Dar Dul^">F Header</h6>';
+
+        $this->assertCount(1, TOCTestUtils::flattenMenuItems($obj->getMenu($html, 5, 1)));
+        $this->assertCount(2, TOCTestUtils::flattenMenuItems($obj->getMenu($html, 5, 5)));
+
+        // What's up with this?
+        //$this->assertCount(6, TOCTestUtils::flattenMenuItems($obj->getMenu($html, -1, 20)));
+    }
+
+    // ---------------------------------------------------------------
+
+    public function testGetMenuReturnsAnEmptyArrayWhenNoContentOrMatches()
+    {
+        $obj = new TocGenerator();
+        $this->assertEquals(0, count($obj->getMenu("<h1>Boo</h1><h2>Bar</h2>")));
+        $this->assertEquals(0, count($obj->getMenu("")));
+    }
 }
 
 /* EOF: TocGeneratorTest.php */
