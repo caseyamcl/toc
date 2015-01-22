@@ -58,14 +58,14 @@ class TocTwigExtension extends Twig_Extension
 
         $functions[] = new \Twig_SimpleFunction('toc', function($markup, $top = 1, $depth = 2, $titleTemplate = null) {
             return ($titleTemplate)
-                ? $this->generator->getHtmlItems($markup, $top, $depth, $titleTemplate)
-                : $this->generator->getHtmlItems($markup, $top, $depth);
+                ? $this->generator->getHtmlMenu($markup, $top, $depth, $titleTemplate)
+                : $this->generator->getHtmlMenu($markup, $top, $depth);
         }, ['is_safe' => ['html']]);
 
         // ~~~
 
         $functions[] = new \Twig_SimpleFunction('toc_items', function($markup, $top = 1, $depth = 2) {
-            return $this->generator->getItems($markup, $top, $depth);
+            return $this->generator->getMenu($markup, $top, $depth);
         });
 
         return $functions;

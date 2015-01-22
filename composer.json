@@ -28,7 +28,6 @@
     "knplabs/knp-menu": "~2.0"
   },
   "require-dev": {
-    "twig/twig": "~1.13",
-    "phpunit/phpunit": "~4.0"
+    "twig/twig": "~1.13"
   }
 }

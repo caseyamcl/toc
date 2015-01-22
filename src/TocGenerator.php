@@ -5,7 +5,11 @@
 
 namespace TOC;
 
+use Knp\Menu\ItemInterface;
+use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\MenuFactory;
+use Knp\Menu\Renderer\ListRenderer;
+use Knp\Menu\Renderer\RendererInterface;
 use Sunra\PhpSimple\HtmlDomParser;
 use RuntimeException;
 
@@ -47,18 +51,16 @@ class TocGenerator
     // ---------------------------------------------------------------
 
     /**
-     * Get Link Items
+     * Get Menu
      *
-     * Returns a multi-level associative array of items
+     * Returns a KNP Menu object, which can be traversed or rendered
      *
-     * @TODO: TEST THIS OUT >> And then refactor the getHtmlItems method to use the built-in KNP List library to do so...
-     *
-     * @param string  $markup    Content to get items from
+     * @param string  $markup    Content to get items fro $this->getItems($markup, $topLevel, $depth)m
      * @param int     $topLevel  Top Header (1 through 6)
      * @param int     $depth     Depth (1 through 6)
-     * @return \Traversable  Menu items
+     * @return ItemInterface     KNP Menu
      */
-    public function getItems($markup, $topLevel = 1, $depth = 6)
+    public function getMenu($markup, $topLevel = 1, $depth = 6)
     {
         // Setup an empty menu object
         $menu = $this->menuFactory->createItem('TOC');
@@ -94,9 +96,6 @@ class TocGenerator
             $tagName = $element->tag;
             $level   = array_search(strtolower($tagName), $tagsToMatch) + 1;
 
-            // TEST DEBUG
-            var_dump($element->plaintext . '; ' . $tagName . ' is level ' . $level . ' and lastLevel is ' . $lastElem->getLevel());
-
             // Determine parent item which to add child
             if ($level == 0) {
                 $parent = $menu;
@@ -128,25 +127,22 @@ class TocGenerator
     /**
      * Get HTML Links in list form
      *
-     * @param string   $markup    Content to get items from
-     * @param int      $topLevel  Top Header (1 through 6)
-     * @param int      $depth     Depth (1 through 6)
-     * @return string  HTML <LI> items
+     * @param string            $markup   Content to get items from
+     * @param int               $topLevel Top Header (1 through 6)
+     * @param int               $depth    Depth (1 through 6)
+     * @param RendererInterface $renderer
+     * @return string HTML <LI> items
      */
-    public function getHtmlItems($markup, $topLevel = 1, $depth = 6, $titleTemplate = 'Go to %s')
+    public function getHtmlMenu($markup, $topLevel = 1, $depth = 6, RendererInterface $renderer = null)
     {
-        $arr = [];
-
-        foreach ($this->getItems($markup, $topLevel, $depth) as $anchor => $displayText) {
-            $arr[] = sprintf(
-                "<li><a title='%s' href='#%s'>%s</a></li>",
-                sprintf($titleTemplate, $displayText),
-                $anchor,
-                $displayText
-            );
+        if ( ! $renderer) {
+            $renderer = new ListRenderer(new Matcher(), [
+                'currentClass'  => 'active',
+                'ancestorClass' => 'active_ancestor'
+            ]);
         }
 
-        return implode('', $arr);
+        return $renderer->render($this->getMenu($markup, $topLevel, $depth));
     }
 }
 
