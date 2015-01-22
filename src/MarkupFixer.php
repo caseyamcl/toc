@@ -53,7 +53,7 @@ class MarkupFixer
      */
     public function fix($markup, $topLevel = 1, $depth = 6)
     {
-        $sluggifier = new Sluggifier();
+        $sluggifier = new UniqueSluggifier();
 
         $tags   = $this->determineHeaderTags($topLevel, $depth);
         $parsed = $this->domParser->str_get_html($markup);
