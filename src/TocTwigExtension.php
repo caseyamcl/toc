@@ -66,7 +66,7 @@ class TocTwigExtension extends Twig_Extension
     {
         $filters = parent::getFilters();
 
-        $filters[] = new \Twig_SimpleFilter('add_anchors', function($str, $top = 1, $depth = 2) {
+        $filters[] = new \Twig_SimpleFilter('add_anchors', function($str, $top = 1, $depth = 6) {
             return $this->fixer->fix($str, $top, $depth);
         }, ['is_safe' => ['html']]);
 
@@ -84,17 +84,17 @@ class TocTwigExtension extends Twig_Extension
 
         // ~~~
 
-        $functions[] = new \Twig_SimpleFunction('toc', function($markup, $top = 1, $depth = 2) {
+        $functions[] = new \Twig_SimpleFunction('toc', function($markup, $top = 1, $depth = 6) {
             return $this->generator->getHtmlMenu($markup, $top, $depth);
         }, ['is_safe' => ['html']]);
 
         // ~~~
 
-        $functions[] = new \Twig_SimpleFunction('toc_items', function($markup, $top = 1, $depth = 2) {
+        $functions[] = new \Twig_SimpleFunction('toc_items', function($markup, $top = 1, $depth = 6) {
             return $this->generator->getMenu($markup, $top, $depth);
         });
 
-        $functions[] = new \Twig_SimpleFunction('add_anchors', function($markup, $top = 1, $depth =2) {
+        $functions[] = new \Twig_SimpleFunction('add_anchors', function($markup, $top = 1, $depth = 6) {
             return $this->fixer->fix($markup, $top, $depth);
         }, ['is_safe' => ['html']]);
 
