@@ -4,7 +4,7 @@ PHP TOC Generator
 Geneates Table of Contents from H1...H6 Tags in HTML Content
 ------------------------------------------------------------
 
-[![Build Status](https://travis-ci.org/caseyamcl/toc)](https://travis-ci.org/caseyamcl/toc.png)
+[![Build Status](https://travis-ci.org/caseyamcl/toc.svg?branch=master)](https://travis-ci.org/caseyamcl/toc)
 
 This package provides a simple, framework-agnostic library to build
 a Table-of-Contents from HTML markup.  It does so by parsing *H1...H6* tags.  It can also automatically add appropriate *id* anchor attributes to header tags.
