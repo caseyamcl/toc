@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * PHP TableOfContents Library
@@ -14,6 +15,7 @@
  *
  * ------------------------------------------------------------------
  */
+
 namespace TOC;
 
 use Cocur\Slugify\Slugify;

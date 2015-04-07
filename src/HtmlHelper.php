@@ -29,7 +29,7 @@ trait HtmlHelper
      *
      * @param int $topLevel
      * @param int $depth
-     * @return array  Array of header tags; ex: ['h1', 'h2', 'h3']
+     * @return array|string[]  Array of header tags; ex: ['h1', 'h2', 'h3']
      */
     protected function determineHeaderTags($topLevel, $depth)
     {

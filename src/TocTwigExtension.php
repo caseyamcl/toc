@@ -60,7 +60,7 @@ class TocTwigExtension extends Twig_Extension
     // ---------------------------------------------------------------
 
     /**
-     * {@inheritdoc}
+     * @return array|\Twig_SimpleFilter[]
      */
     public function getFilters()
     {
@@ -76,7 +76,7 @@ class TocTwigExtension extends Twig_Extension
     // ---------------------------------------------------------------
 
     /**
-     * {@inheritdoc}
+     * @return array|\Twig_SimpleFunction[]
      */
     public function getFunctions()
     {

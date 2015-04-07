@@ -17,7 +17,11 @@
 
 namespace TOC;
 
-
+/**
+ * Markup Fixer Test
+ *
+ * @author Casey McLaughlin <caseyamcl@gmail.com>
+ */
 class MarkupFixerTest extends \PHPUnit_Framework_TestCase
 {
     public function testInstantiateSucceeds()
