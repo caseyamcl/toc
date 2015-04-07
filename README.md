@@ -1,7 +1,7 @@
 PHP TOC Generator
 =================
 
-Generates a Table of Contents from H1...H6 Tags in HTML Content
+Generates a Table of Contents from *H1...H6* Tags in HTML Content
 
 [![Build Status](https://travis-ci.org/caseyamcl/toc.svg?branch=master)](https://travis-ci.org/caseyamcl/toc)
 
@@ -10,16 +10,16 @@ a Table-of-Contents from HTML markup.  It does so by parsing *H1...H6* tags.  It
 
 Features:
 
-* Generates HTML menus and KnpMenu `Item` Menus
-* Can add anchor ID attributes to *H1*...*H6* tags in your content where they do not already exist
+* Generates HTML menus and [KnpMenu Item](https://github.com/KnpLabs/KnpMenu) Menus
+* Adds anchor ID attributes to *H1*...*H6* tags in your content where they do not already exist
 * You can specify which *H1*...*H6* heading tag levels to include in the TOC
-* Includes a Twig Extension for generating TOC lists and compatible markup directly from templates
+* Includes a Twig Extension for generating TOCs and compatible markup directly from templates
 * Uses the flexible [KnpMenu Library](https://github.com/KnpLabs/KnpMenu) to generate menus
 * PSR-0 thru PSR-2 Compliant
 * Composer-compatible
 * Unit-tested
 
-In the spirit of KISS philosophy, this library makes a few assumptions:
+In the spirit of [KISS philosophy](http://en.wikipedia.org/wiki/KISS_principle), this library makes a few assumptions:
 
 1. The hierarchy of your content is defined solely by the header (*H1*...*H6*) tags.  All other tags are ignored.
 2. The link titles in the Table of Contents match either the `title` attribute of the header tag, or if there is no `title`, the plaintext body of the header tag.
@@ -41,8 +41,8 @@ Usage
 -----
 This package contains two basic classes:
 
-1. `TOC\MarkupFixer`: Adds `id` anchor attributes to any *H1*...*H6* tags that do not already have any (you can customize the header levels).
-2. `TOC\TocGenerator`: Generates an HTML (or KnpMenu) Table of Contents.
+1. `TOC\MarkupFixer`: Adds an `id` anchor attributes to any *H1*...*H6* tags that do not already have any (you can which header tag levels to use)
+2. `TOC\TocGenerator`: Generates a Table of Contents from HTML markup
 
 Basic Example:
 
@@ -58,10 +58,10 @@ END;
 $markupFixer  = new TOC\MarkupFixer();
 $tocGenerator = new TOC\TocGenerator();
 
-// This ensures that all header tags have `id` attributes so they can be used as anchors
+// This ensures that all header tags have `id` attributes so they can be used as anchor links
 $htmlOut  = "<div class='content'>" . $markupFixer->fix($myHtmlContent) . "</div>";
 
-// This generates the Table of Contents List
+// This generates the Table of Contents in HTML
 $htmlOut .= "<div class='toc'><ul>" . $tocGenerator->getHtmlMenu($myHtmlContent) . "</ul></div>";
 
 echo $htmlOut;
@@ -69,7 +69,15 @@ echo $htmlOut;
 
 Twig Integration
 ----------------
+
 This library includes a [Twig](http://twig.sensiolabs.org) extension that enables you to load TOC lists and add anchors to markup from your Twig templates.
+
+In order to enable Twig integration, you must register the `TocTwigExtension` with your Twig environment:
+
+```php
+$myTwig = new \Twig_Environment();
+$myTwig->addExtension(new TOC\TocTwigExtension());
+```
 
 Specifically, the extension adds a Twig function for generating Table of Contents HTML:
 
@@ -78,11 +86,11 @@ Specifically, the extension adds a Twig function for generating Table of Content
 <ul>{{ toc(htmlContent) }}</ul>
 ```
 
-It also adds one function and one filter for ensuring that your content includes anchors for all HTML header tags:
+It also provides a function and a filter for ensuring that your content includes anchors for all HTML header tags.  They both do the same thing, so choose which one suits your needs best:
 
 ```twig
 {# Adds anchor links (id tags) for given htmlContent #}
-{{ add_anchors(htmlContent)
+{{ add_anchors(htmlContent) }}
 
 {# You can also use it as a filter #}
 <div class='my_content'>
@@ -90,8 +98,7 @@ It also adds one function and one filter for ensuring that your content includes
 </div>
 ```
 
-You may have content in hard-coded in your Twig Template that you want to generate a TOC for.  An easy way to do this is to make sure the content is surrounded by `{% block %}...{% endblock %}`
-tags, and then just pass in that block to the *toc* function.
+Your HTML content may be hard-coded in your Twig Template.  An easy way to accomodate this is to make sure the content is surrounded by `{% block %}...{% endblock %}` tags, and then just pass in that block to the *toc* function.
 
 For example:
 
@@ -115,12 +122,6 @@ For example:
 {% endblock %}
 ```
 
-In order to enable Twig integration, you must register the `TocTwigExtension` with your Twig environment:
-
-```php
-$myTwig = new \Twig_Environment();
-$myTwig->addExtension(new TOC\TocTwigExtension());
-```
 
 Specifying Heading Levels to Include
 -------------------------------------------
@@ -139,7 +140,7 @@ $toc->getHtmlMenu($someHtmlContent, 1, 2);
 $toc->getHtmlMenu($someHtmlContent, 4, 3);
 ```
 
-Most other methods in the package take this arguments as well:
+Most other methods in the package handle these arguments as well:
 
 ```php
 $tocGenerator = new TOC\TocGenerator();
@@ -152,7 +153,7 @@ $tocGenerator->getMenu($someHtmlContent, 1, 3);
 $markupFixer->fix($someHtmlContent, 3, 2);
 ```
 
-Twig functions and filters accept this arguments too:
+Twig functions and filters accept these arguments as well:
 
 ```twig
 {# Generate TOC using h2, h3 tags #}
