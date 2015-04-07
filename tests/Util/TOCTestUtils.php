@@ -17,6 +17,7 @@
 namespace TOC\Util;
 
 use Knp\Menu\ItemInterface;
+use Knp\Menu\MenuItem;
 
 class TOCTestUtils
 {
@@ -25,7 +26,7 @@ class TOCTestUtils
      *
      * @param ItemInterface $item   The menu item
      * @param bool          $isTop  Is the initial menu item starting at the top-level?
-     * @return array
+     * @return array|MenuItem[]
      */
     public static function flattenMenuItems(ItemInterface $item, $isTop = true)
     {

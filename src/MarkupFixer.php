@@ -17,8 +17,8 @@
 
 namespace TOC;
 
+use Masterminds\HTML5;
 use RuntimeException;
-use Sunra\PhpSimple\HtmlDomParser;
 
 /**
  * TOC Markup Fixer adds `id` attributes to all H1...H6 tags where they do not
@@ -28,26 +28,27 @@ use Sunra\PhpSimple\HtmlDomParser;
  */
 class MarkupFixer
 {
-    use HeaderTagInterpreter;
+    use HtmlHelper;
 
     // ---------------------------------------------------------------
 
     /**
-     * @var HtmlDomParser
+     * @var HTML5
      */
-    private $domParser;
+    private $htmlParser;
 
     // ---------------------------------------------------------------
 
     /**
      * Constructor
      *
-     * @param HtmlDomParser $domParser
+     * @param HTML5 $htmlParser
      */
-    public function __construct(HtmlDomParser $domParser = null)
+    public function __construct(HTML5 $htmlParser = null)
     {
-        $this->domParser = $domParser ?: new HtmlDomParser();
+        $this->htmlParser = $htmlParser ?: new HTML5();
     }
+
 
     // ---------------------------------------------------------------
 
@@ -62,28 +63,26 @@ class MarkupFixer
      */
     public function fix($markup, $topLevel = 1, $depth = 6)
     {
-        $sluggifier = new UniqueSluggifier();
-
-        $tags   = $this->determineHeaderTags($topLevel, $depth);
-        $parsed = $this->domParser->str_get_html($markup);
-
-        // Runtime exception for bad code
-        if ( ! $parsed) {
-            throw new RuntimeException("Could not parse HTML");
+        if ( ! $this->isFullHtmlDocument($markup)) {
+            $partialID = 'toc_generator_' . mt_rand(1000, 4000);
+            $markup = sprintf("<body id='%s'>%s</body>", $partialID, $markup);
         }
 
-        // Extract items
-        foreach ($parsed->find(implode(', ', $tags)) as $tag) {
+        $domDocument = $this->htmlParser->loadHTML($markup);
+        $domDocument->preserveWhiteSpace = true; // do not clobber whitespace
 
-            // Ignore tags that already have IDs
-            if ($tag->id) {
+        $sluggifier = new UniqueSluggifier();
+
+        /** @var \DOMElement $node */
+        foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
+            if ($node->getAttribute('id')) {
                 continue;
             }
 
-            $tag->id = $sluggifier->slugify($tag->title ?: $tag->plaintext);
+            $node->setAttribute('id', $sluggifier->slugify($node->getAttribute('title') ?: $node->textContent));
         }
 
-        return (string) $parsed;
+        return $this->htmlParser->saveHTML((isset($partialID)) ? $domDocument->getElementById($partialID)->childNodes : $domDocument);
     }
 }
 

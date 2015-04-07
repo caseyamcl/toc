@@ -22,8 +22,7 @@ use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\Renderer\ListRenderer;
 use Knp\Menu\Renderer\RendererInterface;
-use Sunra\PhpSimple\HtmlDomParser;
-use RuntimeException;
+use Masterminds\HTML5;
 
 /**
  * Table Of Contents Generator generates TOCs from HTML Markup
@@ -32,17 +31,17 @@ use RuntimeException;
  */
 class TocGenerator
 {
-    use HeaderTagInterpreter;
+    use HtmlHelper;
 
     // ---------------------------------------------------------------
 
     /**
-     * @var \Sunra\PhpSimple\HtmlDomParser
+     * @var HTML5
      */
     private $domParser;
 
     /**
-     * @var \Knp\Menu\MenuFactory
+     * @var MenuFactory
      */
     private $menuFactory;
 
@@ -51,12 +50,12 @@ class TocGenerator
     /**
      * Constructor
      *
-     * @param \Knp\Menu\MenuFactory          $menuFactory
-     * @param \Sunra\PhpSimple\HtmlDomParser $domParser
+     * @param MenuFactory $menuFactory
+     * @param HTML5       $htmlParser
      */
-    public function __construct(MenuFactory $menuFactory = null, HtmlDomParser $domParser = null)
+    public function __construct(MenuFactory $menuFactory = null, HTML5 $htmlParser = null)
     {
-        $this->domParser   = $domParser ?: new HtmlDomParser();
+        $this->domParser   = $htmlParser  ?: new HTML5();
         $this->menuFactory = $menuFactory ?: new MenuFactory();
     }
 
@@ -84,28 +83,22 @@ class TocGenerator
 
         // Parse HTML
         $tagsToMatch = $this->determineHeaderTags($topLevel, $depth);
-        $parsed = $this->domParser->str_get_html($markup);
 
-        // Runtime exception for bad code
-        if ( ! $parsed) {
-            throw new RuntimeException("Could not parse HTML");
-        }
-
-        // Extract items
 
         // Initial settings
         $lastElem = $menu;
 
         // Do it...
-        foreach ($parsed->find(implode(', ', $tagsToMatch)) as $element) {
+        $domDocument = $this->domParser->loadHTML($markup);
+        foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
 
             // Skip items without IDs
-            if ( ! $element->id) {
+            if ( ! $node->hasAttribute('id')) {
                 continue;
             }
 
             // Get the TagName and the level
-            $tagName = $element->tag;
+            $tagName = $node->tagName;
             $level   = array_search(strtolower($tagName), $tagsToMatch) + 1;
 
             // Determine parent item which to add child
@@ -128,7 +121,10 @@ class TocGenerator
                 }
             }
 
-            $lastElem = $parent->addChild($element->title ?: $element->plaintext, ['uri' => '#' . $element->id]);
+            $lastElem = $parent->addChild(
+                $node->getAttribute('title') ?: $node->textContent,
+                ['uri' => '#' . $node->getAttribute('id')]
+            );
         }
 
         return $menu;

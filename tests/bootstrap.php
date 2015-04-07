@@ -11,7 +11,6 @@
 
 //Files to ensure exist
 $checkFiles['autoload'] = __DIR__.'/../vendor/autoload.php';
-$checkFiles[] = __DIR__.'/../vendor/sunra/php-simple-html-dom-parser/README.md';
 
 //Check 'Em
 foreach($checkFiles as $file) {

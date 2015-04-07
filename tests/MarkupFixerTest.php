@@ -32,10 +32,10 @@ class MarkupFixerTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new MarkupFixer();
 
-        $html = "<h1>No ID</h1><h2>Existing ID</h2><h3>Ignored</h3>";
+        $html = "<h1>No ID</h1><h2 id='it-exists'>Existing ID</h2><h3>Ignored</h3>";
 
         $this->assertEquals(
-            '<h1 id="no-id">No ID</h1><h2 id="existing-id">Existing ID</h2><h3>Ignored</h3>',
+            '<h1 id="no-id">No ID</h1><h2 id="it-exists">Existing ID</h2><h3>Ignored</h3>',
             $obj->fix($html, 1, 2)
         );
     }
@@ -63,8 +63,27 @@ class MarkupFixerTest extends \PHPUnit_Framework_TestCase
         $html = "<h1>No ID</h1><h2 title='b'>Existing ID</h2><h3>Ignored</h3>";
 
         $this->assertEquals(
-          '<h1 id="no-id">No ID</h1><h2 title=\'b\' id="b">Existing ID</h2><h3>Ignored</h3>',
+          '<h1 id="no-id">No ID</h1><h2 title="b" id="b">Existing ID</h2><h3>Ignored</h3>',
           $obj->fix($html, 1, 2)
         );
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
+     * This test ensures that line endings in the DOM content aren't destroyed
+     *
+     * Destroying line-endings can break pre.../pre tag output
+     */
+    public function testFixDoesNotEraseLineEndingsBetweenPreTags()
+    {
+        $htmlContent = file_get_contents(__DIR__ . '/fixtures/htmlWithPre.html');
+
+        $obj = new MarkupFixer();
+        $out = $obj->fix($htmlContent, 1, 2);
+
+        preg_match('/\<pre\>(.+?)\<\/pre\>/s', $out, $matches);
+        $this->assertEquals(3, preg_match_all("/(\n|\r\n)/s", $matches[1]));
+
     }
 }

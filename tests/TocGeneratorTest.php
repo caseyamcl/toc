@@ -52,6 +52,7 @@ class TocGeneratorTest extends \PHPUnit_Framework_TestCase
         $fixture = array_filter(array_map('trim', file(__DIR__ . '/fixtures/testHtmlList.html')));
         $actual  = array_filter(array_map('trim', explode(PHP_EOL, $obj->getHtmlMenu($html, 1, 6))));
 
+
         $this->assertEquals($fixture, $actual);
     }
 
