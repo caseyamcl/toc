@@ -6,7 +6,7 @@ Generates a Table of Contents from *H1...H6* Tags in HTML Content
 [![Build Status](https://travis-ci.org/caseyamcl/toc.svg?branch=master)](https://travis-ci.org/caseyamcl/toc)
 
 This package provides a simple, framework-agnostic library to build
-a Table-of-Contents from HTML markup.  It does so by parsing *H1...H6* tags.  It can also automatically add appropriate *id* anchor attributes to header tags.
+a Table-of-Contents from HTML markup.  It does so by evalutating your *H1...H6* tags.  It can also automatically add appropriate *id* anchor attributes to header tags so that in-page links work.
 
 Features:
 
@@ -21,7 +21,7 @@ Features:
 
 In the spirit of [KISS philosophy](http://en.wikipedia.org/wiki/KISS_principle), this library makes a few assumptions:
 
-1. The hierarchy of your content is defined solely by the header (*H1*...*H6*) tags.  All other tags are ignored.
+1. The hierarchy of your content is defined solely by the header (*H1*...*H6*) tags.  All other tags are ignored when generating the TOC.
 2. The link titles in the Table of Contents match either the `title` attribute of the header tag, or if there is no `title`, the plaintext body of the header tag.
 
 Installation Options
@@ -41,7 +41,7 @@ Usage
 -----
 This package contains two basic classes:
 
-1. `TOC\MarkupFixer`: Adds an `id` anchor attributes to any *H1*...*H6* tags that do not already have any (you can which header tag levels to use)
+1. `TOC\MarkupFixer`: Adds `id` anchor attributes to any *H1*...*H6* tags that do not already have any (you can specify which header tag levels to use at runtime)
 2. `TOC\TocGenerator`: Generates a Table of Contents from HTML markup
 
 Basic Example:
