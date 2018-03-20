@@ -4,4 +4,4 @@ phpunit.xml
 composer.lock
 
 # IDE stuff
-.idea/workspace.xml
+.idea
