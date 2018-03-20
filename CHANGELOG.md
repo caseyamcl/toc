@@ -9,6 +9,7 @@ All notable changes to this project are documented in this file.
 - HtmlHelper evaluates body tags correctly (thanks @Schlaefer)
 - Allow newer versions of dependencies
 - Removed `composer.lock` from Git
+- Removed IDE files (`.idea`) and replaced it with `.editorconfig`
 ### Added
 - Added `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and `PULL_REQUEST_TEMPLATE.md` to make contributing easier
 - Added tests for PHP5.5, 5.6, 7.0, 7.1, and 7.2
