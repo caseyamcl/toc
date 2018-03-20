@@ -81,6 +81,6 @@ trait HtmlHelper
      */
     protected function isFullHtmlDocument($markup)
     {
-        return (strpos($markup, "<body>" !== false) && strpos($markup, "</body>") !== false);
+        return (strpos($markup, "<body>") !== false && strpos($markup, "</body>") !== false);
     }
 }
