@@ -29,7 +29,22 @@ class HtmlHelperTest extends \PHPUnit_Framework_TestCase
 {
     use HtmlHelper;
 
-    // ---------------------------------------------------------------
+    /**
+     * @dataProvider isFullHtmlDocumentDataProvider
+     */
+    public function testIsFullHtmlDocumentReturnsExpectedOutput($expected, $htmlMarkup)
+    {
+        $this->assertEquals($expected, $this->isFullHtmlDocument($htmlMarkup));
+    }
+
+    public function isFullHtmlDocumentDataProvider()
+    {
+        return [
+            [true,  '<html><body><h1>Test</h1></body></html>'],
+            [false, '<p>Test</p>'],
+            [true,  '<html><body class="test"><h2>Test</h2></body></html>']
+        ];
+    }
 
     public function testTraverseHeaderTagsReturnsExpectedOutput()
     {
