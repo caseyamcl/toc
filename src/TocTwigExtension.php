@@ -43,7 +43,7 @@ class TocTwigExtension extends Twig_Extension
      */
     private $fixer;
 
-    // ---------------------------------------------------------------
+
 
     /**
      * Constructor
@@ -57,7 +57,7 @@ class TocTwigExtension extends Twig_Extension
         $this->fixer     = $fixer     ?: new MarkupFixer();
     }
 
-    // ---------------------------------------------------------------
+
 
     /**
      * @return array|\Twig_SimpleFilter[]
@@ -73,7 +73,7 @@ class TocTwigExtension extends Twig_Extension
         return $filters;
     }
 
-    // ---------------------------------------------------------------
+
 
     /**
      * @return array|\Twig_SimpleFunction[]
@@ -101,7 +101,7 @@ class TocTwigExtension extends Twig_Extension
         return $functions;
     }
 
-    // ---------------------------------------------------------------
+
 
     /**
      * Returns the name of the extension.

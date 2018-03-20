@@ -37,7 +37,7 @@ class UniqueSluggifier
      */
     private $used;
 
-    // ---------------------------------------------------------------
+
 
     /**
      * Constructor
@@ -50,7 +50,7 @@ class UniqueSluggifier
         $this->slugify = $slugify ?: new Slugify();
     }
 
-    // ---------------------------------------------------------------
+
 
     /**
      * Slugify

@@ -32,8 +32,6 @@ class TocGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\TOC\TocGenerator', $obj);
     }
 
-    // ---------------------------------------------------------------
-
     public function testGetMenuTraversesLevelsCorrectly()
     {
         $obj = new TocGenerator();
@@ -56,8 +54,6 @@ class TocGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($fixture, $actual);
     }
 
-    // ---------------------------------------------------------------
-
     public function testGetMenuMatchesOnlyElementsWithIDs()
     {
         $html = "
@@ -74,7 +70,7 @@ class TocGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('B-Header', $menu->getLastChild()->getLabel());
     }
 
-    // ---------------------------------------------------------------
+
 
     public function testGetMenuUsesTitleForDisplayTextWhenAvailableAndPlainTextWhenNot()
     {
@@ -92,7 +88,7 @@ class TocGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Baz Biz~', $arr[2]->getLabel());
     }
 
-    // ---------------------------------------------------------------
+
 
     public function testGetMenuGetsOnlyHeaderLevelsSpecified()
     {
@@ -112,7 +108,7 @@ class TocGeneratorTest extends \PHPUnit_Framework_TestCase
         //$this->assertCount(6, TOCTestUtils::flattenMenuItems($obj->getMenu($html, -1, 20)));
     }
 
-    // ---------------------------------------------------------------
+
 
     public function testGetMenuReturnsAnEmptyArrayWhenNoContentOrMatches()
     {

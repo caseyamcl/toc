@@ -39,7 +39,7 @@ trait HtmlHelper
         return array_map(function($val) { return 'h'.$val; }, array_intersect($desired, $allowed));
     }
 
-    // ---------------------------------------------------------------
+
 
     /**
      * Traverse Header Tags in DOM Document
@@ -69,7 +69,7 @@ trait HtmlHelper
     }
 
 
-    // ---------------------------------------------------------------
+
 
     /**
      * Is this a full HTML document

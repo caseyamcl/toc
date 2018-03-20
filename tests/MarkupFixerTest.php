@@ -30,8 +30,6 @@ class MarkupFixerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\TOC\MarkupFixer', $obj);
     }
 
-    // ---------------------------------------------------------------
-
     public function testFixAddsIdsOnlyToElementsWithoutThem()
     {
         $obj = new MarkupFixer();
@@ -43,8 +41,6 @@ class MarkupFixerTest extends \PHPUnit_Framework_TestCase
             $obj->fix($html, 1, 2)
         );
     }
-
-    // ---------------------------------------------------------------
 
     public function testFixDoesNotDuplicateIdsWhenFixing()
     {
@@ -58,8 +54,6 @@ class MarkupFixerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    // ---------------------------------------------------------------
-
     public function testFixUsesTitleAttributeWhenAvailable()
     {
         $obj = new MarkupFixer();
@@ -71,8 +65,6 @@ class MarkupFixerTest extends \PHPUnit_Framework_TestCase
           $obj->fix($html, 1, 2)
         );
     }
-
-    // ---------------------------------------------------------------
 
     /**
      * This test ensures that line endings in the DOM content aren't destroyed

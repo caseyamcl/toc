@@ -34,7 +34,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\TOC\TocTwigExtension', $obj);
     }
 
-    // ---------------------------------------------------------------
+
 
     public function testGetFiltersContainsExpectedFilters()
     {
@@ -46,7 +46,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         }, $obj->getFilters())));
     }
 
-    // ---------------------------------------------------------------
+
 
     public function testGetFunctionsReturnsExpectedFunctions()
     {
@@ -58,7 +58,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         }, $obj->getFunctions())));
     }
 
-    // ---------------------------------------------------------------
+
 
     public function testTwigTocFunctionReturnsString()
     {
@@ -68,7 +68,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
     }
 
-    // ---------------------------------------------------------------
+
 
     public function testTwigTocItemsFunctionReturnsKnpMenuItem()
     {
@@ -78,7 +78,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Knp\Menu\ItemInterface', $result);
     }
 
-    // ---------------------------------------------------------------
+
 
     public function testTwigAddAnchorsFunctionReturnsString()
     {
@@ -88,7 +88,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
     }
 
-    // ---------------------------------------------------------------
+
 
     public function testTwigAddAnchorsFilterReturnsString()
     {
@@ -98,7 +98,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $result);
     }
 
-    // ---------------------------------------------------------------
+
 
     public function testGetNameReturnsExpectedName()
     {
@@ -106,7 +106,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('toc', $obj->getName());
     }
 
-    // ---------------------------------------------------------------
+
 
     private function findFunctionByName(TocTwigExtension $ext, $name)
     {
@@ -119,7 +119,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         throw new \Exception("Invalid function name: ". $name);
     }
 
-    // ---------------------------------------------------------------
+
 
     private function findFilterByName(TocTwigExtension $ext, $name)
     {
