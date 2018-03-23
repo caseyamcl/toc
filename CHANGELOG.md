@@ -1,13 +1,12 @@
 # ChangeLog - PHP TableOfContents (TOC)
 All notable changes to this project are documented in this file.
 
-## 1.2 - [UNRELEASED]
+## 1.2 - 2018-03-23
 ### Changed
 - Formatting changes
 - PSR-2 code style compliance
 ### Fixed
 - HtmlHelper evaluates body tags correctly (thanks @Schlaefer)
-- Allow newer versions of dependencies
 - Removed `composer.lock` from Git
 - Removed IDE files (`.idea`) and replaced it with `.editorconfig`
 ### Added
