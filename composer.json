@@ -22,14 +22,13 @@
   },
   "require": {
     "php": ">=5.4",
-    "masterminds/html5": "^2.1",
-    "cocur/slugify": "^1.0",
-    "knplabs/knp-menu": "^2.0"
+    "masterminds/html5": "~2.1",
+    "cocur/slugify": "~1.0",
+    "knplabs/knp-menu": "~2.0"
   },
   "require-dev": {
-    "twig/twig": "^1.13|^2.0",
-    "phpunit/phpunit": "^4.0",
-    "squizlabs/php_codesniffer": "^2.3"
+    "twig/twig": "~1.13",
+    "phpunit/phpunit": "~4.0"
   },
   "scripts": {
     "test": "phpunit",
