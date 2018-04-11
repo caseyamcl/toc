@@ -30,14 +30,10 @@ class MarkupFixer
 {
     use HtmlHelper;
 
-
-
     /**
      * @var HTML5
      */
     private $htmlParser;
-
-
 
     /**
      * Constructor
@@ -48,9 +44,6 @@ class MarkupFixer
     {
         $this->htmlParser = $htmlParser ?: new HTML5();
     }
-
-
-
 
     /**
      * Fix markup
@@ -85,5 +78,3 @@ class MarkupFixer
         return $this->htmlParser->saveHTML((isset($partialID)) ? $domDocument->getElementById($partialID)->childNodes : $domDocument);
     }
 }
-
-/* EOF: TocMarkupFixer.php */
