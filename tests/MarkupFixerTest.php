@@ -82,4 +82,16 @@ class MarkupFixerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, preg_match_all("/(\n|\r\n)/s", $matches[1]));
 
     }
+
+    public function testFixPreservesNonStandardHtmlAttributes()
+    {
+        $htmlContent = file_get_contents(__DIR__ . '/fixtures/htmlWithVueCode.html');
+        $obj = new MarkupFixer();
+        $out = $obj->fix($htmlContent, 1, 2);
+        $this->assertContains('v-on:click',        $out);
+        $this->assertContains(':class',            $out);
+        $this->assertContains('v-cloak',           $out);
+        $this->assertContains('{{ item.markup }}', $out);
+        $this->assertContains('v-for',             $out);
+    }
 }
