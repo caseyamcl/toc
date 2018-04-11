@@ -5,6 +5,7 @@ All notable changes to this project are documented in this file.
 ### Changed
 - BREAKING: `TocGenerator::getMenu()` returns an empty menu item instead of an empty array when no
   markup exists.
+- Improved unique identifier generation in `MarkupFixer`
 ### Added
 - Markup test to test for non-standard attributes (e.g. Vue, Angular, etc)
 
