@@ -57,7 +57,7 @@ class MarkupFixer
     public function fix($markup, $topLevel = 1, $depth = 6)
     {
         if ( ! $this->isFullHtmlDocument($markup)) {
-            $partialID = 'toc_generator_' . mt_rand(1000, 4000);
+            $partialID = uniqid('toc_generator_');
             $markup = sprintf("<body id='%s'>%s</body>", $partialID, $markup);
         }
 
