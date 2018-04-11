@@ -5,6 +5,8 @@ All notable changes to this project are documented in this file.
 ### Changed
 - BREAKING: `TocGenerator::getMenu()` returns an empty menu item instead of an empty array when no
   markup exists.
+### Added
+- Markup test to test for non-standard attributes (e.g. Vue, Angular, etc)
 
 ## [1.2] - 2018-03-23
 ### Changed
