@@ -70,9 +70,9 @@ class TocGenerator
         // Setup an empty menu object
         $menu = $this->menuFactory->createItem('TOC');
 
-        // Empty?  Do nothing.
+        // Empty?  Return empty menu item
         if (trim($markup) == '') {
-            return [];
+            return $menu;
         }
 
         // Parse HTML
