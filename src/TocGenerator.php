@@ -33,8 +33,6 @@ class TocGenerator
 {
     use HtmlHelper;
 
-
-
     /**
      * @var HTML5
      */
@@ -44,8 +42,6 @@ class TocGenerator
      * @var MenuFactory
      */
     private $menuFactory;
-
-
 
     /**
      * Constructor
@@ -58,8 +54,6 @@ class TocGenerator
         $this->domParser   = $htmlParser  ?: new HTML5();
         $this->menuFactory = $menuFactory ?: new MenuFactory();
     }
-
-
 
     /**
      * Get Menu
@@ -130,8 +124,6 @@ class TocGenerator
         return $menu;
     }
 
-
-
     /**
      * Get HTML Links in list form
      *
@@ -153,5 +145,3 @@ class TocGenerator
         return $renderer->render($this->getMenu($markup, $topLevel, $depth));
     }
 }
-
-/* EOF: TocGenerator.php */

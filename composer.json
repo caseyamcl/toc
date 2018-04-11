@@ -22,7 +22,7 @@
   },
   "require": {
     "php": ">=5.4",
-    "masterminds/html5": "~2.1",
+    "masterminds/html5": "^2.1",
     "cocur/slugify": "~1.0",
     "knplabs/knp-menu": "~2.0"
   },
