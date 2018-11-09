@@ -1,13 +1,14 @@
 # ChangeLog - PHP TableOfContents (TOC)
 All notable changes to this project are documented in this file.
 
-## [Unreleased]
+## [2.0] - 2018-11-09
 ### Changed
 - BREAKING: `TocGenerator::getMenu()` returns an empty menu item instead of an empty array when no
   markup exists.
 - Improved unique identifier generation in `MarkupFixer`
 ### Added
 - Markup test to test for non-standard attributes (e.g. Vue, Angular, etc)
+- Added support for more recent versions of `cocur/slugify` library in `composer.json`
 
 ## [1.2] - 2018-03-23
 ### Changed
