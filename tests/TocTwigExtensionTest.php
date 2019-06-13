@@ -18,7 +18,10 @@
 
 namespace TOC;
 
+use Exception;
 use PHPUnit_Framework_TestCase;
+use Twig_SimpleFilter;
+use Twig_SimpleFunction;
 
 /**
  * TOC Twig Extensions Test
@@ -41,7 +44,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $obj = new TocTwigExtension();
         $expected = ['add_anchors'];
 
-        $this->assertEquals(count($expected), count(array_map(function(\Twig_SimpleFilter $v) {
+        $this->assertEquals(count($expected), count(array_map(function(Twig_SimpleFilter $v) {
             return $v->getName();
         }, $obj->getFilters())));
     }
@@ -53,13 +56,15 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $obj = new TocTwigExtension();
         $expected = ['toc', 'toc_items', 'add_anchors'];
 
-        $this->assertEquals(count($expected), count(array_map(function(\Twig_SimpleFunction $v) {
+        $this->assertEquals(count($expected), count(array_map(function(Twig_SimpleFunction $v) {
             return $v->getName();
         }, $obj->getFunctions())));
     }
 
 
-
+    /**
+     * @throws Exception
+     */
     public function testTwigTocFunctionReturnsString()
     {
         $func = $this->findFunctionByName(new TocTwigExtension(), 'toc');
@@ -69,7 +74,9 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
     }
 
 
-
+    /**
+     * @throws Exception
+     */
     public function testTwigTocItemsFunctionReturnsKnpMenuItem()
     {
         $func = $this->findFunctionByName(new TocTwigExtension(), 'toc_items');
@@ -79,7 +86,9 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
     }
 
 
-
+    /**
+     * @throws Exception
+     */
     public function testTwigAddAnchorsFunctionReturnsString()
     {
         $func = $this->findFunctionByName(new TocTwigExtension(), 'add_anchors');
@@ -89,7 +98,9 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
     }
 
 
-
+    /**
+     * @throws Exception
+     */
     public function testTwigAddAnchorsFilterReturnsString()
     {
         $filter = $this->findFilterByName(new TocTwigExtension(), 'add_anchors');
@@ -116,7 +127,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
             }
         }
 
-        throw new \Exception("Invalid function name: ". $name);
+        throw new Exception("Invalid function name: ". $name);
     }
 
 
@@ -129,7 +140,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
             }
         }
 
-        throw new \Exception("Invalid filter name: ". $name);
+        throw new Exception("Invalid filter name: ". $name);
     }
 
 }
