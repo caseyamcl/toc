@@ -37,8 +37,6 @@ class UniqueSluggifier
      */
     private $used;
 
-
-
     /**
      * Constructor
      *
@@ -49,8 +47,6 @@ class UniqueSluggifier
         $this->used = array();
         $this->slugify = $slugify ?: new Slugify();
     }
-
-
 
     /**
      * Slugify
@@ -73,5 +69,3 @@ class UniqueSluggifier
         return $slugged;
     }
 }
-
-/* EOF: UniqueSluggifier.php */
