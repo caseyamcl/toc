@@ -56,7 +56,7 @@ class MarkupFixer
      */
     public function fix($markup, $topLevel = 1, $depth = 6)
     {
-        if ( ! $this->isFullHtmlDocument($markup)) {
+        if (! $this->isFullHtmlDocument($markup)) {
             $partialID = uniqid('toc_generator_');
             $markup = sprintf("<body id='%s'>%s</body>", $partialID, $markup);
         }
@@ -75,6 +75,8 @@ class MarkupFixer
             $node->setAttribute('id', $sluggifier->slugify($node->getAttribute('title') ?: $node->textContent));
         }
 
-        return $this->htmlParser->saveHTML((isset($partialID)) ? $domDocument->getElementById($partialID)->childNodes : $domDocument);
+        return $this->htmlParser->saveHTML(
+            (isset($partialID)) ? $domDocument->getElementById($partialID)->childNodes : $domDocument
+        );
     }
 }

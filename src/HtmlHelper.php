@@ -17,6 +17,11 @@
 
 namespace TOC;
 
+use ArrayIterator;
+use DOMDocument;
+use DomElement;
+use DOMXPath;
+
 /**
  * Trait that helps with HTML-related operations
  *
@@ -36,7 +41,9 @@ trait HtmlHelper
         $desired = range((int) $topLevel, (int) $topLevel + ((int) $depth - 1));
         $allowed = [1, 2, 3, 4, 5, 6];
 
-        return array_map(function($val) { return 'h'.$val; }, array_intersect($desired, $allowed));
+        return array_map(function ($val) {
+            return 'h'.$val;
+        }, array_intersect($desired, $allowed));
     }
 
 
@@ -44,18 +51,18 @@ trait HtmlHelper
     /**
      * Traverse Header Tags in DOM Document
      *
-     * @param \DOMDocument $domDocument
+     * @param DOMDocument $domDocument
      * @param int          $topLevel
      * @param int          $depth
-     * @return \ArrayIterator|\DomElement[]
+     * @return ArrayIterator|DomElement[]
      */
-    protected function traverseHeaderTags(\DOMDocument $domDocument, $topLevel, $depth)
+    protected function traverseHeaderTags(DOMDocument $domDocument, $topLevel, $depth)
     {
-        $xpath = new \DOMXPath($domDocument);
+        $xpath = new DOMXPath($domDocument);
 
         $xpathQuery = sprintf(
             "//*[%s]",
-            implode(' or ', array_map(function($v) {
+            implode(' or ', array_map(function ($v) {
                 return sprintf('local-name() = "%s"', $v);
             }, $this->determineHeaderTags($topLevel, $depth)))
         );
@@ -65,7 +72,7 @@ trait HtmlHelper
             $nodes[] = $node;
         }
 
-        return new \ArrayIterator($nodes);
+        return new ArrayIterator($nodes);
     }
 
 

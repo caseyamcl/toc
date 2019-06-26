@@ -42,7 +42,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $obj = new TocTwigExtension();
         $expected = ['add_anchors'];
 
-        $this->assertEquals(count($expected), count(array_map(function(Twig_SimpleFilter $v) {
+        $this->assertEquals(count($expected), count(array_map(function (Twig_SimpleFilter $v) {
             return $v->getName();
         }, $obj->getFilters())));
     }
@@ -54,7 +54,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $obj = new TocTwigExtension();
         $expected = ['toc', 'toc_items', 'add_anchors'];
 
-        $this->assertEquals(count($expected), count(array_map(function(Twig_SimpleFunction $v) {
+        $this->assertEquals(count($expected), count(array_map(function (Twig_SimpleFunction $v) {
             return $v->getName();
         }, $obj->getFunctions())));
     }
@@ -150,5 +150,4 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
 
         throw new Exception("Invalid filter name: ". $name);
     }
-
 }

@@ -84,9 +84,8 @@ class TocGenerator
         // Do it...
         $domDocument = $this->domParser->loadHTML($markup);
         foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
-
             // Skip items without IDs
-            if ( ! $node->hasAttribute('id')) {
+            if (! $node->hasAttribute('id')) {
                 continue;
             }
 
@@ -97,17 +96,14 @@ class TocGenerator
             // Determine parent item which to add child
             if ($level == 1) {
                 $parent = $menu;
-            }
-            elseif ($level == $lastElem->getLevel()) {
+            } elseif ($level == $lastElem->getLevel()) {
                 $parent = $lastElem->getParent();
-            }
-            elseif ($level > $lastElem->getLevel()) {
+            } elseif ($level > $lastElem->getLevel()) {
                 $parent = $lastElem;
                 for ($i = $lastElem->getLevel(); $i < ($level - 1); $i++) {
                     $parent = $parent->addChild('');
                 }
-            }
-            else { //if ($level < $lastElem->getLevel())
+            } else { //if ($level < $lastElem->getLevel())
                 $parent = $lastElem->getParent();
                 while ($parent->getLevel() > $level - 1) {
                     $parent = $parent->getParent();
@@ -134,7 +130,7 @@ class TocGenerator
      */
     public function getHtmlMenu($markup, $topLevel = 1, $depth = 6, RendererInterface $renderer = null)
     {
-        if ( ! $renderer) {
+        if (! $renderer) {
             $renderer = new ListRenderer(new Matcher(), [
                 'currentClass'  => 'active',
                 'ancestorClass' => 'active_ancestor'

@@ -17,12 +17,14 @@
 
 namespace TOC;
 
+use PHPUnit_Framework_TestCase;
+
 /**
  * Markup Fixer Test
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class MarkupFixerTest extends \PHPUnit_Framework_TestCase
+class MarkupFixerTest extends PHPUnit_Framework_TestCase
 {
     public function testInstantiateSucceeds()
     {
@@ -61,8 +63,8 @@ class MarkupFixerTest extends \PHPUnit_Framework_TestCase
         $html = "<h1>No ID</h1><h2 title='b'>Existing ID</h2><h3>Ignored</h3>";
 
         $this->assertEquals(
-          '<h1 id="no-id">No ID</h1><h2 title="b" id="b">Existing ID</h2><h3>Ignored</h3>',
-          $obj->fix($html, 1, 2)
+            '<h1 id="no-id">No ID</h1><h2 title="b" id="b">Existing ID</h2><h3>Ignored</h3>',
+            $obj->fix($html, 1, 2)
         );
     }
 
@@ -80,7 +82,6 @@ class MarkupFixerTest extends \PHPUnit_Framework_TestCase
 
         preg_match('/\<pre\>(.+?)\<\/pre\>/s', $out, $matches);
         $this->assertEquals(3, preg_match_all("/(\n|\r\n)/s", $matches[1]));
-
     }
 
     public function testFixPreservesNonStandardHtmlAttributes()
@@ -88,10 +89,10 @@ class MarkupFixerTest extends \PHPUnit_Framework_TestCase
         $htmlContent = file_get_contents(__DIR__ . '/fixtures/htmlWithVueCode.html');
         $obj = new MarkupFixer();
         $out = $obj->fix($htmlContent, 1, 2);
-        $this->assertContains('v-on:click',        $out);
-        $this->assertContains(':class',            $out);
-        $this->assertContains('v-cloak',           $out);
+        $this->assertContains('v-on:click', $out);
+        $this->assertContains(':class', $out);
+        $this->assertContains('v-cloak', $out);
         $this->assertContains('{{ item.markup }}', $out);
-        $this->assertContains('v-for',             $out);
+        $this->assertContains('v-for', $out);
     }
 }

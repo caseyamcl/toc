@@ -26,9 +26,8 @@
 $checkFiles['autoload'] = __DIR__.'/../vendor/autoload.php';
 
 //Check 'Em
-foreach($checkFiles as $file) {
-
-    if ( ! file_exists($file)) {
+foreach ($checkFiles as $file) {
+    if (! file_exists($file)) {
         throw new RuntimeException('Install development dependencies to run test suite.');
     }
 }

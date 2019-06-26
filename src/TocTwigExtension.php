@@ -18,6 +18,8 @@
 namespace TOC;
 
 use Twig_Extension;
+use Twig_SimpleFilter;
+use Twig_SimpleFunction;
 
 /**
  * Table of Contents Twig Extension Integrates with Twig
@@ -34,12 +36,12 @@ use Twig_Extension;
 class TocTwigExtension extends Twig_Extension
 {
     /**
-     * @var \TOC\TocGenerator
+     * @var TocGenerator
      */
     private $generator;
 
     /**
-     * @var \TOC\MarkupFixer
+     * @var MarkupFixer
      */
     private $fixer;
 
@@ -48,8 +50,8 @@ class TocTwigExtension extends Twig_Extension
     /**
      * Constructor
      *
-     * @param \TOC\TocGenerator   $generator
-     * @param \TOC\MarkupFixer $fixer
+     * @param TocGenerator $generator
+     * @param MarkupFixer $fixer
      */
     public function __construct(TocGenerator $generator = null, MarkupFixer $fixer = null)
     {
@@ -60,13 +62,13 @@ class TocTwigExtension extends Twig_Extension
 
 
     /**
-     * @return array|\Twig_SimpleFilter[]
+     * @return array|Twig_SimpleFilter[]
      */
     public function getFilters()
     {
         $filters = parent::getFilters();
 
-        $filters[] = new \Twig_SimpleFilter('add_anchors', function($str, $top = 1, $depth = 6) {
+        $filters[] = new Twig_SimpleFilter('add_anchors', function ($str, $top = 1, $depth = 6) {
             return $this->fixer->fix($str, $top, $depth);
         }, ['is_safe' => ['html']]);
 
@@ -76,7 +78,7 @@ class TocTwigExtension extends Twig_Extension
 
 
     /**
-     * @return array|\Twig_SimpleFunction[]
+     * @return array|Twig_SimpleFunction[]
      */
     public function getFunctions()
     {
@@ -84,17 +86,17 @@ class TocTwigExtension extends Twig_Extension
 
         // ~~~
 
-        $functions[] = new \Twig_SimpleFunction('toc', function($markup, $top = 1, $depth = 6) {
+        $functions[] = new Twig_SimpleFunction('toc', function ($markup, $top = 1, $depth = 6) {
             return $this->generator->getHtmlMenu($markup, $top, $depth);
         }, ['is_safe' => ['html']]);
 
         // ~~~
 
-        $functions[] = new \Twig_SimpleFunction('toc_items', function($markup, $top = 1, $depth = 6) {
+        $functions[] = new Twig_SimpleFunction('toc_items', function ($markup, $top = 1, $depth = 6) {
             return $this->generator->getMenu($markup, $top, $depth);
         });
 
-        $functions[] = new \Twig_SimpleFunction('add_anchors', function($markup, $top = 1, $depth = 6) {
+        $functions[] = new Twig_SimpleFunction('add_anchors', function ($markup, $top = 1, $depth = 6) {
             return $this->fixer->fix($markup, $top, $depth);
         }, ['is_safe' => ['html']]);
 
