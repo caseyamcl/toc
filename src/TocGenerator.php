@@ -78,7 +78,6 @@ class TocGenerator
         // Parse HTML
         $tagsToMatch = $this->determineHeaderTags($topLevel, $depth);
 
-
         // Initial settings
         $lastElem = $menu;
 

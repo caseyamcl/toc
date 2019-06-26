@@ -37,8 +37,6 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\TOC\TocTwigExtension', $obj);
     }
 
-
-
     public function testGetFiltersContainsExpectedFilters()
     {
         $obj = new TocTwigExtension();
@@ -118,7 +116,12 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
     }
 
 
-
+    /**
+     * @param TocTwigExtension $ext
+     * @param $name
+     * @return mixed|Twig_SimpleFunction
+     * @throws Exception
+     */
     private function findFunctionByName(TocTwigExtension $ext, $name)
     {
         foreach ($ext->getFunctions() as $func) {
@@ -131,7 +134,12 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
     }
 
 
-
+    /**
+     * @param TocTwigExtension $ext
+     * @param $name
+     * @return mixed|Twig_SimpleFilter
+     * @throws Exception
+     */
     private function findFilterByName(TocTwigExtension $ext, $name)
     {
         foreach ($ext->getFilters() as $filter) {

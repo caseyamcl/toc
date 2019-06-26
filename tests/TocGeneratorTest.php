@@ -17,6 +17,7 @@
 
 namespace TOC;
 
+use PHPUnit_Framework_TestCase;
 use TOC\Util\TOCTestUtils;
 
 /**
@@ -24,12 +25,20 @@ use TOC\Util\TOCTestUtils;
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class TocGeneratorTest extends \PHPUnit_Framework_TestCase
+class TocGeneratorTest extends PHPUnit_Framework_TestCase
 {
     public function testInstantiateSucceeds()
     {
         $obj = new TocGenerator();
         $this->assertInstanceOf('\TOC\TocGenerator', $obj);
+    }
+
+    public function testDuplicateHeadingsAreEnumerated()
+    {
+        $obj = new TocGenerator();
+
+        $html = "<h1 id='x'>A-Header</h1><h1 id='x'>A-Header</h1>";
+        var_dump($obj->getHtmlMenu($html));
     }
 
     public function testGetMenuTraversesLevelsCorrectly()
@@ -49,7 +58,6 @@ class TocGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $fixture = array_filter(array_map('trim', file(__DIR__ . '/fixtures/testHtmlList.html')));
         $actual  = array_filter(array_map('trim', explode(PHP_EOL, $obj->getHtmlMenu($html, 1, 6))));
-
 
         $this->assertEquals($fixture, $actual);
     }
