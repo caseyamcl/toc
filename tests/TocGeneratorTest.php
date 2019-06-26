@@ -37,8 +37,8 @@ class TocGeneratorTest extends PHPUnit_Framework_TestCase
     {
         $obj = new TocGenerator();
 
-        $html = "<h1 id='x'>A-Header</h1><h1 id='x'>A-Header</h1>";
-        var_dump($obj->getHtmlMenu($html));
+        $html = "<h1 id='x'>A-Header</h1><h1 id='y'>A-Header</h1>";
+        $this->assertSame(2, count($obj->getMenu($html)));
     }
 
     public function testGetMenuTraversesLevelsCorrectly()
@@ -62,7 +62,7 @@ class TocGeneratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($fixture, $actual);
     }
 
-    public function testGetMenuMatchesOnlyElementsWithIDs()
+    public function testGetMenuGeneratesIdsForElementsWithoutIDs()
     {
         $html = "
             <h1 id='a'>A-Header</h1><p>Foobar</p>

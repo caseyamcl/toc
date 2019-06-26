@@ -28,7 +28,7 @@ use Cocur\Slugify\Slugify;
 class UniqueSluggifier
 {
     /**
-     * @var \Cocur\Slugify\Slugify
+     * @var Slugify
      */
     private $slugify;
 
@@ -40,7 +40,7 @@ class UniqueSluggifier
     /**
      * Constructor
      *
-     * @param \Cocur\Slugify\Slugify $slugify
+     * @param Slugify $slugify
      */
     public function __construct(Slugify $slugify = null)
     {

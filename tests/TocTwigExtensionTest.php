@@ -33,7 +33,6 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
     public function testInstantiateSucceeds()
     {
         $obj = new TocTwigExtension();
-
         $this->assertInstanceOf('\TOC\TocTwigExtension', $obj);
     }
 

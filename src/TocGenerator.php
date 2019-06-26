@@ -20,6 +20,7 @@ namespace TOC;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\MenuFactory;
+use Knp\Menu\MenuItem;
 use Knp\Menu\Renderer\ListRenderer;
 use Knp\Menu\Renderer\RendererInterface;
 use Masterminds\HTML5;
@@ -94,6 +95,7 @@ class TocGenerator
             $level   = array_search(strtolower($tagName), $tagsToMatch) + 1;
 
             // Determine parent item which to add child
+            /** @var MenuItem $parent */
             if ($level == 1) {
                 $parent = $menu;
             } elseif ($level == $lastElem->getLevel()) {
@@ -111,8 +113,11 @@ class TocGenerator
             }
 
             $lastElem = $parent->addChild(
-                $node->getAttribute('title') ?: $node->textContent,
-                ['uri' => '#' . $node->getAttribute('id')]
+                $node->getAttribute('id'),
+                [
+                    'label' => $node->getAttribute('title') ?: $node->textContent,
+                    'uri' => '#' . $node->getAttribute('id')
+                ]
             );
         }
 

@@ -1,6 +1,11 @@
 # ChangeLog - PHP TableOfContents (TOC)
 All notable changes to this project are documented in this file.
 
+## [2.0.1] - 2019-06-26
+### Fixed
+- Duplicate headings are identified correctly ([#7](https://github.com/caseyamcl/toc/issues/7))
+- `composer:check-style` and `composer:fix-style` commands now work (fixed missing codesniffer library) 
+
 ## [2.0] - 2018-11-09
 ### Changed
 - BREAKING: `TocGenerator::getMenu()` returns an empty menu item instead of an empty array when no
