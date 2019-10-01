@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHP TableOfContents Library
  *
@@ -14,6 +13,8 @@
  *
  * ------------------------------------------------------------------
  */
+
+declare(strict_types=1);
 
 namespace TOC;
 
@@ -54,7 +55,7 @@ class MarkupFixer
      * @return string Markup with added IDs
      * @throws RuntimeException
      */
-    public function fix($markup, $topLevel = 1, $depth = 6)
+    public function fix(string $markup, int $topLevel = 1, int $depth = 6): string
     {
         if (! $this->isFullHtmlDocument($markup)) {
             $partialID = uniqid('toc_generator_');

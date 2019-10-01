@@ -1,6 +1,23 @@
 # ChangeLog - PHP TableOfContents (TOC)
 All notable changes to this project are documented in this file.
 
+## [2.1] - 2019-10-01
+### Added
+- PHP 7 goodness: `declare(strict_types=1)` and method return signatures
+
+### Fixed
+- Version number in COPYRIGHT notice
+
+### Changed
+- Updated PHP requirements to modern versions (7.1+)
+- Updated dependencies in `composer.json`: `knplabs/knp-menu` now allows v3.0
+- Updated dependencies in `composer.json`: `twig/twig` now allows v2.0
+- Updated dependencies in `composer.json`: minimum version of PHPunit is now v7.5
+- Modified `phpunit.xml.dist` to include coverage report generation 
+
+### Removed
+- Support for old PHP versions in `.travis.yml`
+
 ## [2.0.1] - 2019-06-26
 ### Fixed
 - Duplicate headings are identified correctly ([#7](https://github.com/caseyamcl/toc/issues/7))

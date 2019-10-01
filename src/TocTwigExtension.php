@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHP TableOfContents Library
  *
@@ -14,6 +13,8 @@
  *
  * ------------------------------------------------------------------
  */
+
+declare(strict_types=1);
 
 namespace TOC;
 
@@ -64,7 +65,7 @@ class TocTwigExtension extends Twig_Extension
     /**
      * @return array|Twig_SimpleFilter[]
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         $filters = parent::getFilters();
 
@@ -80,7 +81,7 @@ class TocTwigExtension extends Twig_Extension
     /**
      * @return array|Twig_SimpleFunction[]
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         $functions = parent::getFunctions();
 
@@ -110,7 +111,7 @@ class TocTwigExtension extends Twig_Extension
      *
      * @return string The extension name
      */
-    public function getName()
+    public function getName(): string
     {
         return 'toc';
     }

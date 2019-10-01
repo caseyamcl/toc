@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHP TableOfContents Library
  *
@@ -14,6 +13,8 @@
  *
  * ------------------------------------------------------------------
  */
+
+declare(strict_types=1);
 
 namespace TOC;
 
@@ -36,7 +37,7 @@ trait HtmlHelper
      * @param int $depth
      * @return array|string[]  Array of header tags; ex: ['h1', 'h2', 'h3']
      */
-    protected function determineHeaderTags($topLevel, $depth)
+    protected function determineHeaderTags(int $topLevel, int $depth): array
     {
         $desired = range((int) $topLevel, (int) $topLevel + ((int) $depth - 1));
         $allowed = [1, 2, 3, 4, 5, 6];
@@ -56,7 +57,7 @@ trait HtmlHelper
      * @param int          $depth
      * @return ArrayIterator|DomElement[]
      */
-    protected function traverseHeaderTags(DOMDocument $domDocument, $topLevel, $depth)
+    protected function traverseHeaderTags(DOMDocument $domDocument, int $topLevel, int $depth): ArrayIterator
     {
         $xpath = new DOMXPath($domDocument);
 
@@ -86,7 +87,7 @@ trait HtmlHelper
      * @param string $markup
      * @return bool
      */
-    protected function isFullHtmlDocument($markup)
+    protected function isFullHtmlDocument(string $markup): bool
     {
         return (strpos($markup, "<body") !== false && strpos($markup, "</body>") !== false);
     }

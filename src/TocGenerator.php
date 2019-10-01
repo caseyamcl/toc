@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHP TableOfContents Library
  *
@@ -14,6 +13,8 @@
  *
  * ------------------------------------------------------------------
  */
+
+declare(strict_types=1);
 
 namespace TOC;
 
@@ -66,7 +67,7 @@ class TocGenerator
      * @param int     $depth     Depth (1 through 6)
      * @return ItemInterface     KNP Menu
      */
-    public function getMenu($markup, $topLevel = 1, $depth = 6)
+    public function getMenu(string $markup, int $topLevel = 1, int $depth = 6): ItemInterface
     {
         // Setup an empty menu object
         $menu = $this->menuFactory->createItem('TOC');
@@ -133,8 +134,12 @@ class TocGenerator
      * @param RendererInterface $renderer
      * @return string HTML <LI> items
      */
-    public function getHtmlMenu($markup, $topLevel = 1, $depth = 6, RendererInterface $renderer = null)
-    {
+    public function getHtmlMenu(
+        string $markup,
+        int $topLevel = 1,
+        int $depth = 6,
+        RendererInterface $renderer = null
+    ): string {
         if (! $renderer) {
             $renderer = new ListRenderer(new Matcher(), [
                 'currentClass'  => 'active',

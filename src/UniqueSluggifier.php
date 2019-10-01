@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * PHP TableOfContents Library
@@ -15,6 +14,8 @@
  *
  * ------------------------------------------------------------------
  */
+
+declare(strict_types=1);
 
 namespace TOC;
 
@@ -54,7 +55,7 @@ class UniqueSluggifier
      * @param string $text
      * @return string
      */
-    public function slugify($text)
+    public function slugify(string $text): string
     {
         $slugged = $this->slugify->slugify($text);
 
