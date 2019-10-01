@@ -3,7 +3,8 @@ All notable changes to this project are documented in this file.
 
 ## [2.1] - 2019-10-01
 ### Added
-- PHP 7 goodness: `declare(strict_types=1)` and method return signatures
+- Ability to easily render `<ol>` and `<ul>` lists (thanks @swapnilbanga) (fixes #2)
+- PHP 7 goodness: `declare(strict_types=1)` and method argument & return signatures
 
 ### Fixed
 - Version number in COPYRIGHT notice
