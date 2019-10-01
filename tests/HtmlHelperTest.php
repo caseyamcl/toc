@@ -8,7 +8,7 @@
  * @package caseyamcl/toc
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
  *
  * ------------------------------------------------------------------
@@ -44,16 +44,16 @@ class HtmlHelperTest extends TestCase
     public function isFullHtmlDocumentDataProvider(): array
     {
         return [
-            [true,  '<html><body><h1>Test</h1></body></html>'],
+            [true,  '<html lang="en-US"><body><h1>Test</h1></body></html>'],
             [false, '<p>Test</p>'],
-            [true,  '<html><body class="test"><h2>Test</h2></body></html>']
+            [true,  '<html lang="en-US"><body class="test"><h2>Test</h2></body></html>']
         ];
     }
 
     public function testTraverseHeaderTagsReturnsExpectedOutput(): void
     {
         $h5 = new HTML5();
-        $domDocument = $h5->loadHTML('<html><body><h1>Test</h1><h2>Test2</h2></body></html>');
+        $domDocument = $h5->loadHTML('<html lang="en-US"><body><h1>Test</h1><h2>Test2</h2></body></html>');
         $nodes = $this->traverseHeaderTags($domDocument, 1, 2);
 
         $this->assertEquals(2, $nodes->count());

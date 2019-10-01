@@ -15,6 +15,7 @@ All notable changes to this project are documented in this file.
 - Updated dependencies in `composer.json`: minimum version of PHPunit is now v7.5
 - Updated PHP CodeSniffer to use PSR-12 standard
 - Modified `phpunit.xml.dist` to include coverage report generation 
+- Renamed `LICENSE` to `LICENSE.md`
 
 ### Removed
 - Support for old PHP versions in `.travis.yml`
