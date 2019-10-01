@@ -77,9 +77,6 @@ trait HtmlHelper
         return new ArrayIterator($nodes);
     }
 
-
-
-
     /**
      * Is this a full HTML document
      *

@@ -156,9 +156,11 @@ class TocGeneratorTest extends TestCase
         $obj = new TocGenerator();
 
         yield [
-            $obj->getMenu("<h3 id='x'>X-Header</h3><h4 id='y'>Y-Header</h4><h4 id='z'>Z-Header</h4>", 1, 6),
-            1,
-            2
+            $obj->getMenu(
+                "<h3 id='a'>A-Header</h3><h4 id='y'>Y-Header</h4><h4 id='z'>Z-Header</h4><h3 id='x'>X-Header</h3>",
+                1,
+                6
+            ), 2, 2
         ];
 
         yield [$obj->getMenu("<h1 id='x'>X-Header</h1>", 1, 6), 1];
