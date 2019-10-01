@@ -26,7 +26,7 @@ Features:
 * Uses the flexible [KnpMenu Library](https://github.com/KnpLabs/KnpMenu) to generate menus
 * PSR-0 thru PSR-2 Compliant
 * Composer-compatible
-* Unit-tested
+* Unit-tested (100% coverage)
 
 In the spirit of [KISS philosophy](http://en.wikipedia.org/wiki/KISS_principle), this library makes a few assumptions:
 
