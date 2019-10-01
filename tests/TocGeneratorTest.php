@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP TableOfContents Library
  *
@@ -118,5 +119,13 @@ class TocGeneratorTest extends TestCase
         $obj = new TocGenerator();
         $this->assertEquals(0, count($obj->getMenu("<h1>Boo</h1><h2>Bar</h2>")));
         $this->assertEquals(0, count($obj->getMenu("")));
+    }
+
+    public function testGetMenuRespectsOlOption(): void
+    {
+        $obj = new TocGenerator();
+        $html = "<h1 id='x'>A-Header</h1><h1 id='y'>A-Header</h1>";
+        $menuHtml = $obj->getOrderedHtmlMenu($html, 1, 6, null);
+        $this->assertStringStartsWith('<ol>', $menuHtml);
     }
 }

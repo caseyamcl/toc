@@ -92,6 +92,10 @@ class TocTwigExtension extends Twig_Extension
             return $this->generator->getHtmlMenu($markup, $top, $depth);
         }, ['is_safe' => ['html']]);
 
+        $functions[] = new Twig_SimpleFunction('toc_ordered', function ($markup, $top = 1, $depth = 6) {
+            return $this->generator->getHtmlMenu($markup, $top, $depth, null, true);
+        }, ['is_safe' => ['html']]);
+
         // ~~~
 
         $functions[] = new Twig_SimpleFunction('toc_items', function ($markup, $top = 1, $depth = 6) {

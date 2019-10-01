@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP TableOfContents Library
  *
@@ -52,13 +53,12 @@ class TocTwigExtensionTest extends TestCase
     public function testGetFunctionsReturnsExpectedFunctions(): void
     {
         $obj = new TocTwigExtension();
-        $expected = ['toc', 'toc_items', 'add_anchors'];
+        $expected = ['toc', 'toc_items', 'add_anchors', 'toc_ordered'];
 
         $this->assertEquals(count($expected), count(array_map(function (Twig_SimpleFunction $v) {
             return $v->getName();
         }, $obj->getFunctions())));
     }
-
 
     /**
      * @throws Exception
@@ -71,6 +71,12 @@ class TocTwigExtensionTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function testTwigTocOrderedFunctionReturnsString(): void
+    {
+        $func = $this->findFunctionByName(new TocTwigExtension(), 'toc_ordered');
+        $result = $func->getCallable()->__invoke("<h1 id='a'>hi</h1><h2 id='b'>bye</h2>");
+        $this->assertIsString($result);
+    }
 
     /**
      * @throws Exception

@@ -127,27 +127,48 @@ class TocGenerator
     }
 
     /**
-     * Get HTML Links in list form
+     * Get HTML menu in unordered list form
      *
-     * @param string            $markup   Content to get items from
-     * @param int               $topLevel Top Header (1 through 6)
-     * @param int               $depth    Depth (1 through 6)
-     * @param RendererInterface $renderer
-     * @return string HTML <LI> items
+     * @param string $markup Content to get items from
+     * @param int $topLevel Top Header (1 through 6)
+     * @param int $depth Depth (1 through 6)
+     * @param RendererInterface|null $renderer
+     * @param bool $ordered
+     * @return string HTML <li> items
      */
     public function getHtmlMenu(
         string $markup,
         int $topLevel = 1,
         int $depth = 6,
-        RendererInterface $renderer = null
+        ?RendererInterface $renderer = null,
+        bool $ordered = false
     ): string {
         if (! $renderer) {
-            $renderer = new ListRenderer(new Matcher(), [
-                'currentClass'  => 'active',
-                'ancestorClass' => 'active_ancestor'
-            ]);
+            $options = ['currentClass'  => 'active', 'ancestorClass' => 'active_ancestor'];
+            $renderer = $ordered
+                ? new OrderedListRenderer(new Matcher(), $options)
+                : new ListRenderer(new Matcher(), $options);
         }
 
-        return $renderer->render($this->getMenu($markup, $topLevel, $depth));
+        $menu = $this->getMenu($markup, $topLevel, $depth);
+        return $renderer->render($menu);
+    }
+
+    /**
+     * Get HTML menu in ordered list form
+     *
+     * @param string $markup Content to get items from
+     * @param int $topLevel Top Header (1 through 6)
+     * @param int $depth Depth (1 through 6)
+     * @param RendererInterface|null $renderer
+     * @return string HTML <li> items
+     */
+    public function getOrderedHtmlMenu(
+        string $markup,
+        int $topLevel = 1,
+        int $depth = 6,
+        RendererInterface $renderer = null
+    ): string {
+        return $this->getHtmlMenu($markup, $topLevel, $depth, $renderer, true);
     }
 }
