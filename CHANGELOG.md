@@ -7,6 +7,7 @@ All notable changes to this project are documented in this file.
 - PHP 7 goodness: `declare(strict_types=1)` and method argument & return signatures
 
 ### Fixed
+- Several issues in the README (typos, etc)
 - Version number in COPYRIGHT notice
 
 ### Changed

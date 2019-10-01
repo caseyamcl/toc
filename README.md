@@ -76,6 +76,35 @@ $htmlOut .= "<div class='toc'>" . $tocGenerator->getHtmlMenu($myHtmlContent) . "
 echo $htmlOut;
 ```
 
+This produces the following output:
+
+```html
+<div class='content'>
+    <h1 id="this-is-a-header-tag-with-no-anchor-id">This is a header tag with no anchor id</h1>
+    <p>Lorum ipsum doler sit amet</p>
+    <h2 id="foo">This is a header tag with an anchor id</h2>
+    <p>Stuff here</p>
+    <h3 id="bar">This is a header tag with an anchor id</h3>
+</div>
+<div class='toc'>
+    <ul>
+        <li class="first last">
+        <span></span>
+            <ul class="menu_level_1">
+                <li class="first last">
+                    <a href="#foo">This is a header tag with an anchor id</a>
+                    <ul class="menu_level_2">
+                        <li class="first last">
+                            <a href="#bar">This is a header tag with an anchor id</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+```
+
 Twig Integration
 ----------------
 
