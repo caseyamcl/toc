@@ -3,7 +3,12 @@ PHP TOC Generator
 
 Generates a Table of Contents from *H1...H6* Tags in HTML Content
 
-[![Build Status](https://travis-ci.org/caseyamcl/toc.svg?branch=master)](https://travis-ci.org/caseyamcl/toc)
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Build Status][ico-travis]][link-travis]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![Total Downloads][ico-downloads]][link-downloads]
 
 This package provides a simple, framework-agnostic library to build
 a Table-of-Contents from HTML markup.  It does so by evalutating your *H1...H6* tags.  It can also automatically add appropriate *id* anchor attributes to header tags so that in-page links work.
@@ -213,3 +218,18 @@ $tocGenerator = new TOC\TocGenerator();
 echo $menuRenderer->render($tocGenerator->getMenu($someHtmlContent));
 
 ```
+
+[ico-version]: https://img.shields.io/packagist/v/caseyamcl/toc.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/caseyamcl/toc/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/caseyamcl/toc.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/caseyamcl/toc.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/caseyamcl/toc.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/caseyamcl/toc
+[link-travis]: https://travis-ci.org/caseyamcl/toc
+[link-scrutinizer]: https://scrutinizer-ci.com/g/caseyamcl/toc/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/caseyamcl/toc
+[link-downloads]: https://packagist.org/packages/caseyamcl/toc
+[link-author]: https://github.com/caseyamcl
+[link-contributors]: ../../contributors
