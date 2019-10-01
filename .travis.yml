@@ -7,11 +7,6 @@ before_script:
 
 env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
 
-matrix:
-    include:
-        - php: 7.1
-          env: 'COMPOSER_FLAGS="--prefer-stable"'
-
 script:
   - vendor/bin/phpcs --standard=psr12 src/
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
