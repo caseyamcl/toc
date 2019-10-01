@@ -1,11 +1,11 @@
 <?php
 /**
- * toc
+ * PHP TableOfContents Library
  *
- * @license ${LICENSE_LINK}
- * @link ${PROJECT_URL_LINK}
- * @version ${VERSION}
- * @package ${PACKAGE_NAME}
+ * @license http://opensource.org/licenses/MIT
+ * @link https://github.com/caseyamcl/toc
+ * @version 2
+ * @package caseyamcl/toc
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -13,6 +13,8 @@
  *
  * ------------------------------------------------------------------
  */
+
+declare(strict_types=1);
 
 namespace TOC\Util;
 
@@ -28,7 +30,7 @@ class TOCTestUtils
      * @param bool          $isTop  Is the initial menu item starting at the top-level?
      * @return array|MenuItem[]
      */
-    public static function flattenMenuItems(ItemInterface $item, $isTop = true)
+    public static function flattenMenuItems(ItemInterface $item, $isTop = true): array
     {
         $arr = $isTop ? [] : [$item];
 

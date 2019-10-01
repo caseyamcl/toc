@@ -13,10 +13,12 @@ All notable changes to this project are documented in this file.
 - Updated dependencies in `composer.json`: `knplabs/knp-menu` now allows v3.0
 - Updated dependencies in `composer.json`: `twig/twig` now allows v2.0
 - Updated dependencies in `composer.json`: minimum version of PHPunit is now v7.5
+- Updated PHP CodeSniffer to use PSR-12 standard
 - Modified `phpunit.xml.dist` to include coverage report generation 
 
 ### Removed
 - Support for old PHP versions in `.travis.yml`
+- Redundant `bootstrap.php` file in tests
 
 ## [2.0.1] - 2019-06-26
 ### Fixed

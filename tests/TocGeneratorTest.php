@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHP TableOfContents Library
  *
@@ -15,6 +14,8 @@
  * ------------------------------------------------------------------
  */
 
+declare(strict_types=1);
+
 namespace TOC;
 
 use PHPUnit\Framework\TestCase;
@@ -27,13 +28,13 @@ use TOC\Util\TOCTestUtils;
  */
 class TocGeneratorTest extends TestCase
 {
-    public function testInstantiateSucceeds()
+    public function testInstantiateSucceeds(): void
     {
         $obj = new TocGenerator();
         $this->assertInstanceOf('\TOC\TocGenerator', $obj);
     }
 
-    public function testDuplicateHeadingsAreEnumerated()
+    public function testDuplicateHeadingsAreEnumerated(): void
     {
         $obj = new TocGenerator();
 
@@ -41,7 +42,7 @@ class TocGeneratorTest extends TestCase
         $this->assertSame(2, count($obj->getMenu($html)));
     }
 
-    public function testGetMenuTraversesLevelsCorrectly()
+    public function testGetMenuTraversesLevelsCorrectly(): void
     {
         $obj = new TocGenerator();
 
@@ -62,7 +63,7 @@ class TocGeneratorTest extends TestCase
         $this->assertEquals($fixture, $actual);
     }
 
-    public function testGetMenuGeneratesIdsForElementsWithoutIDs()
+    public function testGetMenuGeneratesIdsForElementsWithoutIDs(): void
     {
         $html = "
             <h1 id='a'>A-Header</h1><p>Foobar</p>
@@ -78,7 +79,7 @@ class TocGeneratorTest extends TestCase
         $this->assertEquals('B-Header', $menu->getLastChild()->getLabel());
     }
 
-    public function testGetMenuUsesTitleForDisplayTextWhenAvailableAndPlainTextWhenNot()
+    public function testGetMenuUsesTitleForDisplayTextWhenAvailableAndPlainTextWhenNot(): void
     {
         $obj = new TocGenerator();
 
@@ -94,7 +95,7 @@ class TocGeneratorTest extends TestCase
         $this->assertEquals('Baz Biz~', $arr[2]->getLabel());
     }
 
-    public function testGetMenuGetsOnlyHeaderLevelsSpecified()
+    public function testGetMenuGetsOnlyHeaderLevelsSpecified(): void
     {
         $obj = new TocGenerator();
 
@@ -112,7 +113,7 @@ class TocGeneratorTest extends TestCase
         //$this->assertCount(6, TOCTestUtils::flattenMenuItems($obj->getMenu($html, -1, 20)));
     }
 
-    public function testGetMenuReturnsEmptyMenuItemWhenNoContentOrMatches()
+    public function testGetMenuReturnsEmptyMenuItemWhenNoContentOrMatches(): void
     {
         $obj = new TocGenerator();
         $this->assertEquals(0, count($obj->getMenu("<h1>Boo</h1><h2>Bar</h2>")));

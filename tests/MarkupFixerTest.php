@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHP TableOfContents Library
  *
@@ -15,6 +14,8 @@
  * ------------------------------------------------------------------
  */
 
+declare(strict_types=1);
+
 namespace TOC;
 
 use PHPUnit\Framework\TestCase;
@@ -26,13 +27,13 @@ use PHPUnit\Framework\TestCase;
  */
 class MarkupFixerTest extends TestCase
 {
-    public function testInstantiateSucceeds()
+    public function testInstantiateSucceeds(): void
     {
         $obj = new MarkupFixer();
         $this->assertInstanceOf('\TOC\MarkupFixer', $obj);
     }
 
-    public function testFixAddsIdsOnlyToElementsWithoutThem()
+    public function testFixAddsIdsOnlyToElementsWithoutThem(): void
     {
         $obj = new MarkupFixer();
 
@@ -44,7 +45,7 @@ class MarkupFixerTest extends TestCase
         );
     }
 
-    public function testFixDoesNotDuplicateIdsWhenFixing()
+    public function testFixDoesNotDuplicateIdsWhenFixing(): void
     {
         $obj = new MarkupFixer();
 
@@ -56,7 +57,7 @@ class MarkupFixerTest extends TestCase
         );
     }
 
-    public function testFixUsesTitleAttributeWhenAvailable()
+    public function testFixUsesTitleAttributeWhenAvailable(): void
     {
         $obj = new MarkupFixer();
 
@@ -73,7 +74,7 @@ class MarkupFixerTest extends TestCase
      *
      * Destroying line-endings can break pre.../pre tag output
      */
-    public function testFixDoesNotEraseLineEndingsBetweenPreTags()
+    public function testFixDoesNotEraseLineEndingsBetweenPreTags(): void
     {
         $htmlContent = file_get_contents(__DIR__ . '/fixtures/htmlWithPre.html');
 
@@ -84,7 +85,7 @@ class MarkupFixerTest extends TestCase
         $this->assertEquals(3, preg_match_all("/(\n|\r\n)/s", $matches[1]));
     }
 
-    public function testFixPreservesNonStandardHtmlAttributes()
+    public function testFixPreservesNonStandardHtmlAttributes(): void
     {
         $htmlContent = file_get_contents(__DIR__ . '/fixtures/htmlWithVueCode.html');
         $obj = new MarkupFixer();

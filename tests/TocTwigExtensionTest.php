@@ -1,7 +1,5 @@
 <?php
-
 /**
- *
  * PHP TableOfContents Library
  *
  * @license http://opensource.org/licenses/MIT
@@ -15,6 +13,8 @@
  *
  * ------------------------------------------------------------------
  */
+
+declare(strict_types=1);
 
 namespace TOC;
 
@@ -31,13 +31,13 @@ use Twig_SimpleFunction;
  */
 class TocTwigExtensionTest extends TestCase
 {
-    public function testInstantiateSucceeds()
+    public function testInstantiateSucceeds(): void
     {
         $obj = new TocTwigExtension();
         $this->assertInstanceOf('\TOC\TocTwigExtension', $obj);
     }
 
-    public function testGetFiltersContainsExpectedFilters()
+    public function testGetFiltersContainsExpectedFilters(): void
     {
         $obj = new TocTwigExtension();
         $expected = ['add_anchors'];
@@ -49,7 +49,7 @@ class TocTwigExtensionTest extends TestCase
 
 
 
-    public function testGetFunctionsReturnsExpectedFunctions()
+    public function testGetFunctionsReturnsExpectedFunctions(): void
     {
         $obj = new TocTwigExtension();
         $expected = ['toc', 'toc_items', 'add_anchors'];
@@ -63,7 +63,7 @@ class TocTwigExtensionTest extends TestCase
     /**
      * @throws Exception
      */
-    public function testTwigTocFunctionReturnsString()
+    public function testTwigTocFunctionReturnsString(): void
     {
         $func = $this->findFunctionByName(new TocTwigExtension(), 'toc');
         $result = $func->getCallable()->__invoke("<h1 id='a'>hi</h1><h2 id='b'>bye</h2>");
@@ -75,7 +75,7 @@ class TocTwigExtensionTest extends TestCase
     /**
      * @throws Exception
      */
-    public function testTwigTocItemsFunctionReturnsKnpMenuItem()
+    public function testTwigTocItemsFunctionReturnsKnpMenuItem(): void
     {
         $func = $this->findFunctionByName(new TocTwigExtension(), 'toc_items');
         $result = $func->getCallable()->__invoke("<h1 id='a'>hi</h1><h2 id='b'>bye</h2>");
@@ -87,7 +87,7 @@ class TocTwigExtensionTest extends TestCase
     /**
      * @throws Exception
      */
-    public function testTwigAddAnchorsFunctionReturnsString()
+    public function testTwigAddAnchorsFunctionReturnsString(): void
     {
         $func = $this->findFunctionByName(new TocTwigExtension(), 'add_anchors');
         $result = $func->getCallable()->__invoke("<h1>hi</h1><h2>bye</h2>");
@@ -99,7 +99,7 @@ class TocTwigExtensionTest extends TestCase
     /**
      * @throws Exception
      */
-    public function testTwigAddAnchorsFilterReturnsString()
+    public function testTwigAddAnchorsFilterReturnsString(): void
     {
         $filter = $this->findFilterByName(new TocTwigExtension(), 'add_anchors');
         $result = $filter->getCallable()->__invoke("<h1>hi</h1><h2>bye</h2>");
@@ -109,7 +109,7 @@ class TocTwigExtensionTest extends TestCase
 
 
 
-    public function testGetNameReturnsExpectedName()
+    public function testGetNameReturnsExpectedName(): void
     {
         $obj = new TocTwigExtension();
         $this->assertEquals('toc', $obj->getName());
@@ -130,7 +130,7 @@ class TocTwigExtensionTest extends TestCase
             }
         }
 
-        throw new Exception("Invalid function name: ". $name);
+        throw new Exception("Invalid function name: " . $name);
     }
 
 
@@ -148,6 +148,6 @@ class TocTwigExtensionTest extends TestCase
             }
         }
 
-        throw new Exception("Invalid filter name: ". $name);
+        throw new Exception("Invalid filter name: " . $name);
     }
 }

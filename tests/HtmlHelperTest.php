@@ -1,7 +1,5 @@
 <?php
-
 /**
- *
  * PHP TableOfContents Library
  *
  * @license http://opensource.org/licenses/MIT
@@ -15,6 +13,8 @@
  *
  * ------------------------------------------------------------------
  */
+
+declare(strict_types=1);
 
 namespace TOC;
 
@@ -33,12 +33,15 @@ class HtmlHelperTest extends TestCase
     /**
      * @dataProvider isFullHtmlDocumentDataProvider
      */
-    public function testIsFullHtmlDocumentReturnsExpectedOutput($expected, $htmlMarkup)
+    public function testIsFullHtmlDocumentReturnsExpectedOutput($expected, $htmlMarkup): void
     {
         $this->assertEquals($expected, $this->isFullHtmlDocument($htmlMarkup));
     }
 
-    public function isFullHtmlDocumentDataProvider()
+    /**
+     * @return array
+     */
+    public function isFullHtmlDocumentDataProvider(): array
     {
         return [
             [true,  '<html><body><h1>Test</h1></body></html>'],
@@ -47,7 +50,7 @@ class HtmlHelperTest extends TestCase
         ];
     }
 
-    public function testTraverseHeaderTagsReturnsExpectedOutput()
+    public function testTraverseHeaderTagsReturnsExpectedOutput(): void
     {
         $h5 = new HTML5();
         $domDocument = $h5->loadHTML('<html><body><h1>Test</h1><h2>Test2</h2></body></html>');
