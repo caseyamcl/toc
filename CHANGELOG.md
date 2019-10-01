@@ -9,6 +9,7 @@ All notable changes to this project are documented in this file.
 ### Fixed
 - Several issues in the README (typos, etc)
 - Version number in COPYRIGHT notice
+- Empty levels are now automatically trimmed from the generated output (fixes #1) 
 
 ### Changed
 - Updated PHP requirements to modern versions (7.1+)

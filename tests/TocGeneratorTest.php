@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace TOC;
 
+use Knp\Menu\ItemInterface;
 use PHPUnit\Framework\TestCase;
 use TOC\Util\TOCTestUtils;
 
@@ -64,7 +65,7 @@ class TocGeneratorTest extends TestCase
         $this->assertEquals($fixture, $actual);
     }
 
-    public function testGetMenuGeneratesIdsForElementsWithoutIDs(): void
+    public function testGetMenuDoesNotGenerateIDsForElementsWithoutIDs(): void
     {
         $html = "
             <h1 id='a'>A-Header</h1><p>Foobar</p>
@@ -121,11 +122,53 @@ class TocGeneratorTest extends TestCase
         $this->assertEquals(0, count($obj->getMenu("")));
     }
 
-    public function testGetMenuRespectsOlOption(): void
+    public function testGetOrderedMenu(): void
     {
         $obj = new TocGenerator();
         $html = "<h1 id='x'>A-Header</h1><h1 id='y'>A-Header</h1>";
         $menuHtml = $obj->getOrderedHtmlMenu($html, 1, 6, null);
         $this->assertStringStartsWith('<ol>', $menuHtml);
+    }
+
+    /**
+     * @dataProvider unusedHeadingLevelsAreTrimmedDataProvider
+     * @param ItemInterface $menuItem
+     * @param int $expectedTopLevelItems
+     * @param int $expectedSubItems
+     */
+    public function testUnusedHeadingLevelsAreTrimmedFromGeneratedMenu(
+        ItemInterface $menuItem,
+        int $expectedTopLevelItems,
+        int $expectedSubItems = 0
+    ): void {
+        $this->assertEquals($expectedTopLevelItems, count($menuItem->getChildren()));
+
+        if ($expectedSubItems > 0) {
+            $this->assertEquals($expectedSubItems, count($menuItem->getFirstChild()->getChildren()));
+        }
+    }
+
+    /**
+     * @return iterable|ItemInterface[]
+     */
+    public function unusedHeadingLevelsAreTrimmedDataProvider(): iterable
+    {
+        $obj = new TocGenerator();
+
+        yield [
+            $obj->getMenu("<h3 id='x'>X-Header</h3><h4 id='y'>Y-Header</h4><h4 id='z'>Z-Header</h4>", 1, 6),
+            1,
+            2
+        ];
+
+        yield [$obj->getMenu("<h1 id='x'>X-Header</h1>", 1, 6), 1];
+
+        yield [
+            $obj->getMenu('<h5 id="x">X-Header</h5><h5 id="y">Y-Header</h5>', 1, 6), 2
+        ];
+
+        yield [
+            $obj->getMenu('<h6 id="y">Y-Header</h6>', 1, 5), 0
+        ];
     }
 }

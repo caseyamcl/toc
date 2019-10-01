@@ -36,6 +36,8 @@ class TocGenerator
 {
     use HtmlHelper;
 
+    private const DEFAULT_NAME = 'TOC';
+
     /**
      * @var HTML5
      */
@@ -71,7 +73,7 @@ class TocGenerator
     public function getMenu(string $markup, int $topLevel = 1, int $depth = 6): ItemInterface
     {
         // Setup an empty menu object
-        $menu = $this->menuFactory->createItem('TOC');
+        $menu = $this->menuFactory->createItem(static::DEFAULT_NAME);
 
         // Empty?  Return empty menu item
         if (trim($markup) == '') {
@@ -86,7 +88,7 @@ class TocGenerator
 
         // Do it...
         $domDocument = $this->domParser->loadHTML($markup);
-        foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
+        foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $i => $node) {
             // Skip items without IDs
             if (! $node->hasAttribute('id')) {
                 continue;
@@ -123,7 +125,32 @@ class TocGenerator
             );
         }
 
-        return $menu;
+        return $this->trimMenu($menu);
+    }
+
+    /**
+     * Trim empty items from the menu
+     *
+     * @param ItemInterface $menuItem
+     * @return ItemInterface
+     */
+    protected function trimMenu(ItemInterface $menuItem): ItemInterface
+    {
+        // if any of these circumstances are true, then just bail and return the menu item
+        if (
+            count($menuItem->getChildren()) === 0
+            or count($menuItem->getChildren()) > 1
+            or ! empty($menuItem->getFirstChild()->getLabel())
+        ) {
+            return $menuItem;
+        }
+
+        // otherwise, find the first level where there is actual content and use that.
+        while (count($menuItem->getChildren()) == 1 && empty($menuItem->getFirstChild()->getLabel())) {
+            $menuItem = $menuItem->getFirstChild();
+        }
+
+        return $menuItem;
     }
 
     /**
