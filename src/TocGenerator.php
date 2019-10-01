@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP TableOfContents Library
  *

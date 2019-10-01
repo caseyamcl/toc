@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP TableOfContents Library
  *
@@ -43,7 +44,7 @@ trait HtmlHelper
         $allowed = [1, 2, 3, 4, 5, 6];
 
         return array_map(function ($val) {
-            return 'h'.$val;
+            return 'h' . $val;
         }, array_intersect($desired, $allowed));
     }
 
