@@ -19,6 +19,7 @@ All notable changes to this project are documented in this file.
 ### Removed
 - Support for old PHP versions in `.travis.yml`
 - Redundant `bootstrap.php` file in tests
+- `--dev` option in `travis.yml` (which is now deprecated) 
 
 ## [2.0.1] - 2019-06-26
 ### Fixed
