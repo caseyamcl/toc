@@ -24,7 +24,7 @@ Features:
 * You can specify which *H1*...*H6* heading tag levels to include in the TOC
 * Includes a Twig Extension for generating TOCs and compatible markup directly in your templates
 * Uses the flexible [KnpMenu Library](https://github.com/KnpLabs/KnpMenu) to generate menus
-* PSR-0 thru PSR-2 Compliant
+* [PSR-12](https://www.php-fig.org/psr/psr-12/) compliant
 * Composer-compatible
 * Unit-tested (100% coverage)
 
