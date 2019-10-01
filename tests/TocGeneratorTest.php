@@ -5,7 +5,7 @@
  *
  * @license http://opensource.org/licenses/MIT
  * @link https://github.com/caseyamcl/toc
- * @version 1.0
+ * @version 2
  * @package caseyamcl/toc
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  *
@@ -17,7 +17,7 @@
 
 namespace TOC;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use TOC\Util\TOCTestUtils;
 
 /**
@@ -25,7 +25,7 @@ use TOC\Util\TOCTestUtils;
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class TocGeneratorTest extends PHPUnit_Framework_TestCase
+class TocGeneratorTest extends TestCase
 {
     public function testInstantiateSucceeds()
     {

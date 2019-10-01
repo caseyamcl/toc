@@ -6,7 +6,7 @@
  *
  * @license http://opensource.org/licenses/MIT
  * @link https://github.com/caseyamcl/toc
- * @version 1.0
+ * @version 2
  * @package caseyamcl/toc
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  *
@@ -19,13 +19,14 @@
 namespace TOC;
 
 use Masterminds\HTML5;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class HtmlHelperTest
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class HtmlHelperTest extends \PHPUnit_Framework_TestCase
+class HtmlHelperTest extends TestCase
 {
     use HtmlHelper;
 

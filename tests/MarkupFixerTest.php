@@ -5,7 +5,7 @@
  *
  * @license http://opensource.org/licenses/MIT
  * @link https://github.com/caseyamcl/toc
- * @version 1.0
+ * @version 2
  * @package caseyamcl/toc
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  *
@@ -17,14 +17,14 @@
 
 namespace TOC;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Markup Fixer Test
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class MarkupFixerTest extends PHPUnit_Framework_TestCase
+class MarkupFixerTest extends TestCase
 {
     public function testInstantiateSucceeds()
     {
@@ -89,10 +89,10 @@ class MarkupFixerTest extends PHPUnit_Framework_TestCase
         $htmlContent = file_get_contents(__DIR__ . '/fixtures/htmlWithVueCode.html');
         $obj = new MarkupFixer();
         $out = $obj->fix($htmlContent, 1, 2);
-        $this->assertContains('v-on:click', $out);
-        $this->assertContains(':class', $out);
-        $this->assertContains('v-cloak', $out);
-        $this->assertContains('{{ item.markup }}', $out);
-        $this->assertContains('v-for', $out);
+        $this->assertStringContainsString('v-on:click', $out);
+        $this->assertStringContainsString(':class', $out);
+        $this->assertStringContainsString('v-cloak', $out);
+        $this->assertStringContainsString('{{ item.markup }}', $out);
+        $this->assertStringContainsString('v-for', $out);
     }
 }

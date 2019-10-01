@@ -6,7 +6,7 @@
  *
  * @license http://opensource.org/licenses/MIT
  * @link https://github.com/caseyamcl/toc
- * @version 1.0
+ * @version 2
  * @package caseyamcl/toc
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  *
@@ -19,7 +19,8 @@
 namespace TOC;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
+use Knp\Menu\ItemInterface;
+use PHPUnit\Framework\TestCase;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 
@@ -28,7 +29,7 @@ use Twig_SimpleFunction;
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
+class TocTwigExtensionTest extends TestCase
 {
     public function testInstantiateSucceeds()
     {
@@ -67,7 +68,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $func = $this->findFunctionByName(new TocTwigExtension(), 'toc');
         $result = $func->getCallable()->__invoke("<h1 id='a'>hi</h1><h2 id='b'>bye</h2>");
 
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
     }
 
 
@@ -79,7 +80,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $func = $this->findFunctionByName(new TocTwigExtension(), 'toc_items');
         $result = $func->getCallable()->__invoke("<h1 id='a'>hi</h1><h2 id='b'>bye</h2>");
 
-        $this->assertInstanceOf('\Knp\Menu\ItemInterface', $result);
+        $this->assertInstanceOf(ItemInterface::class, $result);
     }
 
 
@@ -91,7 +92,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $func = $this->findFunctionByName(new TocTwigExtension(), 'add_anchors');
         $result = $func->getCallable()->__invoke("<h1>hi</h1><h2>bye</h2>");
 
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
     }
 
 
@@ -103,7 +104,7 @@ class TocTwigExtensionTest extends PHPUnit_Framework_TestCase
         $filter = $this->findFilterByName(new TocTwigExtension(), 'add_anchors');
         $result = $filter->getCallable()->__invoke("<h1>hi</h1><h2>bye</h2>");
 
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
     }
 
 
