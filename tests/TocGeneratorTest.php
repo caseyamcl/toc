@@ -155,22 +155,18 @@ class TocGeneratorTest extends TestCase
     {
         $obj = new TocGenerator();
 
-        yield [
-            $obj->getMenu(
-                "<h3 id='a'>A-Header</h3><h4 id='y'>Y-Header</h4><h4 id='z'>Z-Header</h4><h3 id='x'>X-Header</h3>",
-                1,
-                6
-            ), 2, 2
-        ];
-
-        yield [$obj->getMenu("<h1 id='x'>X-Header</h1>", 1, 6), 1];
-
-        yield [
-            $obj->getMenu('<h5 id="x">X-Header</h5><h5 id="y">Y-Header</h5>', 1, 6), 2
-        ];
-
-        yield [
-            $obj->getMenu('<h6 id="y">Y-Header</h6>', 1, 5), 0
+        return [
+            [
+                $obj->getMenu(
+                    "<h3 id='a'>A-Header</h3><h4 id='y'>Y-Header</h4><h4 id='z'>Z-Header</h4><h3 id='x'>X-Header</h3>",
+                    1,
+                    6
+                ), 2, 2
+            ],
+            [$obj->getMenu("<h1 id='x'>X-Header</h1>", 1, 6), 1],
+            [$obj->getMenu('<h5 id="x">X-Header</h5><h5 id="y">Y-Header</h5>', 1, 6), 2],
+            [$obj->getMenu('<h6 id="y">Y-Header</h6>', 1, 5), 0],
+            [$obj->getMenu("<h1 /><h2 id='x'>X-Header</h2>", 1, 6), 1, 0]
         ];
     }
 }
