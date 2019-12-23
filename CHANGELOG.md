@@ -1,16 +1,23 @@
 # ChangeLog - PHP TableOfContents (TOC)
 All notable changes to this project are documented in this file.
 
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
 ## [2.1.1] - 2019-12-23
 ### Added
-- Tests for PHP7.4 in `.travis.yml` 
+- Tests for PHP7.4 in `.travis.yml`
+- Additional header text to this CHANGELOG
 
 ### Changed
 - Added compatibility with [v4](https://github.com/cocur/slugify/releases/tag/v4.0.0) of `cocur/slugify` library
 - Require minimum v3.5 of `squizlabs/php_codesniffer` (the lowest version that supports PSR-12 checking)
 
 ### Fixed
+- Only prefer lowest version of dependencies on lowest tested version of PHP
 - Typo in `cocur/slugify` library dependency that affected v2.0
+- Typo in `README.md` related to requirements and other stuff too.
+- Updated Twig usage examples in `README.md` to reflect the class names from more recent versions of Twig
 
 ## [2.1] - 2019-10-01
 ### Added

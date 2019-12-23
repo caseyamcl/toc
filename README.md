@@ -11,7 +11,7 @@ Generates a Table of Contents from *H1...H6* Tags in HTML Content
 [![Total Downloads][ico-downloads]][link-downloads]
 
 **NOTE: This library now requires PHP 7.1 or newer; to retain PHP5 support, 
-use the following composer directive:** `composer require caseyamcl/toc ~2.0`
+use the following composer directive:** `composer require caseyamcl/toc ~2.0.0`
 
 This package provides a simple, framework-agnostic library to build
 a Table-of-Contents from HTML markup.  It does so by evaluating your *H1...H6* tags.
@@ -31,7 +31,7 @@ Features:
 In the spirit of [KISS philosophy](http://en.wikipedia.org/wiki/KISS_principle), this library makes a few assumptions:
 
 1. The hierarchy of your content is defined solely by the header (*H1*...*H6*) tags.  All other tags are ignored when generating the TOC.
-2. The link titles in the Table of Contents match either the `title` attribute of the header tag, or if there is no `title`, the plaintext body of the header tag.
+2. The link titles in the Table of Contents match either the `title` attribute of the header tag, or if there is no `title`, the (slugified) plaintext body of the header tag.
 
 Installation Options
 --------------------
@@ -44,7 +44,6 @@ Install via [Composer](http://getcomposer.org/) by including the following in yo
     }
 
 Or, drop the `src` folder into your application and use a [PSR-4 autoloader](http://www.php-fig.org/psr/psr-4/) to include the files.
-
 
 Usage
 -----
@@ -115,9 +114,10 @@ In order to enable Twig integration, you must register the
  `TocTwigExtension` with your Twig environment:
 
 ```php
+use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-$myTwig = new Twig_Environment(new FilesystemLoader());
+$myTwig = new Environment(new FilesystemLoader());
 $myTwig->addExtension(new TOC\TocTwigExtension());
 ```
 
@@ -255,15 +255,17 @@ that is bundled with KnpMenu:
 ```php
 use Knp\Menu\Matcher\Matcher;
 use Knp\Menu\Renderer\TwigRenderer;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 $someHtmlContent = '<div><h1>Test</h1><p>Lorum ipsum</p><h2>Test2</h2><p>Lorum ipsum</p></div>';
 
-$twigLoader = new Twig_Loader_Filesystem(array(
+$twigLoader = new FilesystemLoader(array(
     __DIR__.'/vendor/KnpMenu/src/Knp/Menu/Resources/views',
     // ...paths to your own Twig templates that render KnpMenus...
 ));
 
-$twig = new Twig_Environment($twigLoader);
+$twig = new Environment($twigLoader);
 $itemMatcher = new Matcher();
 $menuRenderer = new TwigRenderer($twig, 'knp_menu.html.twig', $itemMatcher);
 
