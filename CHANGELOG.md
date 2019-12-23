@@ -2,6 +2,9 @@
 All notable changes to this project are documented in this file.
 
 ## [2.1.1] - 2019-12-23
+### Added
+- Tests for PHP7.4 in `.travis.yml` 
+
 ### Changed
 - Added compatibility with [v4](https://github.com/cocur/slugify/releases/tag/v4.0.0) of `cocur/slugify` library
 - Require minimum v3.5 of `squizlabs/php_codesniffer` (the lowest version that supports PSR-12 checking)
