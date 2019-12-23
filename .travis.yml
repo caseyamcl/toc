@@ -1,12 +1,15 @@
 language: php
 php:
-  - "7.2"
-  - "7.3"
-  - "7.4"
+  - 7.2
+  - 7.3
+  - 7.4
 before_script:
   - composer install
 
-env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
+matrix:
+  include:
+    - php: 7.2
+    - env: 'COMPOSER_FLAGS="--prefer-stable --prefer-lowest"'
 
 script:
   - vendor/bin/phpcs --standard=psr12 src/
