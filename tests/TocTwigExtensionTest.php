@@ -22,8 +22,8 @@ namespace TOC;
 use Exception;
 use Knp\Menu\ItemInterface;
 use PHPUnit\Framework\TestCase;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
  * TOC Twig Extensions Test
@@ -43,7 +43,7 @@ class TocTwigExtensionTest extends TestCase
         $obj = new TocTwigExtension();
         $expected = ['add_anchors'];
 
-        $this->assertEquals(count($expected), count(array_map(function (Twig_SimpleFilter $v) {
+        $this->assertEquals(count($expected), count(array_map(function (TwigFilter $v) {
             return $v->getName();
         }, $obj->getFilters())));
     }
@@ -55,7 +55,7 @@ class TocTwigExtensionTest extends TestCase
         $obj = new TocTwigExtension();
         $expected = ['toc', 'toc_items', 'add_anchors', 'toc_ordered'];
 
-        $this->assertEquals(count($expected), count(array_map(function (Twig_SimpleFunction $v) {
+        $this->assertEquals(count($expected), count(array_map(function (TwigFunction $v) {
             return $v->getName();
         }, $obj->getFunctions())));
     }
@@ -124,11 +124,11 @@ class TocTwigExtensionTest extends TestCase
 
     /**
      * @param TocTwigExtension $ext
-     * @param $name
-     * @return mixed|Twig_SimpleFunction
+     * @param string $name
+     * @return mixed|TwigFunction
      * @throws Exception
      */
-    private function findFunctionByName(TocTwigExtension $ext, $name)
+    private function findFunctionByName(TocTwigExtension $ext, string $name)
     {
         foreach ($ext->getFunctions() as $func) {
             if ($name == $func->getName()) {
@@ -142,11 +142,11 @@ class TocTwigExtensionTest extends TestCase
 
     /**
      * @param TocTwigExtension $ext
-     * @param $name
-     * @return mixed|Twig_SimpleFilter
+     * @param string $name
+     * @return mixed|TwigFilter
      * @throws Exception
      */
-    private function findFilterByName(TocTwigExtension $ext, $name)
+    private function findFilterByName(TocTwigExtension $ext, string $name)
     {
         foreach ($ext->getFilters() as $filter) {
             if ($name == $filter->getName()) {

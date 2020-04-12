@@ -19,9 +19,9 @@ declare(strict_types=1);
 
 namespace TOC;
 
-use Twig_Extension;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
  * Table of Contents Twig Extension Integrates with Twig
@@ -32,10 +32,11 @@ use Twig_SimpleFunction;
  * Adds functions:
  * - toc (returns HTML list)
  * - toc_items (returns KnpMenu iterator)
+ * - toc_ordered (returns KnpMenu iterator with <ol>...</ol>)
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class TocTwigExtension extends Twig_Extension
+class TocTwigExtension extends AbstractExtension
 {
     /**
      * @var TocGenerator
@@ -46,8 +47,6 @@ class TocTwigExtension extends Twig_Extension
      * @var MarkupFixer
      */
     private $fixer;
-
-
 
     /**
      * Constructor
@@ -61,26 +60,22 @@ class TocTwigExtension extends Twig_Extension
         $this->fixer     = $fixer     ?: new MarkupFixer();
     }
 
-
-
     /**
-     * @return array|Twig_SimpleFilter[]
+     * @return array|TwigFilter[]
      */
     public function getFilters(): array
     {
         $filters = parent::getFilters();
 
-        $filters[] = new Twig_SimpleFilter('add_anchors', function ($str, $top = 1, $depth = 6) {
+        $filters[] = new TwigFilter('add_anchors', function ($str, $top = 1, $depth = 6) {
             return $this->fixer->fix($str, $top, $depth);
         }, ['is_safe' => ['html']]);
 
         return $filters;
     }
 
-
-
     /**
-     * @return array|Twig_SimpleFunction[]
+     * @return array|TwigFunction[]
      */
     public function getFunctions(): array
     {
@@ -88,28 +83,26 @@ class TocTwigExtension extends Twig_Extension
 
         // ~~~
 
-        $functions[] = new Twig_SimpleFunction('toc', function ($markup, $top = 1, $depth = 6) {
+        $functions[] = new TwigFunction('toc', function ($markup, $top = 1, $depth = 6) {
             return $this->generator->getHtmlMenu($markup, $top, $depth);
         }, ['is_safe' => ['html']]);
 
-        $functions[] = new Twig_SimpleFunction('toc_ordered', function ($markup, $top = 1, $depth = 6) {
+        $functions[] = new TwigFunction('toc_ordered', function ($markup, $top = 1, $depth = 6) {
             return $this->generator->getHtmlMenu($markup, $top, $depth, null, true);
         }, ['is_safe' => ['html']]);
 
         // ~~~
 
-        $functions[] = new Twig_SimpleFunction('toc_items', function ($markup, $top = 1, $depth = 6) {
+        $functions[] = new TwigFunction('toc_items', function ($markup, $top = 1, $depth = 6) {
             return $this->generator->getMenu($markup, $top, $depth);
         });
 
-        $functions[] = new Twig_SimpleFunction('add_anchors', function ($markup, $top = 1, $depth = 6) {
+        $functions[] = new TwigFunction('add_anchors', function ($markup, $top = 1, $depth = 6) {
             return $this->fixer->fix($markup, $top, $depth);
         }, ['is_safe' => ['html']]);
 
         return $functions;
     }
-
-
 
     /**
      * Returns the name of the extension.
