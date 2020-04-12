@@ -313,3 +313,4 @@ Twig Usage:
 [link-downloads]: https://packagist.org/packages/caseyamcl/toc
 [link-author]: https://github.com/caseyamcl
 [link-contributors]: ../../contributors
+<!-- @IGNORE PREVIOUS: link -->
