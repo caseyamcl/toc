@@ -4,6 +4,18 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2] - 2020-04-12
+### Changed
+- Added support Twig v3 in `composer.json`
+- Minor change to `README.md` to get PhpStorm IDE to stop warning
+
+### Removed
+- Dropped support for Twig < v2.4
+- Dropped support for KnpMenu < v3.0
+
+### Fixed
+- Bug with type-hints and older version of KnpMenu in `OrderedListRenderer`
+
 ## [2.1.1] - 2019-12-23
 ### Added
 - Tests for PHP7.4 in `.travis.yml`
