@@ -21,13 +21,14 @@ declare(strict_types=1);
 namespace TOC;
 
 use Cocur\Slugify\Slugify;
+use Cocur\Slugify\SlugifyInterface;
 
 /**
  * UniqueSluggifier creates slugs from text without repeating the same slug twice per instance
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class UniqueSluggifier
+class UniqueSluggifier implements SlugifyInterface
 {
     /**
      * @var Slugify
@@ -54,11 +55,12 @@ class UniqueSluggifier
      * Slugify
      *
      * @param string $text
+     * @param null $options
      * @return string
      */
-    public function slugify(string $text): string
+    public function slugify($text, $options = null): string
     {
-        $slugged = $this->slugify->slugify($text);
+        $slugged = $this->slugify->slugify($text, $options);
 
         $count = 1;
         $orig = $slugged;

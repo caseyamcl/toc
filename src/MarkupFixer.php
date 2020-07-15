@@ -21,6 +21,7 @@ namespace TOC;
 
 use Masterminds\HTML5;
 use RuntimeException;
+use Cocur\Slugify\SlugifyInterface;
 
 /**
  * TOC Markup Fixer adds `id` attributes to all H1...H6 tags where they do not
@@ -38,13 +39,20 @@ class MarkupFixer
     private $htmlParser;
 
     /**
+     * @var SlugifyInterface
+     */
+    private $sluggifier;
+
+    /**
      * Constructor
      *
      * @param HTML5 $htmlParser
+     * @param SlugifyInterface $sluggifier
      */
-    public function __construct(HTML5 $htmlParser = null)
+    public function __construct(HTML5 $htmlParser = null, SlugifyInterface $sluggifier = null)
     {
-        $this->htmlParser = $htmlParser ?: new HTML5();
+        $this->htmlParser = $htmlParser ?? new HTML5();
+        $this->sluggifier = $sluggifier ?? new UniqueSluggifier();
     }
 
     /**
@@ -66,15 +74,13 @@ class MarkupFixer
         $domDocument = $this->htmlParser->loadHTML($markup);
         $domDocument->preserveWhiteSpace = true; // do not clobber whitespace
 
-        $sluggifier = new UniqueSluggifier();
-
         /** @var \DOMElement $node */
         foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
             if ($node->getAttribute('id')) {
                 continue;
             }
 
-            $node->setAttribute('id', $sluggifier->slugify($node->getAttribute('title') ?: $node->textContent));
+            $node->setAttribute('id', $this->sluggifier->slugify($node->getAttribute('title') ?: $node->textContent));
         }
 
         return $this->htmlParser->saveHTML(
