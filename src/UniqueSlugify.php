@@ -28,7 +28,7 @@ use Cocur\Slugify\SlugifyInterface;
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class UniqueSluggifier implements SlugifyInterface
+class UniqueSlugify implements SlugifyInterface
 {
     /**
      * @var Slugify
@@ -43,9 +43,9 @@ class UniqueSluggifier implements SlugifyInterface
     /**
      * Constructor
      *
-     * @param Slugify $slugify
+     * @param SlugifyInterface $slugify
      */
-    public function __construct(Slugify $slugify = null)
+    public function __construct(SlugifyInterface $slugify = null)
     {
         $this->used = array();
         $this->slugify = $slugify ?: new Slugify();

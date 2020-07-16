@@ -47,12 +47,12 @@ class MarkupFixer
      * Constructor
      *
      * @param HTML5 $htmlParser
-     * @param SlugifyInterface $sluggifier
+     * @param SlugifyInterface $slugify
      */
-    public function __construct(HTML5 $htmlParser = null, SlugifyInterface $sluggifier = null)
+    public function __construct(HTML5 $htmlParser = null, SlugifyInterface $slugify = null)
     {
         $this->htmlParser = $htmlParser ?? new HTML5();
-        $this->sluggifier = $sluggifier ?? new UniqueSluggifier();
+        $this->sluggifier = $slugify ?? new UniqueSlugify();
     }
 
     /**
