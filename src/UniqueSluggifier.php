@@ -28,7 +28,7 @@ use Cocur\Slugify\SlugifyInterface;
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class UniqueSlugify implements SlugifyInterface
+class UniqueSluggifier implements SlugifyInterface
 {
     /**
      * @var Slugify
