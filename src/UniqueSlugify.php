@@ -43,9 +43,9 @@ class UniqueSlugify implements SlugifyInterface
     /**
      * Constructor
      *
-     * @param SlugifyInterface $slugify
+     * @param SlugifyInterface|null $slugify
      */
-    public function __construct(SlugifyInterface $slugify = null)
+    public function __construct(?SlugifyInterface $slugify = null)
     {
         $this->used = array();
         $this->slugify = $slugify ?: new Slugify();

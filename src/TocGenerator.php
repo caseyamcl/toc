@@ -51,10 +51,10 @@ class TocGenerator
     /**
      * Constructor
      *
-     * @param MenuFactory $menuFactory
-     * @param HTML5       $htmlParser
+     * @param MenuFactory|null $menuFactory
+     * @param HTML5|null $htmlParser
      */
-    public function __construct(MenuFactory $menuFactory = null, HTML5 $htmlParser = null)
+    public function __construct(?MenuFactory $menuFactory = null, ?HTML5 $htmlParser = null)
     {
         $this->domParser   = $htmlParser  ?: new HTML5();
         $this->menuFactory = $menuFactory ?: new MenuFactory();

@@ -51,10 +51,10 @@ class TocTwigExtension extends AbstractExtension
     /**
      * Constructor
      *
-     * @param TocGenerator $generator
-     * @param MarkupFixer $fixer
+     * @param TocGenerator|null $generator
+     * @param MarkupFixer|null $fixer
      */
-    public function __construct(TocGenerator $generator = null, MarkupFixer $fixer = null)
+    public function __construct(?TocGenerator $generator = null, ?MarkupFixer $fixer = null)
     {
         $this->generator = $generator ?: new TocGenerator();
         $this->fixer     = $fixer     ?: new MarkupFixer();
