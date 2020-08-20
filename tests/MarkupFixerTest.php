@@ -82,7 +82,7 @@ class MarkupFixerTest extends TestCase
         $obj = new MarkupFixer();
         $out = $obj->fix($htmlContent, 1, 2);
 
-        preg_match('/\<pre\>(.+?)\<\/pre\>/s', $out, $matches);
+        preg_match('/<pre>(.+?)<\/pre>/s', $out, $matches);
         $this->assertEquals(3, preg_match_all("/(\n|\r\n)/s", $matches[1]));
     }
 
@@ -96,5 +96,22 @@ class MarkupFixerTest extends TestCase
         $this->assertStringContainsString('v-cloak', $out);
         $this->assertStringContainsString('{{ item.markup }}', $out);
         $this->assertStringContainsString('v-for', $out);
+    }
+
+    /**
+     * If the default Slugifier is used (UniqueSlugify class), then the MarkupFixer should generate a unique instance
+     * of it at runtime in order to ensure consistent behavior...
+     *
+     * Refer to this bug: https://github.com/caseyamcl/toc/issues/11
+     */
+    public function testMarkupFixerUsesUniqueInstanceOfUniqueSlugifier(): void
+    {
+        $htmlContent = file_get_contents(__DIR__ . '/fixtures/htmlWithPre.html');
+        $obj = new MarkupFixer();
+
+        $obj->fix($htmlContent);
+        $out2 = $obj->fix($htmlContent);
+
+        $this->assertStringNotContainsString('heading-one-1', $out2);
     }
 }

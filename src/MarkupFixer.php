@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace TOC;
 
+use DOMElement;
 use Masterminds\HTML5;
 use RuntimeException;
 use Cocur\Slugify\SlugifyInterface;
@@ -46,10 +47,10 @@ class MarkupFixer
     /**
      * Constructor
      *
-     * @param HTML5 $htmlParser
-     * @param SlugifyInterface $slugify
+     * @param HTML5|null $htmlParser
+     * @param SlugifyInterface|null $slugify
      */
-    public function __construct(HTML5 $htmlParser = null, SlugifyInterface $slugify = null)
+    public function __construct(?HTML5 $htmlParser = null, ?SlugifyInterface $slugify = null)
     {
         $this->htmlParser = $htmlParser ?? new HTML5();
         $this->sluggifier = $slugify ?? new UniqueSlugify();
@@ -74,13 +75,16 @@ class MarkupFixer
         $domDocument = $this->htmlParser->loadHTML($markup);
         $domDocument->preserveWhiteSpace = true; // do not clobber whitespace
 
-        /** @var \DOMElement $node */
+        // If using the default slugifier, ensure that a unique instance of the class
+        $slugger = $this->sluggifier instanceof UniqueSlugify ? new UniqueSlugify() : $this->sluggifier;
+
+        /** @var DOMElement $node */
         foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
             if ($node->getAttribute('id')) {
                 continue;
             }
 
-            $node->setAttribute('id', $this->sluggifier->slugify($node->getAttribute('title') ?: $node->textContent));
+            $node->setAttribute('id', $slugger->slugify($node->getAttribute('title') ?: $node->textContent));
         }
 
         return $this->htmlParser->saveHTML(
