@@ -6,7 +6,7 @@
  *
  * @license http://opensource.org/licenses/MIT
  * @link https://github.com/caseyamcl/toc
- * @version 2
+ * @version 3
  * @package caseyamcl/toc
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  *
