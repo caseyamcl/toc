@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - (dev) Added `*.cache` to gitignore (mostly for PHPUnit)
 - (dev) Made compatible with PHPUnit v9 and updated `phpunit.xml.dist` schema
 
+## [2.3.1] - 2020-08-20
 ### Fixed
 - Fixed bug from v2.3: If default slugifier is used (UniqueSlugify.php), then ensure unique instance each time `MarkupFixer::fix()` is run
   This will prevent it from continuing to generate unique slugs if used more than once.
