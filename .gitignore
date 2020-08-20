@@ -7,3 +7,6 @@ build/
 
 # IDE stuff
 .idea
+
+# testing/misc stuff
+*.cache
