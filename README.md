@@ -39,7 +39,7 @@ Install via [Composer](http://getcomposer.org/) by including the following in yo
  
     {
         "require": {
-            "caseyamcl/toc": "^2.0",
+            "caseyamcl/toc": "^3.0",
         }
     }
 
