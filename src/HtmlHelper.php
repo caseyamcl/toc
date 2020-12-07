@@ -56,11 +56,11 @@ trait HtmlHelper
      * @param DOMDocument $domDocument
      * @param int          $topLevel
      * @param int          $depth
-     * @return ArrayIterator|DomElement[]
+     * @return ArrayIterator<int,DomElement>
      */
     protected function traverseHeaderTags(DOMDocument $domDocument, int $topLevel, int $depth): ArrayIterator
     {
-        $xpath = new DOMXPath($domDocument);
+        $xQueryResults = new DOMXPath($domDocument);
 
         $xpathQuery = sprintf(
             "//*[%s]",
@@ -70,11 +70,16 @@ trait HtmlHelper
         );
 
         $nodes = [];
-        foreach ($xpath->query($xpathQuery) as $node) {
-            $nodes[] = $node;
-        }
+        $xQueryResults = $xQueryResults->query($xpathQuery);
 
-        return new ArrayIterator($nodes);
+        if ($xQueryResults) {
+            foreach ($xQueryResults as $node) {
+                $nodes[] = $node;
+            }
+            return new ArrayIterator($nodes);
+        } else {
+            return new ArrayIterator([]);
+        }
     }
 
     /**

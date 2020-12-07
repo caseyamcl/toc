@@ -31,7 +31,7 @@ use Cocur\Slugify\SlugifyInterface;
 class UniqueSlugify implements SlugifyInterface
 {
     /**
-     * @var Slugify
+     * @var SlugifyInterface
      */
     private $slugify;
 

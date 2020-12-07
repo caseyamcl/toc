@@ -149,9 +149,9 @@ class TocGeneratorTest extends TestCase
     }
 
     /**
-     * @return iterable|ItemInterface[]
+     * @return array<int, array<int,int|\Knp\Menu\ItemInterface, int, ?int>>
      */
-    public function unusedHeadingLevelsAreTrimmedDataProvider(): iterable
+    public function unusedHeadingLevelsAreTrimmedDataProvider(): array
     {
         $obj = new TocGenerator();
 

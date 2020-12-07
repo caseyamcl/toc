@@ -302,7 +302,7 @@ Twig Usage:
 [ico-version]: https://img.shields.io/packagist/v/caseyamcl/toc.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
 [ico-ghbuild]: https://github.com/caseyamcl/toc/workflows/Github%20Build/badge.svg
-[ico-phpstan]: https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg
+[ico-phpstan]: https://img.shields.io/badge/PHPStan-level%205-brightgreen.svg
 [ico-coverage]: https://github.com/caseyamcl/toc/blob/master/coverage.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/caseyamcl/toc.svg
 

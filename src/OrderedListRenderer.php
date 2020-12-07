@@ -33,8 +33,8 @@ class OrderedListRenderer extends ListRenderer
 {
     /**
      * @param ItemInterface $item
-     * @param array $attributes
-     * @param array $options
+     * @param array<string> $attributes
+     * @param array<mixed> $options
      * @return string
      */
     protected function renderList(ItemInterface $item, array $attributes, array $options): string
@@ -56,6 +56,13 @@ class OrderedListRenderer extends ListRenderer
         return $html;
     }
 
+    /**
+     * @param string $html
+     * @param string $type
+     * @param int $level
+     * @param array<int, string> $options
+     * @return string
+     */
     protected function format(string $html, string $type, int $level, array $options): string
     {
         return $type === 'ol'

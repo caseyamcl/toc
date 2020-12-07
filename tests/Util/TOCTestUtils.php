@@ -29,7 +29,7 @@ class TOCTestUtils
      *
      * @param ItemInterface $item   The menu item
      * @param bool          $isTop  Is the initial menu item starting at the top-level?
-     * @return array|MenuItem[]
+     * @return array<ItemInterface>
      */
     public static function flattenMenuItems(ItemInterface $item, $isTop = true): array
     {
