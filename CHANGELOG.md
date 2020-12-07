@@ -4,6 +4,18 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## UNRELEASED
+### Added
+- PHP >=8.0 support in `composer.json` (fixes #13)
+- GitHub Actions build status badge in `README.md`
+- PHPStan in dev dependencies
+- Additional build checks (PHPStan and PHP-CS)
+- Automatic SVG badge generation for code coverage
+
+### Removed
+- `.travis.yml` build support (switched to Github Actions)
+- Build dependency on scrutinizer.org service
+
 ## [3.0] - 2020-08-20
 ### Changed
 - BREAKING: Renamed internal class `UniqueSluggifier` to `UniqueSlugify`

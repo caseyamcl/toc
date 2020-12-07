@@ -5,9 +5,9 @@ Generates a Table of Contents from *H1...H6* Tags in HTML Content
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
+[![Github Build][ico-ghbuild]][link-ghbuild]
+[![Code coverage][ico-coverage]](coverage.svg)
+[![PHPStan Level 8][ico-phpstan]][link-phpstan]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 **NOTE: This library now requires PHP 7.1 or newer; to retain PHP5 support, 
@@ -299,18 +299,17 @@ Twig Usage:
 {{ toc_ordered(my_content, 2, 3) }}
 ```
 
-[ico-version]: https://img.shields.io/packagist/v/caseyamcl/toc.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/caseyamcl/toc/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/caseyamcl/toc.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/caseyamcl/toc.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/caseyamcl/toc.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/caseyamcl/toc.svg
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
+[ico-ghbuild]: https://github.com/caseyamcl/toc/workflows/Github%20Build/badge.svg
+[ico-phpstan]: https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg
+[ico-coverage]: https://github.com/caseyamcl/toc/blob/master/coverage.svg
+[ico-downloads]: https://img.shields.io/packagist/dt/caseyamcl/toc.svg
 
 [link-packagist]: https://packagist.org/packages/caseyamcl/toc
-[link-travis]: https://travis-ci.org/caseyamcl/toc
-[link-scrutinizer]: https://scrutinizer-ci.com/g/caseyamcl/toc/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/caseyamcl/toc
+[link-phpstan]: https://phpstan.org/
+[link-ghbuild]: https://github.com/caseyamcl/toc/actions?query=workflow%3A%22Github+Build%22
+[link-downloads]: https://packagist.org/packages/caseyamcl/toc
 [link-downloads]: https://packagist.org/packages/caseyamcl/toc
 [link-author]: https://github.com/caseyamcl
 [link-contributors]: ../../contributors
-<!-- @IGNORE PREVIOUS: link -->
