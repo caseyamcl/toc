@@ -17,7 +17,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "TOC\\": ["src/", "tests/"]
+      "TOC\\": ["src", "tests"]
     }
   },
   "require": {

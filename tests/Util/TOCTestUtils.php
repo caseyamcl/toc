@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace TOC\Util;
 
 use Knp\Menu\ItemInterface;
-use Knp\Menu\MenuItem;
 
 class TOCTestUtils
 {
