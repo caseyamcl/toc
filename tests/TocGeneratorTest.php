@@ -41,7 +41,7 @@ class TocGeneratorTest extends TestCase
         $obj = new TocGenerator();
 
         $html = "<h1 id='x'>A-Header</h1><h1 id='y'>A-Header</h1>";
-        $this->assertSame(2, count($obj->getMenu($html)));
+        $this->assertCount(2, $obj->getMenu($html));
     }
 
     public function testGetMenuTraversesLevelsCorrectly(): void
@@ -118,8 +118,8 @@ class TocGeneratorTest extends TestCase
     public function testGetMenuReturnsEmptyMenuItemWhenNoContentOrMatches(): void
     {
         $obj = new TocGenerator();
-        $this->assertEquals(0, count($obj->getMenu("<h1>Boo</h1><h2>Bar</h2>")));
-        $this->assertEquals(0, count($obj->getMenu("")));
+        $this->assertCount(0, $obj->getMenu("<h1>Boo</h1><h2>Bar</h2>"));
+        $this->assertCount(0, $obj->getMenu(""));
     }
 
     public function testGetOrderedMenu(): void
@@ -141,10 +141,10 @@ class TocGeneratorTest extends TestCase
         int $expectedTopLevelItems,
         int $expectedSubItems = 0
     ): void {
-        $this->assertEquals($expectedTopLevelItems, count($menuItem->getChildren()));
+        $this->assertCount($expectedTopLevelItems, $menuItem->getChildren());
 
         if ($expectedSubItems > 0) {
-            $this->assertEquals($expectedSubItems, count($menuItem->getFirstChild()->getChildren()));
+            $this->assertCount($expectedSubItems, $menuItem->getFirstChild()->getChildren());
         }
     }
 
