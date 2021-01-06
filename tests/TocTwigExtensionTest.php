@@ -43,9 +43,9 @@ class TocTwigExtensionTest extends TestCase
         $obj = new TocTwigExtension();
         $expected = ['add_anchors'];
 
-        $this->assertEquals(count($expected), count(array_map(function (TwigFilter $v) {
+        $this->assertCount(count($expected), array_map(function (TwigFilter $v) {
             return $v->getName();
-        }, $obj->getFilters())));
+        }, $obj->getFilters()));
     }
 
 
@@ -55,9 +55,9 @@ class TocTwigExtensionTest extends TestCase
         $obj = new TocTwigExtension();
         $expected = ['toc', 'toc_items', 'add_anchors', 'toc_ordered'];
 
-        $this->assertEquals(count($expected), count(array_map(function (TwigFunction $v) {
+        $this->assertCount(count($expected), array_map(function (TwigFunction $v) {
             return $v->getName();
-        }, $obj->getFunctions())));
+        }, $obj->getFunctions()));
     }
 
     /**
