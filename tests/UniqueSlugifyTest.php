@@ -1,6 +1,7 @@
 <?php
 
-use TOC\UniqueSlugify;
+namespace TOC;
+
 use PHPUnit\Framework\TestCase;
 
 class UniqueSlugifyTest extends TestCase
