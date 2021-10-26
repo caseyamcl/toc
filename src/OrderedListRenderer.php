@@ -60,7 +60,7 @@ class OrderedListRenderer extends ListRenderer
      * @param string $html
      * @param string $type
      * @param int $level
-     * @param array<int, string> $options
+     * @param array<string, mixed> $options
      * @return string
      */
     protected function format(string $html, string $type, int $level, array $options): string
