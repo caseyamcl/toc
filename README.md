@@ -10,8 +10,8 @@ Generates a Table of Contents from *H1...H6* Tags in HTML Content
 [![PHPStan Level 8][ico-phpstan]][link-phpstan]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-**NOTE: This library now requires PHP 7.1 or newer; to retain PHP5 support, 
-use the following composer directive:** `composer require caseyamcl/toc ~2.0.0`
+**NOTE: This library now requires PHP 7.2 or newer; to retain PHP5-7.1 support, use the following composer directive:** 
+`composer require caseyamcl/toc ~2.0.0`
 
 This package provides a simple, framework-agnostic library to build
 a Table-of-Contents from HTML markup.  It does so by evaluating your *H1...H6* tags.
@@ -26,7 +26,7 @@ Features:
 * Uses the flexible [KnpMenu Library](https://github.com/KnpLabs/KnpMenu) to generate menus
 * [PSR-12](https://www.php-fig.org/psr/psr-12/) compliant
 * Composer-compatible
-* Unit-tested (97% coverage)
+* Unit-tested (95% coverage)
 
 In the spirit of [KISS philosophy](http://en.wikipedia.org/wiki/KISS_principle), this library makes a few assumptions:
 

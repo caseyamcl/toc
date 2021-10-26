@@ -21,11 +21,11 @@
     }
   },
   "require": {
-    "php": "^7.1|^8.0",
+    "php": "^7.2|^8.0",
     "ext-dom": "*",
     "masterminds/html5": "^2.1",
-    "cocur/slugify": "^1.0|^2.0|^3.0|^4.0",
-    "knplabs/knp-menu": "^3.0"
+    "cocur/slugify": "^3.0|^4.0",
+    "knplabs/knp-menu": "^3.2"
   },
   "require-dev": {
     "twig/twig": "^2.4|^3.0",
