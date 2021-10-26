@@ -3,14 +3,14 @@
   "type": "library",
   "description": "Simple Table-of-Contents Generator for PHP.  Generates TOCs based off H1...H6 tags",
   "keywords": ["table of contents", "toc"],
-  "homepage": "http://github.com/caseyamcl/toc",
+  "homepage": "https://github.com/caseyamcl/toc",
   "license": "MIT",
   "authors":
   [
     {
       "name":     "Casey McLaughlin",
       "email":    "caseyamcl@gmail.com",
-      "homepage": "http://caseymclaughlin.com",
+      "homepage": "https://caseymclaughlin.com",
       "role":     "Developer"
     }
 
