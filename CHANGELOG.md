@@ -4,13 +4,15 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## UNRELEASED
+## [3.1] - 2022-03-16
 ### Added
 - Build test for PHP 8.1
 ### Changed
 - The `MarkupFixer` now prefixes `toc-` in cases where HTML tags are encountered with IDs that begin with a decimal
   (thanks @ArdaGnsrn!)
 - Upgraded PHPStan to v1.4
+### Fixed
+- Minor code and comment cleanup
 
 ## [3.0.2] - 2021-10-26
 ### Added
