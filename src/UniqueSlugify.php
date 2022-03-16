@@ -24,7 +24,7 @@ use Cocur\Slugify\Slugify;
 use Cocur\Slugify\SlugifyInterface;
 
 /**
- * UniqueSluggifier creates slugs from text without repeating the same slug twice per instance
+ * UniqueSlugify creates slugs from text without repeating the same slug twice per instance
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
@@ -54,13 +54,13 @@ class UniqueSlugify implements SlugifyInterface
     /**
      * Slugify
      *
-     * @param string $text
+     * @param string $string
      * @param null $options
      * @return string
      */
-    public function slugify($text, $options = null): string
+    public function slugify($string, $options = null): string
     {
-        $slugged = $this->slugify->slugify($text, $options);
+        $slugged = $this->slugify->slugify($string, $options);
 
         $count = 1;
         $orig = $slugged;

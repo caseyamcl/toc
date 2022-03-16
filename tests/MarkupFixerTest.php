@@ -114,4 +114,15 @@ class MarkupFixerTest extends TestCase
 
         $this->assertStringNotContainsString('heading-one-1', $out2);
     }
+
+    public function testMarkupFixerAddsPrefixesToIdsWithNonAlphabeticFirstharacters(): void
+    {
+        $obj = new MarkupFixer();
+        $html = "<h1 id='0a'>Numeric ID</h1><h2 title='1b'>Another Numeric ID</h2><h3>Ignored</h3>";
+
+        $this->assertEquals(
+            '<h1 id="toc-0a">Numeric ID</h1><h2 title="1b" id="toc-1b">Another Numeric ID</h2><h3>Ignored</h3>',
+            $obj->fix($html, 1, 2)
+        );
+    }
 }

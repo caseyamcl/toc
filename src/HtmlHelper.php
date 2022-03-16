@@ -32,7 +32,7 @@ use DOMXPath;
 trait HtmlHelper
 {
     /**
-     * Convert a topLevel and depth to H1..H6 tags array
+     * Convert a topLevel and depth to H1...H6 tags array
      *
      * @param int $topLevel
      * @param int $depth
@@ -40,7 +40,7 @@ trait HtmlHelper
      */
     protected function determineHeaderTags(int $topLevel, int $depth): array
     {
-        $desired = range((int) $topLevel, (int) $topLevel + ((int) $depth - 1));
+        $desired = range($topLevel,  $topLevel + ($depth - 1));
         $allowed = [1, 2, 3, 4, 5, 6];
 
         return array_map(function ($val) {

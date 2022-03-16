@@ -72,7 +72,7 @@ class TocGenerator
      */
     public function getMenu(string $markup, int $topLevel = 1, int $depth = 6): ItemInterface
     {
-        // Setup an empty menu object
+        // Set up an empty menu object
         $menu = $this->menuFactory->createItem(self::DEFAULT_NAME);
 
         // Empty?  Return empty menu item
@@ -88,7 +88,7 @@ class TocGenerator
 
         // Do it...
         $domDocument = $this->domParser->loadHTML($markup);
-        foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $i => $node) {
+        foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
             // Skip items without IDs
             if (! $node->hasAttribute('id')) {
                 continue;
