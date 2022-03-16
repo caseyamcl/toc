@@ -149,7 +149,7 @@ class TocGeneratorTest extends TestCase
     }
 
     /**
-     * @return array<int, array<int,int|\Knp\Menu\ItemInterface, int, ?int>>
+     * @return array<int, array>
      */
     public function unusedHeadingLevelsAreTrimmedDataProvider(): array
     {

@@ -73,7 +73,7 @@ class TocGenerator
     public function getMenu(string $markup, int $topLevel = 1, int $depth = 6): ItemInterface
     {
         // Setup an empty menu object
-        $menu = $this->menuFactory->createItem(static::DEFAULT_NAME);
+        $menu = $this->menuFactory->createItem(self::DEFAULT_NAME);
 
         // Empty?  Return empty menu item
         if (trim($markup) == '') {
