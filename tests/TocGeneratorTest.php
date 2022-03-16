@@ -81,6 +81,20 @@ class TocGeneratorTest extends TestCase
         $this->assertEquals('B-Header', $menu->getLastChild()->getLabel());
     }
 
+    public function testIDThatBeginsWithNumbersGeneratesCorrectMarkup(): void
+    {
+        $html = "
+            <h1 id='1a'>A-Header</h1><p>Foobar</p>
+            <h1 id='0b'>B-Header</h1>
+            <h1>C-Header</h1>
+        ";
+
+        $menu = (new TocGenerator())->getMenu($html);
+        $this->assertCount(2, $menu);
+        $this->assertEquals('1a', $menu->getFirstChild()->getName());
+        $this->assertEquals('0b', $menu->getLastChild()->getName());
+    }
+
     public function testGetMenuUsesTitleForDisplayTextWhenAvailableAndPlainTextWhenNot(): void
     {
         $obj = new TocGenerator();
