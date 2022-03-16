@@ -84,7 +84,11 @@ class MarkupFixer
                 continue;
             }
 
-            $node->setAttribute('id', $slugger->slugify($node->getAttribute('title') ?: $node->textContent));
+            $id = $slugger->slugify($node->getAttribute('title') ?: $node->textContent);
+            if (ctype_digit(substr($id, 0, 1))) {
+                $id = 'toc-' . $id;
+            }
+            $node->setAttribute('id', $id);
         }
 
         return $this->htmlParser->saveHTML(
