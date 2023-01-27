@@ -70,7 +70,7 @@ $tocGenerator = new TOC\TocGenerator();
 $htmlOut  = "<div class='content'>" . $markupFixer->fix($myHtmlContent) . "</div>";
 
 // This generates the Table of Contents in HTML
-$htmlOut .= "<div class='toc'>" . $tocGenerator->getHtmlMenu($myHtmlContent) . "</div>";
+$htmlOut .= "<div class='toc'>" . $tocGenerator->getHtmlMenu($htmlOut) . "</div>";
 
 echo $htmlOut;
 ```
