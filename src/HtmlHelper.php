@@ -56,7 +56,7 @@ trait HtmlHelper
      * @param DOMDocument $domDocument
      * @param int          $topLevel
      * @param int          $depth
-     * @return ArrayIterator<int,DomElement>
+     * @return ArrayIterator<int,\DOMElement>
      */
     protected function traverseHeaderTags(DOMDocument $domDocument, int $topLevel, int $depth): ArrayIterator
     {
@@ -76,6 +76,9 @@ trait HtmlHelper
             foreach ($xQueryResults as $node) {
                 $nodes[] = $node;
             }
+
+            // Technically, xpath queries return DOMNodes, but in this case, they return the subclass DOMElement
+            // @phpstan-ignore-next-line
             return new ArrayIterator($nodes);
         } else {
             return new ArrayIterator([]);
