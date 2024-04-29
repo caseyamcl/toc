@@ -107,7 +107,7 @@ This produces the following output:
 Twig Integration
 ----------------
 
-This library includes a [Twig](http://twig.sensiolabs.org) extension that 
+This library includes a [Twig](https://twig.symfony.com/) extension that 
 enables you to load TOC lists and add anchors to markup from your Twig templates.
 
 In order to enable Twig integration, you must register the
@@ -248,7 +248,7 @@ $listHtml = $tocGenerator->getHtmlMenu($someHtmlContent, 1, 6, $renderer);
 
 #### Customizing with Twig
 
-The KnpMenu library offers more robust integration with the [Twig Templating System](http://twig.sensiolabs.org/)
+The KnpMenu library offers more robust integration with the [Twig Templating System](https://twig.symfony.com/)
 than is offered by default with this library.  You can take advantage of it by using the [TwigRenderer](https://github.com/KnpLabs/KnpMenu/blob/master/doc/02-Twig-Integration.markdown#using-the-twigrenderer)
 that is bundled with KnpMenu:
 
