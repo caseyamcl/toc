@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated GitHub build `action/checkout` and `action/cache`
 ### Fixed
 - Build issue with PHPStan in `HtmlHelper`
+- Minor deprecation in GitHub build script
 
 ## [3.1] - 2022-03-16
 ### Added
