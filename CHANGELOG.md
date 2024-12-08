@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Dependency issue in `composer.json` affecting PHP7 versions
 - Build issue with PHPStan in `HtmlHelper`
+- Implicit null in `TocGenerator` class (for PHP 8.4)
 
 ## [3.1] - 2022-03-16
 ### Added
