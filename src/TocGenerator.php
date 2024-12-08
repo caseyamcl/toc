@@ -194,7 +194,7 @@ class TocGenerator
         string $markup,
         int $topLevel = 1,
         int $depth = 6,
-        RendererInterface $renderer = null
+        ?RendererInterface $renderer = null
     ): string {
         return $this->getHtmlMenu($markup, $topLevel, $depth, $renderer, true);
     }
