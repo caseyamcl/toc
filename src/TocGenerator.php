@@ -38,15 +38,8 @@ class TocGenerator
 
     private const DEFAULT_NAME = 'TOC';
 
-    /**
-     * @var HTML5
-     */
-    private $domParser;
-
-    /**
-     * @var MenuFactory
-     */
-    private $menuFactory;
+    private HTML5 $domParser;
+    private MenuFactory $menuFactory;
 
     /**
      * Constructor
@@ -75,7 +68,7 @@ class TocGenerator
         // Set up an empty menu object
         $menu = $this->menuFactory->createItem(self::DEFAULT_NAME);
 
-        // Empty?  Return empty menu item
+        // Empty markup?  Bail and return empty menu item
         if (trim($markup) == '') {
             return $menu;
         }
@@ -83,20 +76,20 @@ class TocGenerator
         // Parse HTML
         $tagsToMatch = $this->determineHeaderTags($topLevel, $depth);
 
-        // Initial settings
+        // Initial state
         $lastElem = $menu;
 
         // Do it...
         $domDocument = $this->domParser->loadHTML($markup);
         foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
-            // Skip items without IDs
+            // Skip items without 'id' attributes
             if (! $node->hasAttribute('id')) {
                 continue;
             }
 
             // Get the TagName and the level
             $tagName = $node->tagName;
-            $level   = array_search(strtolower($tagName), $tagsToMatch) + 1;
+            $level   = (int) (array_search(strtolower($tagName), $tagsToMatch)) + 1;
 
             // Determine parent item which to add child
             /** @var MenuItem $parent */
@@ -130,9 +123,6 @@ class TocGenerator
 
     /**
      * Trim empty items from the menu
-     *
-     * @param ItemInterface $menuItem
-     * @return ItemInterface
      */
     protected function trimMenu(ItemInterface $menuItem): ItemInterface
     {

@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace TOC;
 
 use Knp\Menu\ItemInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use TOC\Util\TOCTestUtils;
 
@@ -33,7 +34,7 @@ class TocGeneratorTest extends TestCase
     public function testInstantiateSucceeds(): void
     {
         $obj = new TocGenerator();
-        $this->assertInstanceOf('\TOC\TocGenerator', $obj);
+        $this->assertInstanceOf(TocGenerator::class, $obj);
     }
 
     public function testDuplicateHeadingsAreEnumerated(): void
@@ -59,8 +60,10 @@ class TocGeneratorTest extends TestCase
             <h1 id='h'>H-Header</h1><div>Hi</div>
         ";
 
-        $fixture = array_filter(array_map('trim', file(__DIR__ . '/fixtures/testHtmlList.html')));
-        $actual  = array_filter(array_map('trim', explode(PHP_EOL, $obj->getHtmlMenu($html, 1, 6))));
+        $fileResult = (array) file(__DIR__ . '/fixtures/testHtmlList.html');
+        // @phpstan-ignore-next-line
+        $fixture = array_filter(array_map('trim', $fileResult));
+        $actual  = array_filter(array_map('trim', explode(PHP_EOL, $obj->getHtmlMenu($html))));
 
         $this->assertEquals($fixture, $actual);
     }
@@ -145,11 +148,11 @@ class TocGeneratorTest extends TestCase
     }
 
     /**
-     * @dataProvider unusedHeadingLevelsAreTrimmedDataProvider
      * @param ItemInterface $menuItem
      * @param int $expectedTopLevelItems
      * @param int $expectedSubItems
      */
+    #[dataProvider('unusedHeadingLevelsAreTrimmedDataProvider')]
     public function testUnusedHeadingLevelsAreTrimmedFromGeneratedMenu(
         ItemInterface $menuItem,
         int $expectedTopLevelItems,
@@ -163,9 +166,9 @@ class TocGeneratorTest extends TestCase
     }
 
     /**
-     * @return array<int, array>
+     * @return array<int,array<int|ItemInterface>>
      */
-    public function unusedHeadingLevelsAreTrimmedDataProvider(): array
+    public static function unusedHeadingLevelsAreTrimmedDataProvider(): array
     {
         $obj = new TocGenerator();
 

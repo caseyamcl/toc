@@ -38,15 +38,8 @@ use Twig\TwigFunction;
  */
 class TocTwigExtension extends AbstractExtension
 {
-    /**
-     * @var TocGenerator
-     */
-    private $generator;
-
-    /**
-     * @var MarkupFixer
-     */
-    private $fixer;
+    private TocGenerator $generator;
+    private MarkupFixer $fixer;
 
     /**
      * Constructor

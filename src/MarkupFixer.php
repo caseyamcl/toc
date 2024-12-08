@@ -33,15 +33,8 @@ class MarkupFixer
 {
     use HtmlHelper;
 
-    /**
-     * @var HTML5
-     */
-    private $htmlParser;
-
-    /**
-     * @var SluggerInterface
-     */
-    private $slugger;
+    private HTML5 $htmlParser;
+    private SluggerInterface $slugger;
 
     /**
      * Constructor
@@ -52,7 +45,7 @@ class MarkupFixer
     public function __construct(?HTML5 $htmlParser = null, ?SluggerInterface $slugger = null)
     {
         $this->htmlParser = $htmlParser ?? new HTML5();
-        $this->slugger = $slugger ?? new UniqueSlugify();
+        $this->slugger = $slugger ?? new UniqueSlugger();
     }
 
     /**
@@ -74,8 +67,8 @@ class MarkupFixer
         $domDocument = $this->htmlParser->loadHTML($markup);
         $domDocument->preserveWhiteSpace = true; // do not clobber whitespace
 
-        // If using the default slugger, ensure that a unique instance of the class
-        $slugger = $this->slugger instanceof UniqueSlugify ? new UniqueSlugify() : $this->slugger;
+        // Reset the slugger state
+        $this->slugger->reset();
 
         /** @var DOMElement $node */
         foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
@@ -83,7 +76,7 @@ class MarkupFixer
             $id = $node->getAttribute('id') ?: $node->getAttribute('title');
 
             // If no title attribute, use the text content
-            $id = $slugger->makeSlug($id ?: $node->textContent);
+            $id = $this->slugger->makeSlug($id ?: $node->textContent);
 
             // If the first character begins with a numeric, prepend 'toc-' on it.
             if (ctype_digit(substr($id, 0, 1))) {

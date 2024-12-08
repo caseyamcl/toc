@@ -22,4 +22,6 @@ namespace TOC;
 interface SluggerInterface
 {
     public function makeSlug(string $string): string;
+
+    public function reset(): void;
 }

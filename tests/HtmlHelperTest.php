@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace TOC;
 
 use Masterminds\HTML5;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,18 +32,16 @@ class HtmlHelperTest extends TestCase
 {
     use HtmlHelper;
 
-    /**
-     * @dataProvider isFullHtmlDocumentDataProvider
-     */
-    public function testIsFullHtmlDocumentReturnsExpectedOutput($expected, $htmlMarkup): void
+    #[dataProvider('isFullHtmlDocumentDataProvider')]
+    public function testIsFullHtmlDocumentReturnsExpectedOutput(bool $expected, string $htmlMarkup): void
     {
         $this->assertEquals($expected, $this->isFullHtmlDocument($htmlMarkup));
     }
 
     /**
-     * @return array
+     * @return array<array{0: bool, 1: string}>
      */
-    public function isFullHtmlDocumentDataProvider(): array
+    public static function isFullHtmlDocumentDataProvider(): array
     {
         return [
             [true,  '<html lang="en-US"><body><h1>Test</h1></body></html>'],

@@ -32,9 +32,9 @@ use function str_repeat;
 class OrderedListRenderer extends ListRenderer
 {
     /**
-     * @param ItemInterface $item
-     * @param array<string> $attributes
-     * @param array         $options
+     * @param ItemInterface       $item
+     * @param array<string>       $attributes
+     * @param array<string,mixed> $options
      * @return string
      */
     protected function renderList(ItemInterface $item, array $attributes, array $options): string

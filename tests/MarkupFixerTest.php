@@ -77,18 +77,19 @@ class MarkupFixerTest extends TestCase
      */
     public function testFixDoesNotEraseLineEndingsBetweenPreTags(): void
     {
-        $htmlContent = file_get_contents(__DIR__ . '/fixtures/htmlWithPre.html');
+        $htmlContent = (string) file_get_contents(__DIR__ . '/fixtures/htmlWithPre.html');
 
         $obj = new MarkupFixer();
         $out = $obj->fix($htmlContent, 1, 2);
 
         preg_match('/<pre>(.+?)<\/pre>/s', $out, $matches);
+        // @phpstan-ignore-next-line (bug #9328)
         $this->assertEquals(3, preg_match_all("/(\n|\r\n)/s", $matches[1]));
     }
 
     public function testFixPreservesNonStandardHtmlAttributes(): void
     {
-        $htmlContent = file_get_contents(__DIR__ . '/fixtures/htmlWithVueCode.html');
+        $htmlContent = (string) file_get_contents(__DIR__ . '/fixtures/htmlWithVueCode.html');
         $obj = new MarkupFixer();
         $out = $obj->fix($htmlContent, 1, 2);
         $this->assertStringContainsString('v-on:click', $out);
@@ -106,7 +107,7 @@ class MarkupFixerTest extends TestCase
      */
     public function testMarkupFixerUsesUniqueInstanceOfUniqueSlugifier(): void
     {
-        $htmlContent = file_get_contents(__DIR__ . '/fixtures/htmlWithPre.html');
+        $htmlContent = (string) file_get_contents(__DIR__ . '/fixtures/htmlWithPre.html');
         $obj = new MarkupFixer();
 
         $obj->fix($htmlContent);

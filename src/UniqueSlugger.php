@@ -20,7 +20,6 @@ declare(strict_types=1);
 
 namespace TOC;
 
-use Cocur\Slugify\SlugifyInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\String\Slugger\SluggerInterface as SymfonyStringSluggerInterface;
 
@@ -29,17 +28,14 @@ use Symfony\Component\String\Slugger\SluggerInterface as SymfonyStringSluggerInt
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class UniqueSlugify implements SluggerInterface, SlugifyInterface
+class UniqueSlugger implements SluggerInterface
 {
-    /**
-     * @var SymfonyStringSluggerInterface
-     */
-    private $slugger;
+    private SymfonyStringSluggerInterface $slugger;
 
     /**
-     * @var array
+     * @var array<string>
      */
-    private $used;
+    private array $used = [];
 
     /**
      * Constructor
@@ -48,13 +44,7 @@ class UniqueSlugify implements SluggerInterface, SlugifyInterface
      */
     public function __construct(?SymfonyStringSluggerInterface $slugger = null)
     {
-        $this->used = array();
         $this->slugger = $slugger ?: new AsciiSlugger();
-    }
-
-    public function slugify(string $string, $options = null): string
-    {
-        return $this->makeSlug($string);
     }
 
     /**
@@ -76,5 +66,10 @@ class UniqueSlugify implements SluggerInterface, SlugifyInterface
 
         $this->used[] = $slugged;
         return $slugged;
+    }
+
+    public function reset(): void
+    {
+        $this->used = [];
     }
 }
