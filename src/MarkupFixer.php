@@ -52,7 +52,7 @@ class MarkupFixer
     public function __construct(?HTML5 $htmlParser = null, ?SluggerInterface $slugger = null)
     {
         $this->htmlParser = $htmlParser ?? new HTML5();
-        $this->slugger = $slugger ?? new UniqueSlugger();
+        $this->slugger = $slugger ?? new UniqueSlugify();
     }
 
     /**
@@ -75,7 +75,7 @@ class MarkupFixer
         $domDocument->preserveWhiteSpace = true; // do not clobber whitespace
 
         // If using the default slugger, ensure that a unique instance of the class
-        $slugger = $this->slugger instanceof UniqueSlugger ? new UniqueSlugger() : $this->slugger;
+        $slugger = $this->slugger instanceof UniqueSlugify ? new UniqueSlugify() : $this->slugger;
 
         /** @var DOMElement $node */
         foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
