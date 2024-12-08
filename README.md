@@ -31,7 +31,7 @@ Features:
 In the spirit of [KISS philosophy](http://en.wikipedia.org/wiki/KISS_principle), this library makes a few assumptions:
 
 1. The hierarchy of your content is defined solely by the header (*H1*...*H6*) tags.  All other tags are ignored when generating the TOC.
-2. The link titles in the Table of Contents match either the `title` attribute of the header tag, or if there is no `title`, the (slugified) plaintext body of the header tag.
+2. The link titles in the Table of Contents match either the `title` attribute of the header tag, or if there is no `title`, the (slugged) plaintext body of the header tag.
 
 Installation Options
 --------------------
