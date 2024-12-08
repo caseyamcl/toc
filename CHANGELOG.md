@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## UNRELEASED
 ### Added
 - PHP 8.2, 8.3, and 8.4 GitHub builds
+- Support for Symfony v6 and v7
 ### Changed
 - Replaced `cocur/slugify` with `symfony/string` (`cocur/slugify` had some PHP 8.2+ code in a version marked as 7.x safe)
 - Updated GitHub build `action/checkout` and `action/cache`
