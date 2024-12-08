@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## UNRELEASED
 ### Added
 - PHP 8.2 Github Build
+###
+- Updated GitHub build `action/checkout` and `action/cache`
 ### Fixed
 - Build issue with PHPStan in `HtmlHelper`
 
