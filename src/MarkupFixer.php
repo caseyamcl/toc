@@ -22,7 +22,6 @@ namespace TOC;
 use DOMElement;
 use Masterminds\HTML5;
 use RuntimeException;
-use Cocur\Slugify\SlugifyInterface;
 
 /**
  * TOC Markup Fixer adds `id` attributes to all H1...H6 tags where they do not
@@ -40,20 +39,20 @@ class MarkupFixer
     private $htmlParser;
 
     /**
-     * @var SlugifyInterface
+     * @var SluggerInterface
      */
-    private $slugifier;
+    private $slugger;
 
     /**
      * Constructor
      *
      * @param HTML5|null $htmlParser
-     * @param SlugifyInterface|null $slugify
+     * @param SluggerInterface|null $slugger
      */
-    public function __construct(?HTML5 $htmlParser = null, ?SlugifyInterface $slugify = null)
+    public function __construct(?HTML5 $htmlParser = null, ?SluggerInterface $slugger = null)
     {
         $this->htmlParser = $htmlParser ?? new HTML5();
-        $this->slugifier = $slugify ?? new UniqueSlugify();
+        $this->slugger = $slugger ?? new UniqueSlugger();
     }
 
     /**
@@ -75,8 +74,8 @@ class MarkupFixer
         $domDocument = $this->htmlParser->loadHTML($markup);
         $domDocument->preserveWhiteSpace = true; // do not clobber whitespace
 
-        // If using the default slugifier, ensure that a unique instance of the class
-        $slugger = $this->slugifier instanceof UniqueSlugify ? new UniqueSlugify() : $this->slugifier;
+        // If using the default slugger, ensure that a unique instance of the class
+        $slugger = $this->slugger instanceof UniqueSlugger ? new UniqueSlugger() : $this->slugger;
 
         /** @var DOMElement $node */
         foreach ($this->traverseHeaderTags($domDocument, $topLevel, $depth) as $node) {
@@ -84,7 +83,7 @@ class MarkupFixer
             $id = $node->getAttribute('id') ?: $node->getAttribute('title');
 
             // If no title attribute, use the text content
-            $id = $slugger->slugify($id ?: $node->textContent);
+            $id = $slugger->makeSlug($id ?: $node->textContent);
 
             // If the first character begins with a numeric, prepend 'toc-' on it.
             if (ctype_digit(substr($id, 0, 1))) {

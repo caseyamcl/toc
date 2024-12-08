@@ -20,20 +20,20 @@ declare(strict_types=1);
 
 namespace TOC;
 
-use Cocur\Slugify\Slugify;
-use Cocur\Slugify\SlugifyInterface;
+use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\String\Slugger\SluggerInterface as SymfonyStringSluggerInterface;
 
 /**
  * UniqueSlugify creates slugs from text without repeating the same slug twice per instance
  *
  * @author Casey McLaughlin <caseyamcl@gmail.com>
  */
-class UniqueSlugify implements SlugifyInterface
+class UniqueSlugger implements SluggerInterface
 {
     /**
-     * @var SlugifyInterface
+     * @var SymfonyStringSluggerInterface
      */
-    private $slugify;
+    private $slugger;
 
     /**
      * @var array
@@ -43,24 +43,23 @@ class UniqueSlugify implements SlugifyInterface
     /**
      * Constructor
      *
-     * @param SlugifyInterface|null $slugify
+     * @param SymfonyStringSluggerInterface|null $slugger
      */
-    public function __construct(?SlugifyInterface $slugify = null)
+    public function __construct(?SymfonyStringSluggerInterface $slugger = null)
     {
         $this->used = array();
-        $this->slugify = $slugify ?: new Slugify();
+        $this->slugger = $slugger ?: new AsciiSlugger();
     }
 
     /**
      * Slugify
      *
      * @param string $string
-     * @param null $options
      * @return string
      */
-    public function slugify($string, $options = null): string
+    public function makeSlug(string $string): string
     {
-        $slugged = $this->slugify->slugify($string, $options);
+        $slugged = $this->slugger->slug($string)->lower()->toString();
 
         $count = 1;
         $orig = $slugged;
