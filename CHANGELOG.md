@@ -4,18 +4,29 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## UNRELEASED (v4)
+### Added
+- `SluggerInterface` interface for new `UniqueSlugger` logic
+### Changed
+- Replaced `cocur/slugify` with `symfony/string`
+- Renamed class `UniqueSlugify` 🠖 `UniqueSlugger` and changed interface used in `MarkupFixer`
+  - Renamed: `slugify` 🠖 `makeSlug`
+  - Added `reset()` method
+- Modernized code and tests to PHP 8.2+ syntax
+- Increased PHPStan checks to level 7
+- Upgraded PHPUnit to v11
+### Removed
+- Support for PHP < v8.2
+- Support for Twig < v3
+
 ## [3.2.0] - 2024-12-08
 ### Added
 - PHP 8.2, 8.3, and 8.4 GitHub builds
-- Support for Symfony v6 and v7
-- `SluggerInterface` interface for new `UniqueSlugify` logic
 ### Changed
-- Replaced `cocur/slugify` with `symfony/string` (`cocur/slugify` had some PHP 8.2+ code in a version marked as 7.x safe)
-    - Kept `cocur/slugify` interface for backwards-compatibility
-- Updated GitHub build `action/checkout` and `action/cache`
+- Updated GitHub build action/checkout and action/cache
 ### Fixed
+- Dependency issue in `composer.json` affecting PHP7 versions
 - Build issue with PHPStan in `HtmlHelper`
-- Minor deprecation in GitHub build script
 
 ## [3.1] - 2022-03-16
 ### Added
