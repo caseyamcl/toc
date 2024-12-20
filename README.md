@@ -1,5 +1,4 @@
-PHP TOC Generator
-=================
+# PHP TOC Generator
 
 Generates a Table of Contents from *H1...H6* Tags in HTML Content
 
@@ -10,46 +9,47 @@ Generates a Table of Contents from *H1...H6* Tags in HTML Content
 [![PHPStan Level 8][ico-phpstan]][link-phpstan]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-**NOTE: This library now requires PHP 7.2 or newer; to retain PHP5-7.1 support, use the following composer directive:** 
-`composer require caseyamcl/toc ~2.0.0`
+**NOTE: Version 4 of this library requires PHP 8.2 or newer.**
 
-This package provides a simple, framework-agnostic library to build
-a Table-of-Contents from HTML markup.  It does so by evaluating your *H1...H6* tags.
-It can also automatically add appropriate *id* anchor attributes to header tags so that in-page links work.
+* Version 3 is no longer maintained, but it supports PHP 7.2 - 8.1: `composer require caseyamcl/toc ^3.0` 
+* Version 2 is no longer maintained, but it supports PHP5 - 7.1: `composer require caseyamcl/toc ^2.0`
+
+This package provides a simple, framework-agnostic library to build a Table-of-Contents from HTML markup.
+It does so by evaluating your *H1...H6* tags. It can also automatically add appropriate *id* anchor attributes to header
+tags so that in-page links work.
 
 Features:
 
-* Generates HTML menus and [KnpMenu Item](https://github.com/KnpLabs/KnpMenu) Menus
+* Generates HTML menus and [KnpMenu Item](https://github.com/KnpLabs/KnpMenu) menus
 * Adds anchor ID attributes to *H1*...*H6* tags in your content where they do not already exist
 * You can specify which *H1*...*H6* heading tag levels to include in the TOC
-* Includes a Twig Extension for generating TOCs and compatible markup directly in your templates
+* Includes a Twig extension for generating TOCs and compatible markup directly in your templates
 * Uses the flexible [KnpMenu Library](https://github.com/KnpLabs/KnpMenu) to generate menus
 * [PSR-12](https://www.php-fig.org/psr/psr-12/) compliant
-* Composer-compatible
-* Unit-tested (95% coverage)
+* Unit-tested (95% coverage) and PHPStan Level 7 tested
 
-In the spirit of [KISS philosophy](http://en.wikipedia.org/wiki/KISS_principle), this library makes a few assumptions:
+In the spirit of [KISS philosophy](https://en.wikipedia.org/wiki/KISS_principle), this library makes a few assumptions:
 
-1. The hierarchy of your content is defined solely by the header (*H1*...*H6*) tags.  All other tags are ignored when generating the TOC.
-2. The link titles in the Table of Contents match either the `title` attribute of the header tag, or if there is no `title`, the (slugged) plaintext body of the header tag.
+1. The hierarchy of your content is defined solely by the header (*H1*...*H6*) tags. All other tags are ignored when generating the TOC.
+2. The link titles in the Table of Contents match either the `title` attribute of the header tag, 
+   or if there is no `title`, the (slugged) plaintext body of the header tag.
 
-Installation Options
---------------------
-Install via [Composer](http://getcomposer.org/) by including the following in your `composer.json` file: 
+## Installation Options
+
+Install via [Composer](https://getcomposer.org/) by including the following in your `composer.json` file: 
  
-    {
-        "require": {
-            "caseyamcl/toc": "^3.0",
-        }
-    }
+```
+composer require caseyamcl/toc ^4.0
+```
 
-Or, drop the `src` folder into your application and use a [PSR-4 autoloader](http://www.php-fig.org/psr/psr-4/) to include the files.
+Or, drop the `src` folder into your application and use a [PSR-4 autoloader](https://www.php-fig.org/psr/psr-4/) to include the files.
 
-Usage
------
+## Usage
+
 This package contains two main classes:
 
-1. `TOC\MarkupFixer`: Adds `id` anchor attributes to any *H1*...*H6* tags that do not already have any (you can specify which header tag levels to use at runtime)
+1. `TOC\MarkupFixer`: Adds `id` anchor attributes to any *H1*...*H6* tags that do not already have any (you can specify 
+   which header tag levels to use at runtime)
 2. `TOC\TocGenerator`: Generates a Table of Contents from HTML markup
 
 Basic Example:
@@ -104,14 +104,13 @@ This produces the following output:
 </div>
 ```
 
-Twig Integration
-----------------
+## Twig Integration
 
-This library includes a [Twig](https://twig.symfony.com/) extension that 
-enables you to load TOC lists and add anchors to markup from your Twig templates.
+This library includes a [Twig](https://twig.symfony.com/) extension that enables you to load TOC lists and add anchors
+to markup from your Twig templates.
 
-In order to enable Twig integration, you must register the
- `TocTwigExtension` with your Twig environment:
+To enable Twig integration, [register the `TocTwigExtension`](https://twig.symfony.com/doc/3.x/api.html#using-extensions) 
+with your Twig environment:
 
 ```php
 use Twig\Environment;
@@ -121,16 +120,15 @@ $myTwig = new Environment(new FilesystemLoader());
 $myTwig->addExtension(new TOC\TocTwigExtension());
 ```
 
-Specifically, the extension adds a Twig function for generating Table of Contents HTML:
+The extension adds a Twig function for generating an HTML Table of Contents:
 
 ```twig
 {# Generates HTML markup for given htmlContent #}
 <ul>{{ toc(htmlContent) }}</ul>
 ```
 
-It also provides a function and a filter for ensuring that your content 
-includes anchors for all HTML header tags.  They both do the same thing, 
-so choose which one suits your needs best:
+It also provides a function and a filter for ensuring that your content includes anchors for all HTML header tags.  
+They both do the same thing, so choose which one suits your needs best:
 
 ```twig
 {# Adds anchor links (id tags) for given htmlContent #}
@@ -168,9 +166,8 @@ For example:
 {% endblock %}
 ```
 
+## Specifying Heading Levels to Include
 
-Specifying Heading Levels to Include
--------------------------------------------
 You can choose to include only specific *h1...h6* heading levels in your TOC. 
  To do this, pass two additional arguments to the 
  `TocGenerator::getHtmlMenu()` method: `$topLevel` and `$depth`.  For example:
@@ -214,22 +211,18 @@ Twig functions and filters accept these arguments as well:
 {{ my_content | add_anchors(4, 3) }}
 ```
 
-Customizing Menu Output
------------------------
+## Customizing Menu Output
 
-You can customize the rendering of lists that the `TocGenerator` class
-outputs.  By default, `TocGenerator` uses the [KnpMenu ListRenderer](https://github.com/KnpLabs/KnpMenu/blob/master/src/Knp/Menu/Renderer/ListRenderer.php) 
-class to output the HTML.
+You can customize the rendering of lists that the `TocGenerator` class outputs.
+By default, `TocGenerator` uses the [KnpMenu ListRenderer](https://github.com/KnpLabs/KnpMenu/blob/master/src/Knp/Menu/Renderer/ListRenderer.php) class to output the HTML.
 
-You can pass your own instance of the `ListRenderer` class to 
-`TocGenerator::getHtmlMenu()`. Or, you can pass in your own renderer 
-(implements [`Knp\Menu\Renderer\RendererInterface`](https://github.com/KnpLabs/KnpMenu/blob/master/src/Knp/Menu/Renderer/RendererInterface.php)).
+You can pass your own instance of the `ListRenderer` class to `TocGenerator::getHtmlMenu()`. 
+Or you can pass in your own renderer (implements [`Knp\Menu\Renderer\RendererInterface`](https://github.com/KnpLabs/KnpMenu/blob/master/src/Knp/Menu/Renderer/RendererInterface.php)).
 
 For example, you may wish to use different CSS classes for your list items:
 
 ```php
 $someHtmlContent = '<div><h1>Test</h1><p>Lorum ipsum</p><h2>Test2</h2><p>Lorum ipsum</p></div>';
-
 
 $options = [
     'currentAsLink' => false,
@@ -246,7 +239,7 @@ $listHtml = $tocGenerator->getHtmlMenu($someHtmlContent, 1, 6, $renderer);
 
 ```
 
-#### Customizing with Twig
+### Customizing with Twig
 
 The KnpMenu library offers more robust integration with the [Twig Templating System](https://twig.symfony.com/)
 than is offered by default with this library.  You can take advantage of it by using the [TwigRenderer](https://github.com/KnpLabs/KnpMenu/blob/master/doc/02-Twig-Integration.markdown#using-the-twigrenderer)
@@ -275,12 +268,10 @@ $tocGenerator = new TOC\TocGenerator();
 echo $menuRenderer->render($tocGenerator->getMenu($someHtmlContent));
 ```
 
-Ordered vs Unordered Lists
---------------------------
+## Ordered vs Unordered Lists
 
-The KnpMenu library produces unordered lists (`ul`) by default.  This 
-library contains a custom renderer for ordered lists, whether you're using
-Twig or not:
+The KnpMenu library produces unordered lists (`ul`) by default.
+This library includes a custom renderer for ordered lists:
 
 ```php
 $someHtmlContent = '<div><h1>Test</h1><p>Lorum ipsum</p><h2>Test2</h2><p>Lorum ipsum</p></div>';
@@ -296,7 +287,36 @@ Twig Usage:
 {{ toc_ordered(my_content) }}
 
 {# The same options can be used for ordered lists as unordered lists #}
-{{ toc_ordered(my_content, 2, 3) }}
+{{ toc_ordered(my_content, 1, 3) }}
+```
+
+### Making ordered lists prettier using CSS
+
+Below is some CSS to make your ordered lists look extra fancy ([credit to](https://github.com/caseyamcl/toc/issues/18) @flaushi).
+
+```css
+.toc ol {
+  list-style-type: none;
+  counter-reset: item;
+  margin: 0;
+  padding: 0;
+}
+
+.toc ol > li:before  {
+  counter-increment: item;
+  margin: 0;
+  padding: 0;
+  content: counters(item, ".") ". ";
+```
+
+Sample output:
+
+```
+1. Some heading
+1.1 Some sub-heading
+1.2 Another sub-heading
+2. Another heading
+2.0.1. Sub-sub-sub heading
 ```
 
 [ico-version]: https://img.shields.io/packagist/v/caseyamcl/toc.svg
