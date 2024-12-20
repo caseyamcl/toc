@@ -1,3 +1,5 @@
+
+
 ## Slug creation changes
 
 * Added `TOC\SluggerInterface` class
