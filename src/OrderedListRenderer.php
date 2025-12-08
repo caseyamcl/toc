@@ -20,53 +20,35 @@ declare(strict_types=1);
 namespace TOC;
 
 use Knp\Menu\ItemInterface;
+use Knp\Menu\Matcher\MatcherInterface;
 use Knp\Menu\Renderer\ListRenderer;
-
-use function str_repeat;
+use Knp\Menu\Renderer\RendererInterface;
 
 /**
  * Class OrderedListRenderer
  *
  * @package TOC
  */
-class OrderedListRenderer extends ListRenderer
+class OrderedListRenderer implements RendererInterface
 {
+    private RendererInterface $innerListRenderer;
+
     /**
-     * @param ItemInterface       $item
-     * @param array<string>       $attributes
-     * @param array<string,mixed> $options
-     * @return string
+     * @param MatcherInterface $matcher
+     * @param array<string,mixed> $defaultOptions
+     * @param string|null $charset
      */
-    protected function renderList(ItemInterface $item, array $attributes, array $options): string
-    {
-        if (!$item->hasChildren() || 0 === $options['depth'] || !$item->getDisplayChildren()) {
-            return '';
-        }
-
-        $html = $this->format(
-            '<ol' . $this->renderHtmlAttributes($attributes) . '>',
-            'ol',
-            $item->getLevel(),
-            $options
-        );
-
-        $html .= $this->renderChildren($item, $options);
-        $html .= $this->format('</ol>', 'ol', $item->getLevel(), $options);
-
-        return $html;
+    public function __construct(
+        protected MatcherInterface $matcher,
+        protected array $defaultOptions,
+        ?string $charset = null
+    ) {
+        $this->innerListRenderer = new ListRenderer($this->matcher, $this->defaultOptions, $charset);
     }
 
-    /**
-     * @param string $html
-     * @param string $type
-     * @param int $level
-     * @param array<string, mixed> $options
-     * @return string
-     */
-    protected function format(string $html, string $type, int $level, array $options): string
+    public function render(ItemInterface $item, array $options = []): string
     {
-        return $type === 'ol'
-            ? str_repeat(' ', $level * 4) . $html . "\n"
-            : parent::format($html, $type, $level, $options);
+        $output = $this->innerListRenderer->render($item, $options);
+        return str_replace(['<ul', '</ul>'], ['<ol', '</ol>'], $output);
     }
 }

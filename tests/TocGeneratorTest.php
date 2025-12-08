@@ -143,8 +143,27 @@ class TocGeneratorTest extends TestCase
     {
         $obj = new TocGenerator();
         $html = "<h1 id='x'>A-Header</h1><h1 id='y'>A-Header</h1>";
-        $menuHtml = $obj->getOrderedHtmlMenu($html, 1, 6, null);
+        $menuHtml = $obj->getOrderedHtmlMenu($html);
         $this->assertStringStartsWith('<ol>', $menuHtml);
+    }
+
+    public function testGetOrderedMenuWithSubItems(): void
+    {
+        $obj = new TocGenerator();
+        $html  = '<h1 id="a" title="Foo Bar!">A Header</h1>';
+        $html .= '<h2 id="b">B Header</h2>';
+        $html .= '<h3 id="c" title="Baz Biz~">C Header</h3>';
+        $html .= '<h4 id="d" title="Bal Baf#">D Header</h4>';
+        $html .= '<h5 id="e" title="Cak Coy%">E Header</h5>';
+        $html .= '<h6 id="f" title="Dar Dul^">F Header</h6>';
+        $html .= '<h1 id="g" title="Duff Doy">G Header</h1>';
+
+        $fileResult = (array) file(__DIR__ . '/fixtures/testHtmlOrderedList.html');
+        // @phpstan-ignore-next-line
+        $fixture = array_filter(array_map('trim', $fileResult));
+        $actual  = array_filter(array_map('trim', explode(PHP_EOL, $obj->getOrderedHtmlMenu($html))));
+
+        $this->assertEquals($fixture, $actual);
     }
 
     /**

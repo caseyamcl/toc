@@ -83,7 +83,6 @@ class MarkupFixerTest extends TestCase
         $out = $obj->fix($htmlContent, 1, 2);
 
         preg_match('/<pre>(.+?)<\/pre>/s', $out, $matches);
-        // @phpstan-ignore-next-line (bug #9328)
         $this->assertEquals(3, preg_match_all("/(\n|\r\n)/s", $matches[1]));
     }
 
