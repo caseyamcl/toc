@@ -24,15 +24,15 @@
     "php": "^8.2",
     "ext-dom": "*",
     "masterminds/html5": "^2.9",
-    "symfony/string": "^6.0|^7.0",
+    "symfony/string": "^6.0|^7.0|^8.0",
     "symfony/translation-contracts": "^3.0",
-    "knplabs/knp-menu": "^3.5"
+    "knplabs/knp-menu": "^3.8"
   },
   "require-dev": {
     "twig/twig": "^3.0",
     "phpunit/phpunit": "^11.0",
     "squizlabs/php_codesniffer": "^3.5",
-    "phpstan/phpstan": "^2.0",
+    "phpstan/phpstan": "^2.1.33",
     "jaschilz/php-coverage-badger": "^2.0"
   },
   "scripts": {
